@@ -14,6 +14,7 @@ int main()
 
     window.Add(shape);
     window.Add(shape1);
+    window.Discard(0);
 
     window.Show();
 

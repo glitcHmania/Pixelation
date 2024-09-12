@@ -7,6 +7,14 @@ Window::Window(sf::Vector2<unsigned int> resolution = { 800,600 }, const std::st
 	window = std::make_unique<sf::RenderWindow>(sf::VideoMode(resolution.x, resolution.y), windowName);
 }
 
+void Window::Discard(int index)
+{
+	if (queue.size() > index)
+	{
+			queue.erase(queue.begin() + index);
+	}
+}
+
 void Window::Show()
 {
 	while (window->isOpen())
