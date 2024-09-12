@@ -1,25 +1,21 @@
-#include <SFML/Graphics.hpp>
+#include "Window.h"
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "My Game!");
-    sf::CircleShape shape(10);
+    Window window({800u,800u},"GG");
+
+    sf::CircleShape shape(30);
     shape.setFillColor(sf::Color::Green);
     shape.setPosition(400, 300);
 
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
+    sf::CircleShape shape1(50);
+    shape1.setFillColor(sf::Color::Yellow);
+    shape1.setPosition(200, 0);
 
-        window.clear();
-        window.draw(shape);
-        window.display();
-    }
+    window.Add(shape);
+    window.Add(shape1);
+
+    window.Show();
 
     return 0;
 }
