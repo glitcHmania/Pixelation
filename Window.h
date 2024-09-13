@@ -11,6 +11,7 @@ public:
 	template<typename T>
 	void Add(const T& drawable)
 	{
+		static_assert(std::is_base_of<sf::Drawable, T>::value, "T must be derived from Drawable!");
 		queue.push_back(std::make_unique<T>(drawable));
 	}
 	void Discard(int index);

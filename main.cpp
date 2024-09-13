@@ -10,11 +10,17 @@ int main()
 
     sf::CircleShape shape1(50);
     shape1.setFillColor(sf::Color::Yellow);
-    shape1.setPosition(200, 0);
+    shape1.setPosition(400, 300);
 
-    window.Add(shape);
+    sf::CircleShape shape2(20);
+    shape2.setFillColor(sf::Color::Magenta);
+    shape2.setPosition(500, 200);
+
     window.Add(shape1);
-    window.Discard(0);
+    window.Add(shape);
+    window.Add(shape2);
+
+    window.Discard(2);
 
     window.Show();
 
