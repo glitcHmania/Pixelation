@@ -2,10 +2,6 @@
 
 namespace fs = std::filesystem;
 
-AssetLoader::AssetLoader()
-{
-}
-
 AssetLoader::AssetLoader(std::string dir)
 {
 	for (const auto& entry : fs::directory_iterator(dir)) 
@@ -32,14 +28,14 @@ void AssetLoader::ChangePath(std::string dir)
 void AssetLoader::FillTextureFromImage(std::string imageName, sf::Texture& texture)
 {
 	std::filesystem::path path = GetFilePath(imageName);
-
+	
 	if (path.empty())
 	{
-		assert("Couldn't locate the image.");
+		throw("Couldn't locate the image.");
 	}
 	if (!texture.loadFromFile(path.string()))
 	{
-		assert("File is corrupted or can't be loaded");
+		throw("File is corrupted or can't be loaded");
 	}
 	return;
 }
