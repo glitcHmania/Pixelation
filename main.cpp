@@ -25,20 +25,16 @@ sf::Sprite& GetSprite(std::string spriteName)
 
 int main()
 {
-    Window window({800u,800u},"GG");
+    Window window({800u,600u},"SEX");
 
     sf::CircleShape shape1(50);
     shape1.setFillColor(sf::Color::Yellow);
     shape1.setPosition(400, 300);
 
-        spr = GetSprite("chest.png");
-        sf::Sprite spr;
+    sf::Sprite spr;
+    spr = GetSprite("PussyDickMonster.png");
 
-    window.Add(shape1);
-    window.Add(shape);
-    window.Add(shape2);
-
-    window.Discard(2);
+    window.Add(spr);
 
     window.Show();
 
