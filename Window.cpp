@@ -5,6 +5,7 @@ Window::Window(sf::Vector2<unsigned int> resolution = { 800,600 }, const std::st
 	eventHnd(sf::Event())
 {
 	window = std::make_unique<sf::RenderWindow>(sf::VideoMode(resolution.x, resolution.y), windowName);
+	loader.ChangePath("Assets/");
 }
 
 void Window::Discard(int index)

@@ -1,7 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <vector>
 #include <memory>
+#include <string>
+#include "AssetLoader.h"
 
 
 class Window
@@ -17,6 +18,8 @@ public:
 	void Discard(int index);
 	void Show();
 
+public:
+	AssetLoader loader;
 private:
 	std::vector<std::unique_ptr<sf::Drawable>> queue;
 	std::unique_ptr<sf::RenderWindow> window;
