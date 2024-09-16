@@ -18,8 +18,6 @@ public:
 	void Discard(int index);
 	void Show();
 
-public:
-	AssetLoader loader;
 private:
 	std::vector<std::unique_ptr<sf::Drawable>> queue;
 	std::unique_ptr<sf::RenderWindow> window;

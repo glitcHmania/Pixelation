@@ -4,6 +4,7 @@
 int main()
 {
     Window window({800u,600u},"SEX");
+    AssetLoader loader("Assets/");
 
     sf::CircleShape shape1(50);
     shape1.setFillColor(sf::Color::Yellow);
@@ -11,10 +12,11 @@ int main()
 
     sf::Sprite spr;
     sf::Texture texture;
-    window.loader.FillTextureFromImage("PussyDickMonster.png", texture);
+    loader.FillTextureFromImage("PussyDickMonster.png", texture);
     spr.setTexture(texture);
 
     window.Add(spr);
+    window.Add(shape1);
 
     window.Show();
 
