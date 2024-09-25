@@ -12,12 +12,13 @@ namespace AssetLoader
 			for (fs::path& path : assetPaths)
 			{
 				if (path.filename() == fileName)
+				{
 					return path;
+				}
 			}
 			return "";
 		}
 	}
-	
 
 	void ChangePath(std::string dir)
 	{
@@ -45,7 +46,6 @@ namespace AssetLoader
 		}
 		return;
 	}
-
 }
 
 
