@@ -7,7 +7,7 @@ int main()
     try 
     {
         Window window({ 800u,600u }, "SEX");
-        AssetLoader loader("Assets/");
+        AssetLoader::ChangePath("Assets/");
 
         Transform tr;
         tr.SetLocalScale({ 5.0f,5.0f });
@@ -22,9 +22,10 @@ int main()
         shape1.setFillColor(sf::Color::Yellow);
         shape1.setPosition(400, 300);
 
+
         sf::Sprite spr;
         sf::Texture texture;
-        loader.FillTextureFromImage("PussyDickMonster.png", texture);
+        AssetLoader::FillTextureFromImage("PussyDickMonster.png", texture);
         spr.setTexture(texture);
 
         window.Add(spr);
