@@ -2,6 +2,7 @@
 #include <string>
 #include <assert.h>
 #include "Window.h"
+#include "C_Transform.h"
 
 sf::Sprite& GetSprite(std::string spriteName)
 {
@@ -26,6 +27,15 @@ sf::Sprite& GetSprite(std::string spriteName)
 int main()
 {
     Window window({800u,600u},"SEX");
+
+    Transform tr;
+    tr.SetLocalScale({ 5.0f,5.0f });
+    tr.SetLocalRotation(10.f);
+    tr.SetLocalPosition({ 10.f,10.f });
+
+    tr.Scale({ 2.0f,2.0f });
+    tr.Rotate(15.0f);
+    tr.Translate({ 7.0f,12.0f });
 
     sf::CircleShape shape1(50);
     shape1.setFillColor(sf::Color::Yellow);
