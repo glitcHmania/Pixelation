@@ -1,15 +1,8 @@
 #pragma once
 #include "Component.h"
 #include <SFML/System/Vector2.hpp>
-#include <SFML/Graphics.hpp>
-#include <utility>
 #include <cmath>
-#include <memory>
 #include <vector>
-
-#ifndef M_PI
-#define M_PI 3.14159265358979323846
-#endif
 
 class Transform : public Component
 {
