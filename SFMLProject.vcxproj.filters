@@ -47,5 +47,8 @@
     <ClInclude Include="Component.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="C_SpriteRenderer.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

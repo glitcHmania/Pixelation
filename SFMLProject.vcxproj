@@ -145,6 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h" />
+    <ClInclude Include="C_SpriteRenderer.h" />
     <ClInclude Include="C_Transform.h" />
     <ClInclude Include="AssetLoader.h" />
     <ClInclude Include="Window.h" />
