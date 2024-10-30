@@ -35,7 +35,7 @@ namespace AssetLoader
 	void AssetLoader::FillTextureFromImage(std::string imageName, sf::Texture& texture)
 	{
 		std::filesystem::path path = GetFilePath(imageName);
-
+		
 		if (path.empty())
 		{
 			throw("Couldn't locate the image.");
@@ -46,6 +46,23 @@ namespace AssetLoader
 		}
 		return;
 	}
+
+	sf::Texture* GetTexture(std::string imageName) 
+	{
+		std::filesystem::path path = GetFilePath(imageName);
+		sf::Texture* tx = new sf::Texture();
+
+		if (path.empty())
+		{
+			throw("Couldn't locate the image.");
+		}
+		if (!tx->loadFromFile(path.string()))
+		{
+			throw("File is corrupted or can't be loaded");
+		}
+		return tx;
+	}
+
 }
 
 

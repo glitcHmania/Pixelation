@@ -3,20 +3,29 @@
 #include <SFML/System/Vector2.hpp>
 #include <cmath>
 #include <vector>
+#include <stdexcept>
 
-class Transform : public Component
+class Transform_C : public Component
 {
 public:
+	Transform_C() 
+	{
+		position = sf::Vector2f(0.0f, 0.0f);
+		rotation = 0;
+		scale = sf::Vector2f(10.0f, 10.0f);
+	};
 
-	Transform() = default;
-
-	Transform(sf::Vector2f _position, float _rotation, sf::Vector2f _scale)
+	Transform_C(sf::Vector2f _position, float _rotation, sf::Vector2f _scale)
 		:
 		position(_position),
 		rotation(_rotation),
 		scale(_scale)
 	{
 	}
+
+	void Construct() override { };
+
+	void Update() override;
 
 	void Scale(sf::Vector2f scaleFactor);
 

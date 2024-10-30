@@ -139,14 +139,17 @@
   <ItemGroup>
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="AssetLoader.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="SpriteRenderer_C.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="C_Transform.cpp" />
+    <ClCompile Include="Transform_C.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h" />
-    <ClInclude Include="C_SpriteRenderer.h" />
-    <ClInclude Include="C_Transform.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="SpriteRenderer_C.h" />
+    <ClInclude Include="Transform_C.h" />
     <ClInclude Include="AssetLoader.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
