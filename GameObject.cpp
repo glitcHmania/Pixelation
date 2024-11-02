@@ -3,7 +3,7 @@
 
 GameObject::GameObject()
 {
-	AddComponent<Transform_C>();
+	AddComponent<Transform>();
 }
 
 void GameObject::Update()

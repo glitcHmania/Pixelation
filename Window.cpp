@@ -29,9 +29,7 @@ void Window::Show()
 		//Put an update loop before drawing
 		for (int i = 0; i < queue.size(); i++)
 		{
-			
-			//Possible solution for transform 1
-			//window->draw((*queue[i]),sf::RenderStates((*queue[i]).Transform.ConvertToSf()));  //sf::Transform(1, 0, 200, 0, 1, 0, 0, 0, 1)
+			//sf::Transform(1, 0, 200, 0, 1, 0, 0, 0, 1)
 			window->draw(*queue[i]);
 		}
 		//Put an update loop after drawing

@@ -7,5 +7,5 @@ namespace AssetLoader
 {
 	void ChangePath(std::string dir);
 	void FillTextureFromImage(std::string imageName, sf::Texture& texture);
-	sf::Texture* GetTexture(std::string imageName);
+	std::unique_ptr<sf::Texture> GetTexture(std::string imageName);
 };

@@ -5,17 +5,17 @@
 #include <vector>
 #include <stdexcept>
 
-class Transform_C : public Component
+class Transform : public Component
 {
 public:
-	Transform_C() 
+	Transform() 
 	{
 		position = sf::Vector2f(0.0f, 0.0f);
 		rotation = 0;
-		scale = sf::Vector2f(10.0f, 10.0f);
+		scale = sf::Vector2f(150.f, 80.0f);
 	};
 
-	Transform_C(sf::Vector2f _position, float _rotation, sf::Vector2f _scale)
+	Transform(sf::Vector2f _position, float _rotation, sf::Vector2f _scale)
 		:
 		position(_position),
 		rotation(_rotation),
@@ -23,7 +23,7 @@ public:
 	{
 	}
 
-	void Construct() override { };
+	void Construct() override {};
 
 	void Update() override;
 
