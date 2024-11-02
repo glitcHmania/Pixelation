@@ -1,4 +1,9 @@
-#include "C_Transform.h"
+#include "Transform.h"
+
+void Transform::Update()
+{
+	std::logic_error("The method or operation is not implemented.");
+}
 
 void Transform::Scale(sf::Vector2f scaleFactor)
 {

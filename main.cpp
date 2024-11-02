@@ -1,6 +1,9 @@
 #include <string>
 #include "Window.h"
-#include "C_Transform.h"
+#include "Transform.h"
+#include "SpriteRenderer.h"
+#include "GameObject.h"
+
 
 int main()
 {
@@ -9,27 +12,16 @@ int main()
         Window window({ 800u,600u }, "SEX");
         AssetLoader::ChangePath("Assets/");
 
-        Transform tr;
-        tr.SetLocalScale({ 5.0f,5.0f });
-        tr.SetLocalRotation(10.f);
-        tr.SetLocalPosition({ 10.f,10.f });
-
-        tr.Scale({ 2.0f,2.0f });
-        tr.Rotate(15.0f);
-        tr.Translate({ 7.0f,12.0f });
+		GameObject obj;
+        auto sr = obj.AddComponent<SpriteRenderer>();
+		sr->SetTexture(AssetLoader::GetTexture("chest.png"));
 
         sf::CircleShape shape1(50);
         shape1.setFillColor(sf::Color::Yellow);
         shape1.setPosition(400, 300);
 
-
-        sf::Sprite spr;
-        sf::Texture texture;
-        AssetLoader::FillTextureFromImage("PussyDickMonster.png", texture);
-        spr.setTexture(texture);
-
-        window.Add(spr);
-        window.Add(shape1);
+        window.Add(sr);
+        //window.Add(shape1);
 
         window.Show();
         return 0;

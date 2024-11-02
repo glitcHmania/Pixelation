@@ -3,12 +3,17 @@
 #include <SFML/System/Vector2.hpp>
 #include <cmath>
 #include <vector>
+#include <stdexcept>
 
 class Transform : public Component
 {
 public:
-
-	Transform() = default;
+	Transform() 
+	{
+		position = sf::Vector2f(0.0f, 0.0f);
+		rotation = 0;
+		scale = sf::Vector2f(150.f, 80.0f);
+	};
 
 	Transform(sf::Vector2f _position, float _rotation, sf::Vector2f _scale)
 		:
@@ -17,6 +22,10 @@ public:
 		scale(_scale)
 	{
 	}
+
+	void Construct() override {};
+
+	void Update() override;
 
 	void Scale(sf::Vector2f scaleFactor);
 
