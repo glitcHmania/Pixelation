@@ -11,6 +11,6 @@ public:
 	std::shared_ptr<GameObject> Instantiate();
 	void Destroy(std::shared_ptr<GameObject> object);
 
-	std::vector<std::shared_ptr<GameObject>> objects;
 private:
+	std::vector<std::shared_ptr<GameObject>> objects;
 };

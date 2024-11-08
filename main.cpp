@@ -23,18 +23,6 @@ int main()
             sr->SetTexture(AssetLoader::GetTexture("chest.png"));
             window.Add(sr);
         }
-		
-        //Make a renderManager that will handle arrays of drawable objects  
-		Destroy(objectManager.objects[99]);                                                         
-        Destroy(objectManager.objects[68]);                                                         
-		Destroy(objectManager.objects[20]); 								                          
-		Destroy(objectManager.objects[33]);									                      
-                                                                                                                                  
-		window.Discard(99);													                                  
-		window.Discard(68);													                                  
-		window.Discard(20);													                                  
-		window.Discard(33);													                                  
-        //Make a renderManager that will handle arrays of drawable objects  
 
         window.Show();
         return 0;
