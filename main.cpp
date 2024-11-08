@@ -23,6 +23,8 @@ int main()
             sr->SetTexture(AssetLoader::GetTexture("chest.png"));
             window.Add(sr);
         }
+        auto o = Instantiate();
+        Destroy(o);
 
         window.Show();
         return 0;

@@ -4,8 +4,8 @@ namespace UID
 {
 	namespace 
 	{
-		int lowerLimit = 0x30;
-		int upperLimit = 0x7A;
+		const int lowerLimit = 0x30;
+		const int upperLimit = 0x7A;
 
 		std::random_device rd;
 		std::mt19937 mt(rd());

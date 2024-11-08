@@ -8,8 +8,7 @@
 class GameObject
 {
 public:
-	GameObject();
-	using UniqueID = std::string;
+	GameObject(std::string UID);
 
 	void Update();
 
@@ -47,24 +46,18 @@ public:
 		}
 	}
 
-	void RemoveAllComponents()
-	{
-		for (auto& component : components)
-		{
-			component.second.reset();
-		}
-		components.clear();
-	}
+	void RemoveAllComponents();
+
+	const std::string& GetUID() { return id; }
 
 	//DEBUG FUNCTIONS
 #ifdef _DEBUG
 	void DebugComponents();
 #endif
 
-public:
+private:
+	using UniqueID = std::string;
 	UniqueID id = "";
 
-private:
 	std::unordered_map<std::type_index, std::shared_ptr<Component>> components;
-
 };

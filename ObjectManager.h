@@ -12,5 +12,5 @@ public:
 	void Destroy(std::shared_ptr<GameObject> object);
 
 private:
-	std::vector<std::shared_ptr<GameObject>> objects;
+	std::unordered_map<std::string, std::shared_ptr<GameObject>> objects;
 };
