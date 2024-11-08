@@ -9,7 +9,7 @@ class GameObject
 {
 public:
 	GameObject();
-	using GameObjectID = std::size_t;
+	using UniqueID = std::string;
 
 	void Update();
 
@@ -42,8 +42,18 @@ public:
 		auto it = components.find(typeid(T));
 		if (it != components.end())
 		{
+			it->second.reset();
 			components.erase(it);
 		}
+	}
+
+	void RemoveAllComponents()
+	{
+		for (auto& component : components)
+		{
+			component.second.reset();
+		}
+		components.clear();
 	}
 
 	//DEBUG FUNCTIONS
@@ -52,7 +62,7 @@ public:
 #endif
 
 public:
-	GameObjectID id = 0;
+	UniqueID id = "";
 
 private:
 	std::unordered_map<std::type_index, std::shared_ptr<Component>> components;

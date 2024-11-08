@@ -2,7 +2,6 @@
 #include <SFML/Graphics.hpp>
 #include <filesystem>
 
-
 namespace AssetLoader
 {
 	void ChangePath(std::string dir);
