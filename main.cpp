@@ -1,7 +1,6 @@
 #include "Window.h"
 #include "AssetLoader.h"
 #include "ComponentIncluder.h"
-#include "GameObject.h"
 #include "ObjectManager.h"
 
 #define Instantiate() ObjectManager::Instantiate()

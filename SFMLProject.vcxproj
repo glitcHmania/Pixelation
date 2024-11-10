@@ -149,6 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h" />
+    <ClInclude Include="ComponentIncluder.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="SpriteRenderer.h" />

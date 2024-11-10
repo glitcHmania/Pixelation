@@ -71,5 +71,8 @@
     <ClInclude Include="UID.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentIncluder.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
