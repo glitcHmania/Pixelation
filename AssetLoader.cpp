@@ -32,7 +32,6 @@ namespace AssetLoader
 			}
 		}
 	}
-
 	void AssetLoader::FillTextureFromImage(std::string imageName, sf::Texture& texture)
 	{
 		std::filesystem::path path = GetFilePath(imageName);
@@ -45,9 +44,7 @@ namespace AssetLoader
 		{
 			throw("File is corrupted or can't be loaded");
 		}
-		return;
 	}
-
 	std::unique_ptr<sf::Texture> GetTexture(std::string imageName)
 	{
 		std::filesystem::path path = GetFilePath(imageName);

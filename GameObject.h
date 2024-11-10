@@ -2,8 +2,10 @@
 #include <unordered_map>
 #include <memory>
 #include <typeindex>
+#include <iostream>
 #include "Component.h"
 #include "Transform.h"
+
 
 class GameObject
 {
