@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include "Camera.h"
 
 class Window
 {
@@ -20,4 +21,5 @@ private:
 	std::unique_ptr<sf::RenderWindow> window;
 	std::vector<std::shared_ptr<sf::Drawable>> queue;
 	sf::Event eventHnd;
+	Camera camera;
 };

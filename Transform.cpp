@@ -41,6 +41,11 @@ sf::Vector2f Transform::GetLocalPosition() const
 	return { position.x, position.y };
 }
 
+std::pair<float, float> Transform::GetLocalPositionPair() const
+{
+	return std::pair<float, float>(position.x, position.y);
+}
+
 void Transform::SetLocalRotation(float rot)
 {
 	rotation = rot;
@@ -59,6 +64,11 @@ void Transform::SetLocalScale(sf::Vector2f scl)
 sf::Vector2f Transform::GetLocalScale() const
 {
 	return { scale.x, scale.y };
+}
+
+std::pair<float, float> Transform::GetLocalScalePair() const
+{
+	return std::pair<float, float>(scale.x, scale.y);
 }
 
 sf::Vector2f Transform::GetRightVector() const

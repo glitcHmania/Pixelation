@@ -50,6 +50,7 @@ public:
 	void SetLocalPosition(sf::Vector2f pos);
 	void SetLocalPosition(float x, float y);
 	sf::Vector2f GetLocalPosition() const;
+	std::pair<float,float> GetLocalPositionPair() const;
 
 	//inline float GetRotation() const
 	//{
@@ -67,6 +68,7 @@ public:
 
 	void SetLocalScale(sf::Vector2f scl);
 	sf::Vector2f GetLocalScale() const;
+	std::pair<float, float> GetLocalScalePair() const;
 
 	//sf::Vector2f GetWorldScale() const
 	//{

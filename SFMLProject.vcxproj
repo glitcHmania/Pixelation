@@ -141,6 +141,7 @@
     <ClCompile Include="AssetLoader.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Transform.cpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentIncluder.h" />
     <ClInclude Include="GameObject.h" />

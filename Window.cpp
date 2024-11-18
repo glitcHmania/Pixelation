@@ -5,6 +5,7 @@ Window::Window(sf::Vector2<unsigned int> resolution = { 800,600 }, const std::st
 	eventHnd(sf::Event())
 {
 	window = std::make_unique<sf::RenderWindow>(sf::VideoMode(resolution.x, resolution.y), windowName);
+	camera = Camera(this->window.get());
 }
 
 void Window::Discard(int index)
@@ -22,7 +23,13 @@ void Window::Show()
 		while (window->pollEvent(eventHnd))
 		{
 			if (eventHnd.type == sf::Event::Closed)
+			{
 				window->close();
+			}
+			if(eventHnd.type == sf::Event::KeyPressed)
+			{
+				camera.Move(eventHnd.key.code);
+			}
 		}
 
 		window->clear();
