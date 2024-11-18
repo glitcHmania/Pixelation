@@ -11,7 +11,7 @@ void Window::Discard(int index)
 {
 	if (queue.size() > index)
 	{
-			queue.erase(queue.begin() + index);
+		queue.erase(queue.begin() + index);
 	}
 }
 

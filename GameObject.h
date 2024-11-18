@@ -2,14 +2,15 @@
 #include <unordered_map>
 #include <memory>
 #include <typeindex>
+#include <iostream>
 #include "Component.h"
 #include "Transform.h"
+
 
 class GameObject
 {
 public:
-	GameObject();
-	using GameObjectID = std::size_t;
+	GameObject(std::string UID);
 
 	void Update();
 
@@ -42,19 +43,23 @@ public:
 		auto it = components.find(typeid(T));
 		if (it != components.end())
 		{
+			it->second.reset();
 			components.erase(it);
 		}
 	}
+
+	void RemoveAllComponents();
+
+	const std::string& GetUID() { return id; }
 
 	//DEBUG FUNCTIONS
 #ifdef _DEBUG
 	void DebugComponents();
 #endif
 
-public:
-	GameObjectID id = 0;
-
 private:
-	std::unordered_map<std::type_index, std::shared_ptr<Component>> components;
+	using UniqueID = std::string;
+	UniqueID id = "";
 
+	std::unordered_map<std::type_index, std::shared_ptr<Component>> components;
 };

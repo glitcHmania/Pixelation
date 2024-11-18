@@ -1,9 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <memory>
-#include <string>
-#include "AssetLoader.h"
-
 
 class Window
 {

@@ -32,6 +32,7 @@ public:
 	void Rotate(float radian);
 
 	void Translate(sf::Vector2f delta);
+	void Translate(float x, float y);
 
 	//inline sf::Vector2f GetPosition() const
 	//{
@@ -47,6 +48,7 @@ public:
 	//}
 
 	void SetLocalPosition(sf::Vector2f pos);
+	void SetLocalPosition(float x, float y);
 	sf::Vector2f GetLocalPosition() const;
 
 	//inline float GetRotation() const

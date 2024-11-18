@@ -31,9 +31,9 @@ void SpriteRenderer::SetTexture(std::unique_ptr<sf::Texture> tx)
 
 	sf::Vector2u dim = texture->getSize();
 	vertices[0].texCoords = sf::Vector2f(0.0f, 0.0f);
-	vertices[1].texCoords = sf::Vector2f(dim.x, 0.0f);
-	vertices[2].texCoords = sf::Vector2f(dim.x, dim.y);
-	vertices[3].texCoords = sf::Vector2f(0.0f, dim.y);
+	vertices[1].texCoords = sf::Vector2f((float)dim.x, 0.0f);
+	vertices[2].texCoords = sf::Vector2f((float)dim.x, (float)dim.y);
+	vertices[3].texCoords = sf::Vector2f(0.0f, (float)dim.y);
 }
 
 void SpriteRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) const

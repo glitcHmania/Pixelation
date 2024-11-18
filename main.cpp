@@ -1,27 +1,28 @@
-#include <string>
 #include "Window.h"
-#include "Transform.h"
-#include "SpriteRenderer.h"
-#include "GameObject.h"
+#include "AssetLoader.h"
+#include "ComponentIncluder.h"
+#include "ObjectManager.h"
 
+#define Instantiate() ObjectManager::Instantiate()
+#define Destroy(obj) ObjectManager::Destroy(obj)
 
 int main()
 {
     try 
     {
-        Window window({ 800u,600u }, "SEX");
+        Window window({ 800u,600u }, "Window");
         AssetLoader::ChangePath("Assets/");
 
-		GameObject obj;
-        auto sr = obj.AddComponent<SpriteRenderer>();
-		sr->SetTexture(AssetLoader::GetTexture("chest.png"));
-
-        sf::CircleShape shape1(50);
-        shape1.setFillColor(sf::Color::Yellow);
-        shape1.setPosition(400, 300);
-
-        window.Add(sr);
-        //window.Add(shape1);
+        for (int i = 0; i < 100; i++)
+        {
+            auto obj = Instantiate();
+			obj->GetComponent<Transform>()->SetLocalPosition( 15.0f * i, 12.0f * i );
+            auto sr = obj->AddComponent<SpriteRenderer>();
+            sr->SetTexture(AssetLoader::GetTexture("chest.png"));
+            window.Add(sr);
+        }
+        auto o = Instantiate();
+        Destroy(o);
 
         window.Show();
         return 0;

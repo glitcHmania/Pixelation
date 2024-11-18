@@ -1,9 +1,9 @@
 #include "GameObject.h"
-#include <iostream>
 
-GameObject::GameObject()
+GameObject::GameObject(std::string UID)
 {
 	AddComponent<Transform>();
+	id = UID;
 }
 
 void GameObject::Update()
@@ -14,6 +14,15 @@ void GameObject::Update()
 		auto componentUpdate = static_cast<Component*>(componentPtr.get());
 		componentUpdate->Update();
 	}
+}
+
+void GameObject::RemoveAllComponents()
+{
+	for (auto& component : components)
+	{
+		component.second.reset();
+	}
+	components.clear();
 }
 
 #ifdef _DEBUG

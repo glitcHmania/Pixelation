@@ -1,9 +1,7 @@
 #pragma once
-#include "Transform.h"
+#include "GameObject.h"
 #include "Component.h"
 #include <SFML/Graphics.hpp>
-#include "GameObject.h"
-
 
 class SpriteRenderer : public Component, public sf::Drawable
 {

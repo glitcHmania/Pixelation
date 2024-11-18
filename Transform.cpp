@@ -10,6 +10,7 @@ void Transform::Scale(sf::Vector2f scaleFactor)
 	scale.x *= scaleFactor.x;
 	scale.y *= scaleFactor.y;
 }
+
 void Transform::Rotate(float radian)
 {
 	rotation += radian;
@@ -20,9 +21,19 @@ void Transform::Translate(sf::Vector2f delta)
 	position += delta;
 }
 
+void Transform::Translate(float x, float y)
+{
+	position += sf::Vector2f(x, y);
+}
+
 void Transform::SetLocalPosition(sf::Vector2f pos)
 {
 	position = pos;
+}
+
+void Transform::SetLocalPosition(float x, float y)
+{
+	position = sf::Vector2f(x, y);
 }
 
 sf::Vector2f Transform::GetLocalPosition() const
