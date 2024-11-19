@@ -4,7 +4,7 @@ Window::Window(sf::Vector2<unsigned int> resolution = { 800,600 }, const std::st
 	:
 	eventHnd(sf::Event())
 {
-	window = std::make_unique<sf::RenderWindow>(sf::VideoMode(resolution.x, resolution.y), windowName);
+	window = std::make_shared<sf::RenderWindow>(sf::VideoMode(resolution.x, resolution.y), windowName);
 }
 
 void Window::Discard(int index)
@@ -27,7 +27,10 @@ void Window::Show()
 			}
 		}
 
-		camera.Move();
+		if (camera)
+		{
+			camera->Move();
+		}
 		window->clear();
 		//Put an update loop before drawing
 		for (int i = 0; i < queue.size(); i++)
@@ -40,12 +43,12 @@ void Window::Show()
 	}
 }
 
-sf::RenderWindow* Window::GetRenderWindow()
+std::shared_ptr<sf::RenderWindow> Window::GetRenderWindow()
 {
-	return window.get();
+	return window;
 }
 
-void Window::SetCamera(Camera* cam)
+void Window::SetCamera(std::shared_ptr<Camera> cam)
 {
-		camera = cam;
+	camera = cam;
 }

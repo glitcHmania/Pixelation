@@ -11,8 +11,8 @@ int main()
     try 
     {
         Window window({ 800u,600u }, "Window");
-        Camera cam(window.GetRenderWindow());
-        window.SetCamera(&cam);
+        std::shared_ptr<Camera> cam = std::make_shared<Camera>(window.GetRenderWindow());
+        window.SetCamera(cam);
 
         AssetLoader::ChangePath("Assets/");
 
