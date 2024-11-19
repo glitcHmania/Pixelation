@@ -26,12 +26,9 @@ void Window::Show()
 			{
 				window->close();
 			}
-			if(eventHnd.type == sf::Event::KeyPressed)
-			{
-				camera.Move(eventHnd.key.code);
-			}
 		}
 
+		camera.Move();
 		window->clear();
 		//Put an update loop before drawing
 		for (int i = 0; i < queue.size(); i++)

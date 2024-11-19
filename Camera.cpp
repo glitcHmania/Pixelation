@@ -1,13 +1,16 @@
 #include "Camera.h"
 
-Camera::Camera(sf::RenderWindow* _renderWindow)
+Camera::Camera(sf::RenderWindow* _renderWindow )
 	:
 	renderWindow(_renderWindow)
 {
-	transform = std::make_shared<Transform>(sf::Vector2(0.0f, 0.0f), 0.0f, sf::Vector2(800.0f, 600.0f));
+	transform = std::make_shared<Transform>(sf::Vector2(0.0f, 0.0f), 0.0f, sf::Vector2(1.0f, 1.0f));
+	
+	sf::Vector2 size = renderWindow->getSize();
 	sf::Vector2 pos = transform->GetLocalPosition();
 	sf::Vector2 scale = transform->GetLocalScale();
-	view = std::make_unique<sf::View>(sf::View(sf::FloatRect(pos.x, pos.y, scale.x, scale.y)));
+
+	view = std::make_unique<sf::View>(sf::View(sf::FloatRect(pos.x, pos.y, size.x*scale.x, size.y * scale.y)));
 	renderWindow->setView(*view.get());
 }
 
@@ -16,32 +19,36 @@ Camera::Camera(sf::RenderWindow* _renderWindow, std::shared_ptr<Transform> _tran
 	renderWindow(_renderWindow),
 	transform(_transform)
 {
+	sf::Vector2 size = renderWindow->getSize();
 	sf::Vector2 pos = transform->GetLocalPosition();
 	sf::Vector2 scale = transform->GetLocalScale();
-	view = std::make_unique<sf::View>(sf::View(sf::FloatRect(pos.x, pos.y, scale.x, scale.y)));
+
+	view = std::make_unique<sf::View>(sf::View(sf::FloatRect(pos.x, pos.y, size.x * scale.x, size.y * scale.y)));
 	renderWindow->setView(*view.get());
 }
 
-void Camera::Move(sf::Keyboard::Key pressedKey)
+void Camera::Move()
 {
-	sf::Vector2 pos = transform->GetLocalPosition();
-	sf::Vector2 scale = transform->GetLocalScale();
-	switch (pressedKey)
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-	case sf::Keyboard::Key::W:
-		pos.y -= 10.0f;
-		break;
-	case sf::Keyboard::Key::A:
-		pos.x -= 10.0f;
-		break;
-	case sf::Keyboard::Key::S:
-		pos.y += 10.0f;
-		break;
-	case sf::Keyboard::Key::D:
-		pos.x += 10.0f;
-		break;
+		transform->Translate({ 0.0f,-0.1f });
+		view->move({ 0.0f,-0.1f });
 	}
-	transform->SetLocalPosition(pos);
-	view.reset(new sf::View(sf::FloatRect(pos.x, pos.y, scale.x, scale.y)));
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	{
+		transform->Translate({ 0.0f,+0.1f });
+		view->move({ 0.0f,+0.1f });
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	{
+		transform->Translate({ +0.1f,0.0f });
+		view->move({ +0.1f,0.0f });
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	{
+		transform->Translate({ -0.1f,0.0f });
+		view->move({ -0.1f,0.0f });
+	}
 	renderWindow->setView(*view.get());
 }
