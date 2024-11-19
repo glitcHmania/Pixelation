@@ -11,6 +11,9 @@ int main()
     try 
     {
         Window window({ 800u,600u }, "Window");
+        Camera cam(window.GetRenderWindow());
+        window.SetCamera(&cam);
+
         AssetLoader::ChangePath("Assets/");
 
         for (int i = 0; i < 100; i++)

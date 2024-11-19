@@ -5,7 +5,6 @@ Window::Window(sf::Vector2<unsigned int> resolution = { 800,600 }, const std::st
 	eventHnd(sf::Event())
 {
 	window = std::make_unique<sf::RenderWindow>(sf::VideoMode(resolution.x, resolution.y), windowName);
-	camera = Camera(this->window.get());
 }
 
 void Window::Discard(int index)
@@ -39,4 +38,14 @@ void Window::Show()
 		//Put an update loop after drawing
 		window->display();
 	}
+}
+
+sf::RenderWindow* Window::GetRenderWindow()
+{
+	return window.get();
+}
+
+void Window::SetCamera(Camera* cam)
+{
+		camera = cam;
 }
