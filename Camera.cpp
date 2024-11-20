@@ -29,7 +29,7 @@ Camera::Camera(std::shared_ptr<sf::RenderWindow> _renderWindow, std::shared_ptr<
 
 void Camera::Move(float delta)
 {
-	float speed = 100.0f;
+	float speed = 1000.0f;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
 		transform->Translate({ 0.0f,-speed * delta });

@@ -19,7 +19,7 @@ int main()
         for (int i = 0; i < 100; i++)
         {
             auto obj = Instantiate();
-			obj->GetComponent<Transform>()->SetLocalPosition( 15.0f * i, 12.0f * i );
+			obj->GetComponent<Transform>()->SetLocalPosition( 75.0f * i, 75.0f * i );
             auto sr = obj->AddComponent<SpriteRenderer>();
             sr->SetTexture(AssetLoader::GetTexture("chest.png"));
             window.Add(sr);

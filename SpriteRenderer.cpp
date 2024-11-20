@@ -38,7 +38,7 @@ void SpriteRenderer::SetTexture(std::unique_ptr<sf::Texture> tx)
 
 void SpriteRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	//states.transform = transform->ConvertToSf();
+	state->transform = transform->GetSf();
 	target.draw(vertices, *state);
 }
 
