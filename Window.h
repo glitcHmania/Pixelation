@@ -20,9 +20,10 @@ public:
 	void SetCamera(std::shared_ptr<Camera>  cam);
 
 private:
-	std::shared_ptr<sf::RenderWindow> window;
+	std::shared_ptr<sf::RenderWindow> renderWindow;
 	std::vector<std::shared_ptr<sf::Drawable>> queue;
 	std::shared_ptr<Camera> camera;
+	//Camera& cam;
 private:
 	sf::Event eventHnd;
 };
