@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include "Camera.h"
+#include "Time.h"
 
 class Window
 {

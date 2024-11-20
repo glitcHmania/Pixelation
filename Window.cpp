@@ -27,10 +27,15 @@ void Window::Show()
 			}
 		}
 
+		//optional logic//
+		Time::CalculateDelta();
 		if (camera)
 		{
-			camera->Move();
+			camera->Move(Time::delta());
 		}
+		//optional logic//
+
+
 		renderWindow->clear();
 		//Put an update loop before drawing
 		for (int i = 0; i < queue.size(); i++)

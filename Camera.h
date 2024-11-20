@@ -10,7 +10,7 @@ public:
 	Camera(std::shared_ptr<sf::RenderWindow> _renderWindow);
 	Camera(std::shared_ptr<sf::RenderWindow> _renderWindow, std::shared_ptr<Transform> _transform);
 
-	void Move();
+	void Move(float delta);
 private:
 	std::shared_ptr<Transform> transform;
 	std::shared_ptr<sf::RenderWindow> renderWindow;

@@ -144,6 +144,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Time.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="UID.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="SpriteRenderer.h" />
+    <ClInclude Include="Time.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="AssetLoader.h" />
     <ClInclude Include="UID.h" />
