@@ -12,7 +12,7 @@ class GameObject
 public:
 	GameObject(std::string UID);
 
-	void Update();
+	virtual void Update();
 
 	template <typename T>
 	std::shared_ptr<T> GetComponent()

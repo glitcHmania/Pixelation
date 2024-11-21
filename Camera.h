@@ -21,5 +21,5 @@ private:
 	std::shared_ptr<Transform> transform;
 	std::shared_ptr<sf::RenderWindow> renderWindow;
 	sf::View view;
-	float speed = 1000.0f;
+	float moveSpeed = 1000.0f;
 };

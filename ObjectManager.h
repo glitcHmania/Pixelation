@@ -8,4 +8,5 @@ namespace ObjectManager
 {
 	std::shared_ptr<GameObject> Instantiate();
 	void Destroy(std::shared_ptr<GameObject> object);
+	void Update();
 };
