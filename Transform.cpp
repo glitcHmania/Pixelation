@@ -89,7 +89,7 @@ sf::Vector2f Transform::GetUpVector() const
 	return sf::Vector2f(-std::sin(rotation), std::cos(rotation));
 }
 
-void Transform::Compose() const
+void Transform::Compose()
 {
 	matrix[0] = std::cos(rotation) * scale.x;
 	matrix[1] = -std::sin(rotation) * scale.y;

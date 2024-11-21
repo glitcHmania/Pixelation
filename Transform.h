@@ -53,7 +53,7 @@ public:
 	sf::Transform GetSF();
 
 private:
-	void Compose() const;
+	void Compose();
 
 private:
 	sf::Vector2f position;

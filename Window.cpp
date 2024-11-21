@@ -31,7 +31,7 @@ void Window::Show()
 		Time::CalculateDeltaTime();
 		if (camera)
 		{
-			camera->Move(Time::GetDeltatime());
+			camera.Move(Time::GetDeltatime());
 		}
 		//optional logic//
 
@@ -55,6 +55,6 @@ std::shared_ptr<sf::RenderWindow> Window::GetRenderWindow()
 
 void Window::SetCamera(Camera& cam)
 {
-	camera = std::make_shared<Camera>(cam);
-	camera->SetWindow(*this);
+	camera = cam;
+	camera.SetRenderWindow(renderWindow);
 }

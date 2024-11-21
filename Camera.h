@@ -2,16 +2,15 @@
 #include <memory>
 #include "Transform.h"
 #include <SFML/Graphics.hpp>
-#include "Window.h"
 
 class Camera
 {
 public:
-	Camera() = default;
+	Camera();
 	Camera(std::shared_ptr<sf::RenderWindow> _renderWindow);
 	Camera(std::shared_ptr<sf::RenderWindow> _renderWindow, std::shared_ptr<Transform> _transform);
 
-	void SetWindow(Window& win);
+	void SetRenderWindow(std::shared_ptr<sf::RenderWindow> renderWin);
 	void Move(float deltaTime);
 public:
 	operator bool() const

@@ -1,5 +1,10 @@
 #include "Camera.h"
 
+Camera::Camera()
+{
+	transform = std::make_shared<Transform>(sf::Vector2(0.0f, 0.0f), 0.0f, sf::Vector2(1.0f, 1.0f));
+}
+
 Camera::Camera(std::shared_ptr<sf::RenderWindow> _renderWindow )
 	:
 	renderWindow(_renderWindow)
@@ -27,9 +32,9 @@ Camera::Camera(std::shared_ptr<sf::RenderWindow> _renderWindow, std::shared_ptr<
 	renderWindow->setView(view);
 }
 
-void Camera::SetWindow(Window& win)
+void Camera::SetRenderWindow(std::shared_ptr<sf::RenderWindow> renderWin)
 {
-	win.SetCamera(*this);
+	renderWindow = renderWin;
 }
 
 void Camera::Move(float deltaTime)
