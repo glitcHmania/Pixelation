@@ -27,29 +27,28 @@ Camera::Camera(std::shared_ptr<sf::RenderWindow> _renderWindow, std::shared_ptr<
 	renderWindow->setView(view);
 }
 
-void Camera::Move(float delta)
+void Camera::Move(float deltaTime)
 {
-	float speed = 1000.0f;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		transform->Translate({ 0.0f,-speed * delta });
-		view.move({ 0.0f,-speed * delta });
+		transform->Translate({ 0.0f,-speed * deltaTime });
+		view.move({ 0.0f,-speed * deltaTime });
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-		transform->Translate({ 0.0f,+speed * delta });
-		view.move({ 0.0f,+speed * delta });
+		transform->Translate({ 0.0f,+speed * deltaTime });
+		view.move({ 0.0f,+speed * deltaTime });
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
-		transform->Translate({ +speed * delta,0.0f });
-		view.move({ +speed * delta,0.0f });
+		transform->Translate({ +speed * deltaTime,0.0f });
+		view.move({ +speed * deltaTime,0.0f });
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-		transform->Translate({ -speed * delta,0.0f });
-		view.move({ -speed * delta,0.0f });
+		transform->Translate({ -speed * deltaTime,0.0f });
+		view.move({ -speed * deltaTime,0.0f });
 	}
 	renderWindow->setView(view);
 }

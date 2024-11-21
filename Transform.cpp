@@ -9,49 +9,49 @@ void Transform::Scale(sf::Vector2f scaleFactor)
 {
 	scale.x *= scaleFactor.x;
 	scale.y *= scaleFactor.y;
-	Compose();
+	matrixDirty = true;
 }
 
 void Transform::Rotate(float radian)
 {
 	rotation += radian;
-	Compose();
+	matrixDirty = true;
 }
 
 void Transform::Translate(sf::Vector2f delta)
 {
 	position += delta;
-	Compose();
+	matrixDirty = true;
 }
 
 void Transform::Translate(float x, float y)
 {
 	position += sf::Vector2f(x, y);
-	Compose();
+	matrixDirty = true;
 }
 
 void Transform::SetLocalPosition(sf::Vector2f pos)
 {
 	position = pos;
-	Compose();
+	matrixDirty = true;
 }
 
 void Transform::SetLocalPosition(float x, float y)
 {
 	position = sf::Vector2f(x, y);
-	Compose();
+	matrixDirty = true;
 }
 
 void Transform::SetLocalRotation(float rot)
 {
 	rotation = rot;
-	Compose();
+	matrixDirty = true;
 }
 
 void Transform::SetLocalScale(sf::Vector2f scl)
 {
 	scale = scl;
-	Compose();
+	matrixDirty = true;
 }
 
 sf::Vector2f Transform::GetLocalPosition() const
@@ -89,27 +89,37 @@ sf::Vector2f Transform::GetUpVector() const
 	return sf::Vector2f(-std::sin(rotation), std::cos(rotation));
 }
 
-void Transform::Compose()
+void Transform::Compose() const
 {
-	composite[0] = std::cos(rotation) * scale.x;
-	composite[1] = -std::sin(rotation) * scale.y;
-	composite[2] = position.x;
+	matrix[0] = std::cos(rotation) * scale.x;
+	matrix[1] = -std::sin(rotation) * scale.y;
+	matrix[2] = position.x;
 
-	composite[3] = std::sin(rotation) * scale.x;
-	composite[4] = std::cos(rotation) * scale.y;
-	composite[5] =  position.y;
+	matrix[3] = std::sin(rotation) * scale.x;
+	matrix[4] = std::cos(rotation) * scale.y;
+	matrix[5] =  position.y;
 	
-	composite[6] = 0.0f;
-	composite[7] = 0.0f;
-	composite[8] = 1.0f;
+	matrix[6] = 0.0f;
+	matrix[7] = 0.0f;
+	matrix[8] = 1.0f;
 }
 
-const float* Transform::GetComposite() const
+const float* Transform::GetMatrix() const
 {
-	return composite;
+	if (matrixDirty)
+	{
+		Compose();
+		matrixDirty = false;
+	}
+	return matrix;
 }
 
-sf::Transform Transform::GetSf() const
+sf::Transform Transform::GetSF() const
 {
-	return sf::Transform(composite[0],composite[1],composite[2], composite[3], composite[4], composite[5], composite[6], composite[7], composite[8]);
+	if (matrixDirty)
+	{
+		Compose();
+		matrixDirty = false;
+	}
+	return sf::Transform(matrix[0],matrix[1],matrix[2], matrix[3], matrix[4], matrix[5], matrix[6], matrix[7], matrix[8]);
 }

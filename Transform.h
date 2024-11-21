@@ -49,17 +49,18 @@ public:
 	sf::Vector2f GetRightVector() const;
 	sf::Vector2f GetUpVector() const;
 
-	const float* GetComposite() const;
-	sf::Transform GetSf() const;
+	const float* GetMatrix() const;
+	sf::Transform GetSF() const;
 
 private:
-	void Compose();
+	void Compose() const;
 
 private:
 	sf::Vector2f position;
 	sf::Vector2f scale;
 	float rotation;
-	float composite[9] = {0};
+	mutable float matrix[9] = {0};
+	mutable bool matrixDirty = false;
 
 	//std::unique_ptr<TransformComponent> parent = nullptr;
 	//std::vector<std::unique_ptr<TransformComponent>> children;
