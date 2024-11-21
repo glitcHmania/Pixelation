@@ -22,7 +22,11 @@ int main()
         for (int i = 0; i < 100; i++)
         {
             auto obj = Instantiate();
-			obj->GetComponent<Transform>()->SetLocalPosition( 75.0f * i, 75.0f * i );
+            auto transform = obj->GetComponent<Transform>();
+            transform->SetLocalPosition(75.0f * i, 75.0f * i);
+            transform->Rotate(3.14f);
+            transform->Scale({1.5f,1.5f});
+
             auto sr = obj->AddComponent<SpriteRenderer>();
             sr->SetTexture(AssetLoader::GetTexture("chest.png"));
             window.Add(sr);

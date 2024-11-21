@@ -14,13 +14,11 @@ void SpriteRenderer::Construct()
 	{
 		transform = owner->GetComponent<Transform>();
 		
-		//Only for debugging, delete this after transform is configured
-		sf::Vector2f s = transform->GetLocalScale();
+		//Default object is always 100 units long and 100 units wide
 		vertices[0].position = sf::Vector2f(0.0f, 0.0f);
-		vertices[1].position = sf::Vector2f(s.x, 0.0f);
-		vertices[2].position = sf::Vector2f(s.x, s.y);
-		vertices[3].position = sf::Vector2f(0.0f, s.y);
-		//Only for debugging, delete this after transform is configured
+		vertices[1].position = sf::Vector2f(100.0f, 0.0f);
+		vertices[2].position = sf::Vector2f(100.0f, 100.0f);
+		vertices[3].position = sf::Vector2f(0.0f, 100.0f);
 	}
 }
 

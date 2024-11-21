@@ -14,7 +14,7 @@ public:
 	{
 		position = sf::Vector2f(0.0f, 0.0f);
 		rotation = 0;
-		scale = sf::Vector2f(10.0f, 10.0f);
+		scale = sf::Vector2f(1.0f, 1.0f);
 	};
 
 	Transform(sf::Vector2f _position, float _rotation, sf::Vector2f _scale)
