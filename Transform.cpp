@@ -104,7 +104,7 @@ void Transform::Compose() const
 	matrix[8] = 1.0f;
 }
 
-const float* Transform::GetMatrix() const
+float* Transform::GetMatrix()
 {
 	if (matrixDirty)
 	{
@@ -114,7 +114,7 @@ const float* Transform::GetMatrix() const
 	return matrix;
 }
 
-sf::Transform Transform::GetSF() const
+sf::Transform Transform::GetSF()
 {
 	if (matrixDirty)
 	{

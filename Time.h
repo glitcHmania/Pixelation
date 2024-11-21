@@ -3,6 +3,6 @@
 
 namespace Time
 {
-	void CalculateDelta();
-	const float delta();
+	void CalculateDeltaTime();
+	const float GetDeltatime();
 };

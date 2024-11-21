@@ -18,13 +18,12 @@ public:
 	void Discard(int index);
 	void Show();
 	std::shared_ptr<sf::RenderWindow> GetRenderWindow();
-	void SetCamera(std::shared_ptr<Camera>  cam);
+	void SetCamera(Camera& cam);
 
 private:
 	std::shared_ptr<sf::RenderWindow> renderWindow;
 	std::vector<std::shared_ptr<sf::Drawable>> queue;
 	std::shared_ptr<Camera> camera;
-	//Camera& cam;
 private:
 	sf::Event eventHnd;
 };

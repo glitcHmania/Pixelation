@@ -27,6 +27,11 @@ Camera::Camera(std::shared_ptr<sf::RenderWindow> _renderWindow, std::shared_ptr<
 	renderWindow->setView(view);
 }
 
+void Camera::SetWindow(Window& win)
+{
+	win.SetCamera(*this);
+}
+
 void Camera::Move(float deltaTime)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
