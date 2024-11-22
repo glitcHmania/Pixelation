@@ -3,7 +3,7 @@
 #include "ComponentIncluder.h"
 #include "ObjectManager.h"
 
-#define Instantiate() ObjectManager::Instantiate()
+
 #define Destroy(obj) ObjectManager::Destroy(obj)
 
 int main()
@@ -11,14 +11,13 @@ int main()
     try 
     {
         Game game({ 800u,600u });
-
         game.GetRenderer().CreateCamera();
-
         AssetLoader::ChangePath("Assets/");
+
 
         for (int i = 0; i < 100; i++)
         {
-            auto obj = Instantiate();
+			std::shared_ptr<GameObject> obj = ObjectManager::Instantiate<GameObject>();
             auto transform = obj->GetComponent<Transform>();
             transform->SetLocalPosition(75.0f * i, 75.0f * i);
             transform->Rotate(3.14f);
@@ -28,8 +27,9 @@ int main()
             sr->SetTexture(AssetLoader::GetTexture("chest.png"));
             game.GetRenderer().AddDrawable(sr);
         }
-        auto o = Instantiate();
+        auto o = ObjectManager::Instantiate<GameObject>();
         Destroy(o);
+
 
         game.Loop();
         return 0;

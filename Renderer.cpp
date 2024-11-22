@@ -1,6 +1,6 @@
 #include "Renderer.h"
 
-Renderer::Renderer(sf::VideoMode mode, const std::string& windowName = "ProjectDream")
+Renderer::Renderer(sf::VideoMode mode, const std::string& windowName)
 {
 	renderWindow = std::make_unique<sf::RenderWindow>(mode, windowName);
 }
@@ -9,12 +9,12 @@ void Renderer::Update()
 {
 	renderWindow->clear();
 
-	//temp
+	//temp, is it really?
 	if(mainCamera)
 	{
 		mainCamera.Move(Time::GetDeltatime());
 	}
-	//temp
+	//temp, is it really?
 
 	for (const auto& drawable : queue)
 	{
@@ -38,7 +38,7 @@ void Renderer::RemoveDrawable(int index)
 
 void Renderer::CreateCamera()
 {
-	cameras.emplace_back(renderWindow);
+	cameras.emplace_back(*renderWindow);
 	if (!mainCamera)
 	{
 		mainCamera = cameras.back();

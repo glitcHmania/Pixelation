@@ -10,6 +10,7 @@
 class GameObject
 {
 public:
+	GameObject() = default;
 	GameObject(std::string UID);
 
 	virtual void Update();

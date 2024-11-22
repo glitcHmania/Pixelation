@@ -7,10 +7,10 @@ class Camera
 {
 public:
 	Camera();
-	Camera(std::shared_ptr<sf::RenderWindow> _renderWindow);
-	Camera(std::shared_ptr<sf::RenderWindow> _renderWindow, std::shared_ptr<Transform> _transform);
+	Camera(sf::RenderWindow& _renderWindow);
+	Camera(sf::RenderWindow& _renderWindow, std::shared_ptr<Transform> _transform);
 
-	void SetRenderWindow(std::shared_ptr<sf::RenderWindow> renderWin);
+	void SetRenderWindow(sf::RenderWindow& renderWin);
 	void Move(float deltaTime);
 public:
 	operator bool() const
@@ -19,7 +19,7 @@ public:
 	}
 private:
 	std::shared_ptr<Transform> transform;
-	std::shared_ptr<sf::RenderWindow> renderWindow;
+	sf::RenderWindow* renderWindow; //Only use with references for safety
 	sf::View view;
 	float moveSpeed = 1000.0f;
 };
