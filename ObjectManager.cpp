@@ -20,8 +20,11 @@ namespace ObjectManager
 		objects[id].reset();
 		objects.erase(id);
 	}
+	void Update()
+	{
+		for (auto& object : objects)
+		{
+			object.second->Update();
+		}
+	}
 }
-
-
-
-
