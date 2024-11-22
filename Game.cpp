@@ -2,19 +2,18 @@
 
 Game::Game(const sf::Vector2<unsigned int>& resolution, const std::string& windowName)
 	:
-	renderWindow(std::make_shared<sf::RenderWindow>(sf::VideoMode(resolution.x, resolution.y), windowName)),
-	renderer(renderWindow)
+	renderer(sf::VideoMode(resolution.x, resolution.y), windowName),
+	eventHnd(sf::Event())
 {
-	renderWindow->setFramerateLimit(60);
 }
 
 void Game::HandleEvents()
 {
-	while (renderWindow->pollEvent(eventHnd))
+	while (renderer.GetWindow().pollEvent(eventHnd))
 	{
 		if (eventHnd.type == sf::Event::Closed)
 		{
-			renderWindow->close();
+			renderer.GetWindow().close();
 		}
 		//...
 	}
@@ -22,7 +21,7 @@ void Game::HandleEvents()
 
 void Game::Loop()
 {
-	while (renderWindow->isOpen())
+	while (renderer.GetWindow().isOpen())
 	{
 		HandleEvents();
 		Time::CalculateDeltaTime();
@@ -31,11 +30,6 @@ void Game::Loop()
 		renderer.Update();
 		ObjectManager::Update();
 	}
-}
-
-std::shared_ptr<sf::RenderWindow> Game::GetRenderWindow() const
-{
-	return renderWindow;
 }
 
 Renderer& Game::GetRenderer()

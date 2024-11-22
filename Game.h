@@ -13,11 +13,9 @@ public:
 
 	void HandleEvents();
 	void Loop();
-	std::shared_ptr<sf::RenderWindow> GetRenderWindow() const;
 	Renderer& GetRenderer();
 
 private:
-	std::shared_ptr<sf::RenderWindow> renderWindow;
 	Renderer renderer;
 	sf::Event eventHnd;
 };

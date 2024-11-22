@@ -8,8 +8,8 @@
 class Renderer
 {
 public:
-	Renderer() = default;
-	Renderer(const std::shared_ptr<sf::RenderWindow>& renderWindow);
+	Renderer() = delete;
+	Renderer(sf::VideoMode mode, const std::string& windowName = "ProjectDream");
 
 	template<typename T>
 	void AddDrawable(const std::shared_ptr<T>& drawable)
@@ -23,10 +23,14 @@ public:
 	void SetMainCamera(const Camera& camera);
 	void Update();
 
+	sf::RenderWindow& GetWindow();
+
 private:
 	std::vector<std::shared_ptr<sf::Drawable>> queue;
-	std::shared_ptr<sf::RenderWindow> renderWindow;
+
 	std::vector<Camera> cameras;
 	Camera mainCamera;
+
+	std::unique_ptr<sf::RenderWindow> renderWindow;
 };
 

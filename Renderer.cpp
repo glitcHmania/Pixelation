@@ -1,9 +1,8 @@
 #include "Renderer.h"
 
-Renderer::Renderer(const std::shared_ptr<sf::RenderWindow>& renderWindow)
-	:
-	renderWindow(renderWindow)
+Renderer::Renderer(sf::VideoMode mode, const std::string& windowName = "ProjectDream")
 {
+	renderWindow = std::make_unique<sf::RenderWindow>(mode, windowName);
 }
 
 void Renderer::Update()
@@ -22,6 +21,11 @@ void Renderer::Update()
 		renderWindow->draw(*drawable);
 	}
 	renderWindow->display();
+}
+
+sf::RenderWindow& Renderer::GetWindow()
+{
+	return *renderWindow;
 }
 
 void Renderer::RemoveDrawable(int index)
