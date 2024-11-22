@@ -11,7 +11,7 @@ int main()
 {
     try 
     {
-        Game game({ 1000u,500u });
+        Game game({ 800u,600u });
         game.GetRenderer().CreateCamera();
         AssetLoader::ChangePath("Assets/");
 
@@ -20,9 +20,9 @@ int main()
         {
             PGameObject obj = ObjectManager::Instantiate<GameObject>();
             auto transform = obj->GetComponent<Transform>();
+            transform->Scale({1.0f,1.0f});
             transform->SetLocalPosition(300.0f * i, 300.0f * i);
             transform->Rotate(0.0f);
-            transform->Scale({1.0f,1.0f});
 
             auto sr = obj->AddComponent<SpriteRenderer>();
             sr->SetTexture(AssetLoader::GetTexture("chest.png"));

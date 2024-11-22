@@ -5,6 +5,7 @@ Game::Game(const sf::Vector2<unsigned int>& resolution, const std::string& windo
 	renderer(sf::VideoMode(resolution.x, resolution.y), windowName),
 	eventHnd(sf::Event())
 {
+	//renderer.GetWindow().setFramerateLimit(144);
 }
 
 void Game::HandleEvents()
@@ -15,7 +16,10 @@ void Game::HandleEvents()
 		{
 			renderer.GetWindow().close();
 		}
-		//...
+		if (eventHnd.type == sf::Event::Resized) 
+		{
+			renderer.Resize();	
+		}
 	}
 }
 
@@ -25,6 +29,7 @@ void Game::Loop()
 	{
 		HandleEvents();
 		Time::CalculateDeltaTime();
+		Time::PrintFPS();
 
 		//Updates
 		renderer.Update();

@@ -22,6 +22,7 @@ public:
 	void RemoveCamera(int index);
 	void SetMainCamera(const Camera& camera);
 	void Update();
+	void Resize();
 
 	sf::RenderWindow& GetWindow();
 

@@ -28,9 +28,18 @@ Camera::Camera(sf::RenderWindow& _renderWindow, std::shared_ptr<Transform> _tran
 	sf::Vector2 size = renderWindow->getSize();
 	sf::Vector2 pos = transform->GetLocalPosition();
 	sf::Vector2 scale = transform->GetLocalScale();
-	view.setViewport(sf::FloatRect(0, 0, 1, 1));
 
 	view = sf::View(sf::FloatRect(pos.x, pos.y, size.x * scale.x, size.y * scale.y));
+	renderWindow->setView(view);
+}
+
+void Camera::Resize()
+{
+	sf::Vector2 size = renderWindow->getSize();
+	sf::Vector2 pos = transform->GetLocalPosition();
+	sf::Vector2 scale = transform->GetLocalScale();
+
+	view = sf::View(sf::FloatRect(pos.x, pos.y, size.x * scale.x, size.y * scale.y ));
 	renderWindow->setView(view);
 }
 

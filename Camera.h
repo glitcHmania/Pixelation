@@ -9,6 +9,7 @@ public:
 	Camera();
 	Camera(sf::RenderWindow& _renderWindow);
 	Camera(sf::RenderWindow& _renderWindow, std::shared_ptr<Transform> _transform);
+	void Resize();
 
 	void SetRenderWindow(sf::RenderWindow& renderWin);
 	void Move(float deltaTime);

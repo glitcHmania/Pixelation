@@ -23,6 +23,14 @@ void Renderer::Update()
 	renderWindow->display();
 }
 
+void Renderer::Resize()
+{
+	if (mainCamera)
+	{
+		mainCamera.Resize();
+	}
+}
+
 sf::RenderWindow& Renderer::GetWindow()
 {
 	return *renderWindow;
