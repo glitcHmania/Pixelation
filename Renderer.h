@@ -21,8 +21,9 @@ public:
 	void CreateCamera();
 	void RemoveCamera(int index);
 	void SetMainCamera(const Camera& camera);
+	void ResizeWindow();
+	void Zoom(float delta);
 	void Update();
-	void Resize();
 
 	sf::RenderWindow& GetWindow();
 

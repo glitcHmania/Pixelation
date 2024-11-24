@@ -5,7 +5,7 @@ Game::Game(const sf::Vector2<unsigned int>& resolution, const std::string& windo
 	renderer(sf::VideoMode(resolution.x, resolution.y), windowName),
 	eventHnd(sf::Event())
 {
-	//renderer.GetWindow().setFramerateLimit(144);
+	renderer.GetWindow().setFramerateLimit(150);
 }
 
 void Game::HandleEvents()
@@ -18,7 +18,7 @@ void Game::HandleEvents()
 		}
 		if (eventHnd.type == sf::Event::Resized) 
 		{
-			renderer.Resize();	
+			renderer.ResizeWindow();	
 		}
 	}
 }

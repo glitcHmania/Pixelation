@@ -13,6 +13,7 @@ void Renderer::Update()
 	if(mainCamera)
 	{
 		mainCamera.Move(Time::GetDeltatime());
+		mainCamera.Scale(Time::GetDeltatime());
 	}
 	//temp, is it really?
 
@@ -23,11 +24,11 @@ void Renderer::Update()
 	renderWindow->display();
 }
 
-void Renderer::Resize()
+void Renderer::ResizeWindow()
 {
 	if (mainCamera)
 	{
-		mainCamera.Resize();
+		mainCamera.ResizeWindow();
 	}
 }
 

@@ -33,7 +33,7 @@ Camera::Camera(sf::RenderWindow& _renderWindow, std::shared_ptr<Transform> _tran
 	renderWindow->setView(view);
 }
 
-void Camera::Resize()
+void Camera::ResizeWindow()
 {
 	sf::Vector2 size = renderWindow->getSize();
 	sf::Vector2 pos = transform->GetLocalPosition();
@@ -70,6 +70,23 @@ void Camera::Move(float deltaTime)
 	{
 		transform->Translate({ -moveSpeed * deltaTime,0.0f });
 		view.move({ -moveSpeed * deltaTime,0.0f });
+	}
+	renderWindow->setView(view);
+}
+
+void Camera::Scale(float deltaTime)
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+	{
+		transform->Scale({ 1.0f + deltaTime, 1.0f + deltaTime });
+		view.zoom(1.0f + deltaTime);
+		moveSpeed *= 1 + deltaTime;
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+	{
+		transform->Scale({ 1.0f - deltaTime, 1.0f - deltaTime });
+		view.zoom(1.0f - deltaTime);
+		moveSpeed *= 1 - deltaTime;
 	}
 	renderWindow->setView(view);
 }
