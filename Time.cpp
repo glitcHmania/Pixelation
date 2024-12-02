@@ -19,4 +19,8 @@ namespace Time
 	{
 		return deltaTime;
 	}
+	void PrintFPS()
+	{
+		std::cout << "FPS: " << 1.0f / deltaTime << std::endl;
+	}
 }

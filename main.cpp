@@ -5,6 +5,7 @@
 
 
 #define Destroy(obj) ObjectManager::Destroy(obj)
+typedef std::shared_ptr<GameObject> PGameObject;
 
 int main()
 {
@@ -17,11 +18,11 @@ int main()
 
         for (int i = 0; i < 100; i++)
         {
-			std::shared_ptr<GameObject> obj = ObjectManager::Instantiate<GameObject>();
+            PGameObject obj = ObjectManager::Instantiate<GameObject>();
             auto transform = obj->GetComponent<Transform>();
-            transform->SetLocalPosition(75.0f * i, 75.0f * i);
-            transform->Rotate(3.14f);
-            transform->Scale({1.5f,1.5f});
+            transform->Scale({1.0f,1.0f});
+            transform->SetLocalPosition(300.0f * i, 300.0f * i);
+            transform->Rotate(0.0f);
 
             auto sr = obj->AddComponent<SpriteRenderer>();
             sr->SetTexture(AssetLoader::GetTexture("chest.png"));
@@ -39,3 +40,4 @@ int main()
 
     }
 }
+

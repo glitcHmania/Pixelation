@@ -141,7 +141,6 @@
     <ClCompile Include="AssetLoader.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="main.cpp" />
