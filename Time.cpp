@@ -19,8 +19,8 @@ namespace Time
 	{
 		return deltaTime;
 	}
-	void PrintFPS()
+	float FPS()
 	{
-		std::cout << "FPS: " << 1.0f / deltaTime << std::endl;
+		return (1.0f / deltaTime);
 	}
 }
