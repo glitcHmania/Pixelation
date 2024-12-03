@@ -6,16 +6,6 @@ GameObject::GameObject(std::string UID)
 	id = UID;
 }
 
-void GameObject::Update()
-{
-	for (auto& component : components)
-	{
-		auto& componentPtr = component.second;
-		auto componentUpdate = static_cast<Component*>(componentPtr.get());
-		componentUpdate->Update();
-	}
-}
-
 void GameObject::RemoveAllComponents()
 {
 	for (auto& component : components)

@@ -2,6 +2,7 @@
 #include "AssetLoader.h"
 #include "ComponentIncluder.h"
 #include "ObjectManager.h"
+#include "FpsCounter.h"
 
 
 #define Destroy(obj) ObjectManager::Destroy(obj)
@@ -12,9 +13,8 @@ int main()
     try 
     {
         Game game({ 800u,600u });
-        game.GetRenderer().CreateCamera();
+        Renderer::CreateCamera();
         AssetLoader::ChangePath("Assets/");
-
 
         for (int i = 0; i < 100; i++)
         {
@@ -23,13 +23,17 @@ int main()
             transform->Scale({1.0f,1.0f});
             transform->SetLocalPosition(300.0f * i, 300.0f * i);
             transform->Rotate(0.0f);
-
+        
             auto sr = obj->AddComponent<SpriteRenderer>();
             sr->SetTexture(AssetLoader::GetTexture("chest.png"));
-            game.GetRenderer().AddDrawable(sr);
+            Renderer::AddDrawable(sr);
         }
-        auto o = ObjectManager::Instantiate<GameObject>();
-        Destroy(o);
+
+        auto o = ObjectManager::Instantiate<FpsCounter>();
+
+
+
+        //Destroy(o);
 
 
         game.Loop();
