@@ -1,16 +1,13 @@
 #pragma once
 #include "GameObject.h"
-#include "Component.h"
-#include <SFML/Graphics.hpp>
+#include "Renderable.h"
 
-class SpriteRenderer : public Component, public sf::Drawable
+class SpriteRenderer : public Renderable
 {
 public:
 	SpriteRenderer();
 	SpriteRenderer(const SpriteRenderer & rH) = delete;
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-	void Update() override {};
-	void Construct() override;
 	void SetTexture(std::unique_ptr<sf::Texture> tx);
 	sf::Texture& GetTexture()
 	{ 
@@ -19,7 +16,6 @@ public:
 
 private:
 	std::unique_ptr<sf::Texture> texture;
-	std::shared_ptr<Transform> transform;
 	sf::VertexArray vertices;
 	std::unique_ptr<sf::RenderStates> state;
 };

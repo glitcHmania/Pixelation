@@ -7,7 +7,6 @@ namespace AssetLoader
 	namespace 
 	{
 		std::vector<std::filesystem::path> assetPaths;
-		std::unique_ptr<sf::Texture> _texture;
 		std::filesystem::path GetFilePath(std::string fileName)
 		{
 			for (fs::path& path : assetPaths)
@@ -47,6 +46,7 @@ namespace AssetLoader
 	}
 	std::unique_ptr<sf::Texture> GetTexture(std::string imageName)
 	{
+		std::unique_ptr<sf::Texture> _texture;
 		std::filesystem::path path = GetFilePath(imageName);
 		_texture = std::make_unique<sf::Texture>();
 
@@ -60,6 +60,24 @@ namespace AssetLoader
 		}
 
 		return std::move(_texture);
+	}
+
+	std::unique_ptr<sf::Font> GetFont(std::string fontName)
+	{
+		std::unique_ptr<sf::Font> font;
+		std::filesystem::path path = GetFilePath(fontName);
+		font = std::make_unique<sf::Font>();
+
+		if (path.empty())
+		{
+			throw("Couldn't locate the image.");
+		}
+		if (!font->loadFromFile(path.string()))
+		{
+			throw("File is corrupted or can't be loaded");
+		}
+
+		return std::move(font);
 	}
 
 }
