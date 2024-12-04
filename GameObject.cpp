@@ -2,7 +2,7 @@
 
 GameObject::GameObject(std::string UID)
 {
-	AddComponent<Transform>();
+	transform = AddComponent<Transform>().get();
 	id = UID;
 }
 

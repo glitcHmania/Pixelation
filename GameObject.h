@@ -61,6 +61,9 @@ public:
 	void DebugComponents();
 #endif
 
+protected:
+	Transform* transform = nullptr;
+
 private:
 	using UniqueID = std::string;
 	UniqueID id = "";

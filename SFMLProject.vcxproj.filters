@@ -8,7 +8,7 @@
     <Filter Include="Source Files\Components">
       <UniqueIdentifier>{548d25c4-d0ee-4e34-b312-d18044bd11b2}</UniqueIdentifier>
     </Filter>
-	<Filter Include="Source Files\Game Files">
+    <Filter Include="Source Files\Game Files">
       <UniqueIdentifier>{548d25c4-d0ee-4e34-b312-d18044abcdb2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files">
@@ -19,7 +19,7 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-	<Filter Include="Header Files\Game Files">
+    <Filter Include="Header Files\Game Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121ABC01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
@@ -46,9 +46,6 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="UID.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -60,6 +57,12 @@
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FpsCounter.cpp">
+      <Filter>Source Files\Game Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -97,6 +100,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FpsCounter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

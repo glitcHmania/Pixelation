@@ -16,7 +16,7 @@ int main()
         Renderer::CreateCamera();
         AssetLoader::ChangePath("Assets/");
 
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 1000; i++)
         {
             PGameObject obj = ObjectManager::Instantiate<GameObject>();
             auto transform = obj->GetComponent<Transform>();
@@ -31,10 +31,7 @@ int main()
 
         auto o = ObjectManager::Instantiate<FpsCounter>();
 
-
-
         //Destroy(o);
-
 
         game.Loop();
         return 0;
