@@ -4,19 +4,19 @@
 #include "GameObject.h"
 #include "UID.h"
 
-namespace
-{
-	std::unordered_map<std::string, std::shared_ptr<GameObject>> objects;
-};
 
 namespace ObjectManager
 {
+	//DO NOT USE THIS DIRECTLY
+	inline std::unordered_map<std::string, std::shared_ptr<GameObject>> objects;
+
 	template <typename T>
 	std::shared_ptr<GameObject> Instantiate()
 	{
 		static_assert(std::is_base_of<GameObject, T>::value, "Tried to push a Non-GameObject inherited class");
-		std::shared_ptr<GameObject> ref = std::make_shared<T>(UID::CreateUniqueID());
-		objects[ref->GetUID()] = ref;
+		std::string id = UID::CreateUniqueID();
+		std::shared_ptr<GameObject> ref = std::make_shared<T>(id);
+		objects[id] = ref;
 		return ref;
 	}
 
@@ -30,9 +30,17 @@ namespace ObjectManager
 
 	inline void Update()
 	{
-		for (auto& object : objects)
+		for (const auto& object : objects) 
 		{
 			object.second->Update();
+		}
+	}
+
+	inline void Start()
+	{
+		for (const auto& object : objects) 
+		{
+			object.second->Start();
 		}
 	}
 };

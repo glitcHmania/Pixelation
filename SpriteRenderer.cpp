@@ -8,12 +8,10 @@ SpriteRenderer::SpriteRenderer()
 	vertices = sf::VertexArray(sf::PrimitiveType::TriangleFan, 4u);
 }
 
-void SpriteRenderer::Construct()
+void SpriteRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	if (transform == nullptr)
-	{
-		transform = owner->GetComponent<Transform>();
-	}
+	state->transform = transform->GetSF();
+	target.draw(vertices, *state);
 }
 
 void SpriteRenderer::SetTexture(std::unique_ptr<sf::Texture> tx)
@@ -33,10 +31,3 @@ void SpriteRenderer::SetTexture(std::unique_ptr<sf::Texture> tx)
 	vertices[2].texCoords = sf::Vector2f((float)dim.x, (float)dim.y);
 	vertices[3].texCoords = sf::Vector2f(0.0f, (float)dim.y);
 }
-
-void SpriteRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) const
-{
-	state->transform = transform->GetSF();
-	target.draw(vertices, *state);
-}
-

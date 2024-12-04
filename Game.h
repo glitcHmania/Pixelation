@@ -13,9 +13,7 @@ public:
 
 	void HandleEvents();
 	void Loop();
-	Renderer& GetRenderer();
 
 private:
-	Renderer renderer;
 	sf::Event eventHnd;
 };

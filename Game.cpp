@@ -2,42 +2,37 @@
 
 Game::Game(const sf::Vector2<unsigned int>& resolution, const std::string& windowName)
 	:
-	renderer(sf::VideoMode(resolution.x, resolution.y), windowName),
 	eventHnd(sf::Event())
 {
-	renderer.GetWindow().setFramerateLimit(150);
+	Renderer::Configure(sf::VideoMode(resolution.x, resolution.y), windowName);
+	Renderer::GetWindow().setFramerateLimit(150);
 }
 
 void Game::HandleEvents()
 {
-	while (renderer.GetWindow().pollEvent(eventHnd))
+	while (Renderer::GetWindow().pollEvent(eventHnd))
 	{
 		if (eventHnd.type == sf::Event::Closed)
 		{
-			renderer.GetWindow().close();
+			Renderer::GetWindow().close();
 		}
 		if (eventHnd.type == sf::Event::Resized) 
 		{
-			renderer.ResizeWindow();	
+			Renderer::ResizeWindow();
 		}
 	}
 }
 
 void Game::Loop()
 {
-	while (renderer.GetWindow().isOpen())
+	ObjectManager::Start();
+	while (Renderer::GetWindow().isOpen())
 	{
 		HandleEvents();
 		Time::CalculateDeltaTime();
-		Time::PrintFPS();
 
 		//Updates
-		renderer.Update();
+		Renderer::Update();
 		ObjectManager::Update();
 	}
-}
-
-Renderer& Game::GetRenderer()
-{
-	return renderer;
 }

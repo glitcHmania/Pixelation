@@ -3,17 +3,20 @@
 #include <memory>
 #include <typeindex>
 #include <iostream>
-#include "Component.h"
+#include "Renderable.h"
 #include "Transform.h"
 
 
 class GameObject
 {
 public:
-	GameObject() = default;
+	GameObject() = delete;
 	GameObject(std::string UID);
 
-	virtual void Update();
+	//virtual void Start() = 0;
+	//virtual void Update() = 0;
+	virtual void Start() {};
+	virtual void Update() {};
 
 	template <typename T>
 	std::shared_ptr<T> GetComponent()
@@ -32,7 +35,7 @@ public:
 		std::shared_ptr<T> pComponent;
 		pComponent = std::make_shared<T>();
 		pComponent->owner = this;
-		pComponent->Construct();
+		pComponent->transform = GetComponent<Transform>().get();
 		components[std::type_index(typeid(T))] = pComponent;
 
 		return pComponent;
@@ -57,6 +60,9 @@ public:
 #ifdef _DEBUG
 	void DebugComponents();
 #endif
+
+protected:
+	Transform* transform = nullptr;
 
 private:
 	using UniqueID = std::string;

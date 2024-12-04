@@ -25,9 +25,6 @@ public:
 	{
 	}
 
-	void Construct() override {};
-	void Update() override;
-
 	void Scale(sf::Vector2f scaleFactor);
 	void Rotate(float radian);
 	void Translate(sf::Vector2f delta);

@@ -2,18 +2,8 @@
 
 GameObject::GameObject(std::string UID)
 {
-	AddComponent<Transform>();
+	transform = AddComponent<Transform>().get();
 	id = UID;
-}
-
-void GameObject::Update()
-{
-	for (auto& component : components)
-	{
-		auto& componentPtr = component.second;
-		auto componentUpdate = static_cast<Component*>(componentPtr.get());
-		componentUpdate->Update();
-	}
 }
 
 void GameObject::RemoveAllComponents()

@@ -6,5 +6,5 @@ namespace Time
 {
 	void CalculateDeltaTime();
 	const float GetDeltatime();
-	void PrintFPS();
+	float FPS();
 };
