@@ -5,9 +5,10 @@
 #include <iostream>
 #include "Renderable.h"
 #include "Transform.h"
+#include "Object.h"
 
 
-class GameObject
+class GameObject: public Object
 {
 public:
 	GameObject() = delete;

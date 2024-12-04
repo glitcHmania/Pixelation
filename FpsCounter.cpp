@@ -11,12 +11,11 @@ void FpsCounter::Start()
     textRenderer = AddComponent<TextRenderer>();
     
     textRenderer->SetFont(AssetLoader::GetFont("roboto.ttf"));
-    (*textRenderer)("SEX");
 
     Renderer::AddDrawable(textRenderer);
 }
 
 void FpsCounter::Update()
 {
-	(*textRenderer)("FPS: " + std::to_string((int)Time::FPS()));
+    (*textRenderer)("FPS: " + std::to_string((int)Time::FPS()));
 }

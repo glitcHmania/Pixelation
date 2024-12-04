@@ -140,6 +140,7 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="AssetLoader.cpp" />
     <ClCompile Include="FpsCounter.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentIncluder.h" />
     <ClInclude Include="FpsCounter.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="Renderable.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="GameObject.h" />

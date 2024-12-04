@@ -1,9 +1,10 @@
 #pragma once
+#include "Object.h"
 
 class GameObject;
 class Transform;
 
-class Component
+class Component: public Object
 {
 public:
 	Component() = default;
