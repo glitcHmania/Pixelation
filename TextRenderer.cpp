@@ -9,6 +9,11 @@ TextRenderer::TextRenderer()
 	text->setCharacterSize(150);
 }
 
+void TextRenderer::Configure()
+{
+	Renderer::AddDrawable(owner->GetComponent<TextRenderer>());
+}
+
 void TextRenderer::operator()(std::string _text)
 {
 	text->setString(_text);

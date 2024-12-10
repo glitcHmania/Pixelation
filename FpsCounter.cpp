@@ -11,7 +11,7 @@ void FpsCounter::Start()
     textRenderer = AddComponent<TextRenderer>();
 
     textRenderer->SetFont(AssetLoader::GetFont("roboto.ttf"));
-    (*textRenderer)("SEX");
+    (*textRenderer)("INIT");
 }
 
 void FpsCounter::Update()

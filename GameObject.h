@@ -38,6 +38,7 @@ public:
 		pComponent->owner = this;
 		pComponent->transform = GetComponent<Transform>().get();
 		components[std::type_index(typeid(T))] = pComponent;
+		pComponent->Configure();	
 
 		return pComponent;
 	}

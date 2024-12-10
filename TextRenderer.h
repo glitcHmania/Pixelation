@@ -6,6 +6,7 @@ class TextRenderer : public Renderable
 public:
 	TextRenderer();
 	TextRenderer(const TextRenderer& rH) = delete;
+	void Configure() override;
 	void operator()(std::string _text);
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	void SetFont(std::unique_ptr<sf::Font> _font);

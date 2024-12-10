@@ -59,7 +59,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FpsCounter.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Game Files</Filter>
     </ClCompile>
     <ClCompile Include="TextRenderer.cpp">
       <Filter>Source Files</Filter>
@@ -111,5 +111,8 @@
     <ClInclude Include="TextRenderer.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+	<ClCompile Include="FpsCounter.h">
+      <Filter>Header Files\Game Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
