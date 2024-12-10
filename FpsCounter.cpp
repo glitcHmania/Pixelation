@@ -5,14 +5,13 @@ FpsCounter::FpsCounter(std::string UID)
 {
 }
 
-void FpsCounter::Start() 
+void FpsCounter::Start()
 {
     transform->SetLocalPosition(400.0f, 300.0f);
     textRenderer = AddComponent<TextRenderer>();
-    
-    textRenderer->SetFont(AssetLoader::GetFont("roboto.ttf"));
 
-    Renderer::AddDrawable(textRenderer);
+    textRenderer->SetFont(AssetLoader::GetFont("roboto.ttf"));
+    (*textRenderer)("SEX");
 }
 
 void FpsCounter::Update()

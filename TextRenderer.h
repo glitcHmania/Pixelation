@@ -1,6 +1,5 @@
 #pragma once
 #include "GameObject.h"
-#include "Renderable.h"
 
 class TextRenderer : public Renderable
 {

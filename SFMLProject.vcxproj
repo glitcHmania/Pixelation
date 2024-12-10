@@ -158,7 +158,6 @@
     <ClInclude Include="ComponentIncluder.h" />
     <ClInclude Include="FpsCounter.h" />
     <ClInclude Include="Object.h" />
-    <ClInclude Include="Renderable.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ObjectManager.h" />

@@ -3,7 +3,9 @@
 #include <string>
 #include "Camera.h"
 #include "Time.h"
-#include "Renderable.h"
+#include <SFML/Graphics.hpp>
+
+class Renderable;
 
 namespace Renderer
 {
@@ -19,3 +21,9 @@ namespace Renderer
 	sf::RenderWindow& GetWindow();
 };
 
+class Renderable : public Component, public sf::Drawable
+{
+public:
+	Renderable() = default;
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
+};
