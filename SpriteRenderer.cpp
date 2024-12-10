@@ -8,6 +8,11 @@ SpriteRenderer::SpriteRenderer()
 	vertices = sf::VertexArray(sf::PrimitiveType::TriangleFan, 4u);
 }
 
+void SpriteRenderer::Configure()
+{
+	Renderer::AddDrawable(owner->GetComponent<SpriteRenderer>());
+}
+
 void SpriteRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	state->transform = transform->GetSF();

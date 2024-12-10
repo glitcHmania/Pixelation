@@ -3,7 +3,6 @@
 #include "ComponentIncluder.h"
 #include "AssetLoader.h"
 #include "Time.h"
-#include "Renderer.h"
 
 class FpsCounter : public GameObject 
 {
