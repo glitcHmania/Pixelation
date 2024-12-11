@@ -149,6 +149,7 @@
     <ClCompile Include="TextRenderer.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="UICamera.cpp" />
     <ClCompile Include="UID.cpp" />
     <ClCompile Include="Game.cpp" />
   </ItemGroup>
@@ -166,6 +167,7 @@
     <ClInclude Include="Time.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="AssetLoader.h" />
+    <ClInclude Include="UICamera.h" />
     <ClInclude Include="UID.h" />
     <ClInclude Include="Game.h" />
   </ItemGroup>

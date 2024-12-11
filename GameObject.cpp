@@ -10,7 +10,9 @@ void GameObject::RemoveAllComponents()
 {
 	for (auto& component : components)
 	{
-		component.second.reset();
+		auto it = component.second;
+		it->Destruct();
+		it.reset();
 	}
 	components.clear();
 }
