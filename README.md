@@ -1,13 +1,13 @@
-# ProjDream
+# Pixelation
 
-**ProjDream** is a project developed by [Ercan Mert Esen](https://github.com/glitcHmania) and [Ruzgar Koray Genc](https://github.com/Kokonotcu). 
+**Pixelation** is a project developed by [Ercan Mert Esen](https://github.com/glitcHmania) and [Ruzgar Koray Genc](https://github.com/Kokonotcu). 
 this project is meant to practice and implement typical game engine features which is an ongoing process
 
 ## Table of Contents
 
-- [Introduction](https://github.com/glitcHmania/ProjDream#introduction)
-- [Capabilities](https://github.com/glitcHmania/ProjDream#capabilities)
-- [Supported Features](https://github.com/glitcHmania/ProjDream#supported-features)
+- [Introduction](https://github.com/glitcHmania/Pixelation#introduction)
+- [Capabilities](https://github.com/glitcHmania/Pixelation#capabilities)
+- [Supported Features](https://github.com/glitcHmania/Pixelation#supported-features)
 
 ## Introduction
 
@@ -17,7 +17,7 @@ Our aim is to develop a 2d game engine from scratch using SFML and bring it into
 
 Our project use an entity component system to manage different features we add into our engine.
 In its current state, one can use various components to render, manipulate and create interactive objects <br>
-see [Supported Features](https://github.com/glitcHmania/ProjDream#supported-features) for the full list of features
+see [Supported Features](https://github.com/glitcHmania/Pixelation#supported-features) for the full list of features
 
 ## Supported Features
 
