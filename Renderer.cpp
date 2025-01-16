@@ -4,7 +4,7 @@ namespace Renderer
 {
 	namespace 
 	{
-		std::vector<std::shared_ptr<sf::Drawable>> queue;
+		std::vector<std::shared_ptr<Renderable>> queue;
 		std::vector<Camera> cameras;
 		Camera mainCamera;
 		std::unique_ptr<sf::RenderWindow> renderWindow;

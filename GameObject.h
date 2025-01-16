@@ -3,11 +3,12 @@
 #include <memory>
 #include <typeindex>
 #include <iostream>
-#include "Renderable.h"
+#include "Renderer.h"
 #include "Transform.h"
+#include "Object.h"
 
 
-class GameObject
+class GameObject: public Object
 {
 public:
 	GameObject() = delete;
@@ -37,6 +38,7 @@ public:
 		pComponent->owner = this;
 		pComponent->transform = GetComponent<Transform>().get();
 		components[std::type_index(typeid(T))] = pComponent;
+		pComponent->Configure();	
 
 		return pComponent;
 	}
