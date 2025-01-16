@@ -9,7 +9,7 @@
 class Game
 {
 public:
-	Game(const sf::Vector2<unsigned int>& resolution, const std::string& windowName = "ProjectDream");
+	Game(const sf::Vector2<unsigned int>& resolution, const std::string& windowName = "Pixelation");
 
 	void HandleEvents();
 	void Loop();
