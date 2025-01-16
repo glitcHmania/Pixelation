@@ -15,5 +15,8 @@ public:
 	{
 		return dynamic_cast<const T*>(this) != nullptr;
 	}
+protected:
+	using UniqueID = std::string;
+	UniqueID id = "";
 };
 

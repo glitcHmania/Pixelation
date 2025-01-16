@@ -15,6 +15,8 @@ void Game::HandleEvents()
 		if (eventHnd.type == sf::Event::Closed)
 		{
 			Renderer::GetWindow().close();
+			Renderer::Clear();
+			ObjectManager::DestroyAll();
 		}
 		if (eventHnd.type == sf::Event::Resized) 
 		{

@@ -13,6 +13,18 @@ void SpriteRenderer::Configure()
 	Renderer::AddDrawable(owner->GetComponent<SpriteRenderer>());
 }
 
+void SpriteRenderer::Destruct()
+{
+	if (isUI)
+	{
+		Renderer::RemoveUIDrawable(owner->GetComponent<SpriteRenderer>());
+	}
+	else
+	{
+		Renderer::RemoveDrawable(owner->GetComponent<SpriteRenderer>());
+	}
+}
+
 void SpriteRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	state->transform = transform->GetSF();
@@ -35,4 +47,20 @@ void SpriteRenderer::SetTexture(std::unique_ptr<sf::Texture> tx)
 	vertices[1].texCoords = sf::Vector2f((float)dim.x, 0.0f);
 	vertices[2].texCoords = sf::Vector2f((float)dim.x, (float)dim.y);
 	vertices[3].texCoords = sf::Vector2f(0.0f, (float)dim.y);
+}
+
+void SpriteRenderer::MakeUI()
+{
+	isUI = true;
+	auto temp = owner->GetComponent<SpriteRenderer>();
+	Renderer::RemoveDrawable(temp);
+	Renderer::AddUIDrawable(temp);
+}
+
+void SpriteRenderer::MakeWorld()
+{
+	isUI = false;
+	auto temp = owner->GetComponent<SpriteRenderer>();
+	Renderer::RemoveUIDrawable(temp);
+	Renderer::AddDrawable(temp);
 }

@@ -1,6 +1,6 @@
 #pragma once
-#include <memory>
 #include "Transform.h"
+#include <memory>
 #include <SFML/Graphics.hpp>
 
 class Camera
@@ -9,11 +9,15 @@ public:
 	Camera();
 	Camera(sf::RenderWindow& _renderWindow);
 	Camera(sf::RenderWindow& _renderWindow, std::shared_ptr<Transform> _transform);
+	void SetRenderWindow(sf::RenderWindow& renderWin);
+
+	void Update(float deltaTime);
 	void ResizeWindow();
 
-	void SetRenderWindow(sf::RenderWindow& renderWin);
+private:
 	void Move(float deltaTime);
 	void Scale(float deltaTime);
+
 public:
 	operator bool() const
 	{

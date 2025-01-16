@@ -14,6 +14,18 @@ void TextRenderer::Configure()
 	Renderer::AddDrawable(owner->GetComponent<TextRenderer>());
 }
 
+void TextRenderer::Destruct()
+{
+	if (isUI)
+	{
+		Renderer::RemoveUIDrawable(owner->GetComponent<TextRenderer>());
+	}
+	else 
+	{
+		Renderer::RemoveDrawable(owner->GetComponent<TextRenderer>());
+	}
+}
+
 void TextRenderer::operator()(std::string _text)
 {
 	text->setString(_text);
@@ -25,10 +37,29 @@ void TextRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(*text, *state);
 }
 
-
-
 void TextRenderer::SetFont(std::unique_ptr<sf::Font> _font)
 {
 	font = std::move(_font);
 	text->setFont(*font);
+}
+
+void TextRenderer::SetSize(unsigned int _size)
+{
+	text->setCharacterSize(_size);
+}
+
+void TextRenderer::MakeUI()
+{
+	isUI = true;
+	auto temp = owner->GetComponent<TextRenderer>();
+	Renderer::RemoveDrawable(temp);
+	Renderer::AddUIDrawable(temp);
+}
+
+void TextRenderer::MakeWorld()
+{
+	isUI = false;
+	auto temp = owner->GetComponent<TextRenderer>();
+	Renderer::RemoveUIDrawable(temp);
+	Renderer::AddDrawable(temp);
 }

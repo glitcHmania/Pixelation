@@ -33,6 +33,11 @@ Camera::Camera(sf::RenderWindow& _renderWindow, std::shared_ptr<Transform> _tran
 	renderWindow->setView(view);
 }
 
+void Camera::SetRenderWindow(sf::RenderWindow& renderWin)
+{
+	renderWindow = &renderWin;
+}
+
 void Camera::ResizeWindow()
 {
 	sf::Vector2 size = renderWindow->getSize();
@@ -43,9 +48,11 @@ void Camera::ResizeWindow()
 	renderWindow->setView(view);
 }
 
-void Camera::SetRenderWindow(sf::RenderWindow& renderWin)
+void Camera::Update(float deltaTime)
 {
-	renderWindow = &renderWin;
+	Move(deltaTime);
+	Scale(deltaTime);
+	renderWindow->setView(view);
 }
 
 void Camera::Move(float deltaTime)
@@ -71,7 +78,6 @@ void Camera::Move(float deltaTime)
 		transform->Translate({ -moveSpeed * deltaTime,0.0f });
 		view.move({ -moveSpeed * deltaTime,0.0f });
 	}
-	renderWindow->setView(view);
 }
 
 void Camera::Scale(float deltaTime)
@@ -88,5 +94,4 @@ void Camera::Scale(float deltaTime)
 		view.zoom(1.0f - deltaTime);
 		moveSpeed *= 1 - deltaTime;
 	}
-	renderWindow->setView(view);
 }
