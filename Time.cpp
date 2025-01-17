@@ -22,6 +22,10 @@ namespace Time
 	{
 		return deltaTime;
 	}
+	const float GetTime()
+	{
+		return std::chrono::duration<float>(std::chrono::steady_clock::now().time_since_epoch()).count();
+	}
 	float FPS()
 	{
 		float sum = 0.0f;

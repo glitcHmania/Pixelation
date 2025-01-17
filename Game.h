@@ -13,6 +13,7 @@ public:
 
 	void HandleEvents();
 	void Loop();
+	void Stop();
 
 private:
 	sf::Event eventHnd;
