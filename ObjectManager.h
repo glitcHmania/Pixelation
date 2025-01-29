@@ -28,6 +28,15 @@ namespace ObjectManager
 		objects.erase(id);
 	}
 
+	inline void DestroyAll() 
+	{
+		for (int i = 0; i < objects.size(); i ++)
+		{
+			Destroy(objects.begin()->second);
+		}
+		objects.clear();
+	}
+
 	inline void Update()
 	{
 		for (const auto& object : objects) 

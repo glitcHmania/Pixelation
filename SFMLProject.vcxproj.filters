@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -22,6 +22,12 @@
     <Filter Include="Header Files\Game Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121ABC01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Camera">
+      <UniqueIdentifier>{7740aebb-4f41-46d4-a5b2-a4fa7e6b95ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Camera">
+      <UniqueIdentifier>{4875d175-69c2-4dee-a0c6-9bc8d6043644}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -49,9 +55,6 @@
     <ClCompile Include="UID.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Time.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -59,13 +62,22 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FpsCounter.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Game Files</Filter>
     </ClCompile>
     <ClCompile Include="TextRenderer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="Object.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextRenderer.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="UICamera.cpp">
+      <Filter>Source Files\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -96,26 +108,26 @@
     <ClInclude Include="ComponentIncluder.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Time.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FpsCounter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TextRenderer.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FpsCounter.h">
+      <Filter>Header Files\Game Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="UICamera.h">
+      <Filter>Header Files\Camera</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

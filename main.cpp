@@ -16,7 +16,7 @@ int main()
         Renderer::CreateCamera();
         AssetLoader::ChangePath("Assets/");
 
-        for (int i = 0; i < 1000; i++)
+        for (int i = 0; i < 10; i++)
         {
             PGameObject obj = ObjectManager::Instantiate<GameObject>();
             auto transform = obj->GetComponent<Transform>();
@@ -26,7 +26,6 @@ int main()
         
             auto sr = obj->AddComponent<SpriteRenderer>();
             sr->SetTexture(AssetLoader::GetTexture("chest.png"));
-            Renderer::AddDrawable(sr);
         }
 
         auto o = ObjectManager::Instantiate<FpsCounter>();

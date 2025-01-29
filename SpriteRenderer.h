@@ -1,18 +1,21 @@
 #pragma once
 #include "GameObject.h"
-#include "Renderable.h"
 
 class SpriteRenderer : public Renderable
 {
 public:
 	SpriteRenderer();
-	SpriteRenderer(const SpriteRenderer & rH) = delete;
+	void Configure() override;
+	void Destruct() override;
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	void SetTexture(std::unique_ptr<sf::Texture> tx);
 	sf::Texture& GetTexture()
 	{ 
 		return *texture; 
 	}
+
+	void MakeUI() override;
+	void MakeWorld() override;
 
 private:
 	std::unique_ptr<sf::Texture> texture;

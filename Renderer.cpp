@@ -4,33 +4,41 @@ namespace Renderer
 {
 	namespace 
 	{
-		std::vector<std::shared_ptr<sf::Drawable>> queue;
+		std::unordered_map<std::string, std::shared_ptr<Renderable>> queue;
+		std::unordered_map<std::string, std::shared_ptr<Renderable>> uiQueue;
 		std::vector<Camera> cameras;
 		Camera mainCamera;
+		UICamera uiCamera;
 		std::unique_ptr<sf::RenderWindow> renderWindow;
 	}
 
 	void Configure(sf::VideoMode mode, const std::string& windowName)
 	{
 		renderWindow = std::make_unique<sf::RenderWindow>(mode, windowName);
+		uiCamera.SetRenderWindow(*renderWindow);
 	}
 
 	void Renderer::Update()
 	{
 		renderWindow->clear();
 
-		//temp, is it really?
 		if (mainCamera)
 		{
-			mainCamera.Move(Time::GetDeltatime());
-			mainCamera.Scale(Time::GetDeltatime());
+			mainCamera.Update(Time::GetDeltatime());
+			for (const auto& drawable : queue)
+			{
+				renderWindow->draw(*(drawable.second));
+			}
 		}
-		//temp, is it really?
-
-		for (const auto& drawable : queue)
+		if (uiCamera)
 		{
-			renderWindow->draw(*drawable);
+			uiCamera.SetFocus();
+			for (const auto& drawable : uiQueue)
+			{
+				renderWindow->draw(*(drawable.second));
+			}
 		}
+		
 		renderWindow->display();
 	}
 
@@ -39,6 +47,10 @@ namespace Renderer
 		if (mainCamera)
 		{
 			mainCamera.ResizeWindow();
+		}
+		if (uiCamera)
+		{
+			uiCamera.ResizeWindow();
 		}
 	}
 
@@ -49,15 +61,28 @@ namespace Renderer
 
 	void Renderer::AddDrawable(const std::shared_ptr<Renderable>& renderable)
 	{
-		queue.push_back(renderable);
+		queue[renderable->GetID()] = renderable;
 	}
 
-	void Renderer::RemoveDrawable(int index)
+	void AddUIDrawable(const std::shared_ptr<Renderable>& renderable)
 	{
-		if (queue.size() > index)
-		{
-			queue.erase(queue.begin() + index);
-		}
+		uiQueue[renderable->GetID()] = renderable;
+	}
+
+	void Renderer::RemoveDrawable(const std::shared_ptr<Renderable>& renderable)
+	{
+		queue.erase(renderable->GetID());
+	}
+
+	void RemoveUIDrawable(const std::shared_ptr<Renderable>& renderable)
+	{
+		uiQueue.erase(renderable->GetID());
+	}
+
+	void Clear()
+	{
+		queue.clear();
+		uiQueue.clear();
 	}
 
 	void Renderer::CreateCamera()

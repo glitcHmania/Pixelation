@@ -3,9 +3,10 @@
 #include <memory>
 #include <typeindex>
 #include <iostream>
-#include "Renderable.h"
+#include "Renderer.h"
 #include "Transform.h"
 #include "Object.h"
+#include "UID.h"
 
 
 class GameObject: public Object
@@ -35,9 +36,11 @@ public:
 	{
 		std::shared_ptr<T> pComponent;
 		pComponent = std::make_shared<T>();
+		pComponent->SetID(UID::CreateLongUniqueID());
 		pComponent->owner = this;
 		pComponent->transform = GetComponent<Transform>().get();
 		components[std::type_index(typeid(T))] = pComponent;
+		pComponent->Configure();	
 
 		return pComponent;
 	}
@@ -49,6 +52,7 @@ public:
 		if (it != components.end())
 		{
 			it->second.reset();
+			it->second->Destruct();
 			components.erase(it);
 		}
 	}
@@ -66,8 +70,5 @@ protected:
 	Transform* transform = nullptr;
 
 private:
-	using UniqueID = std::string;
-	UniqueID id = "";
-
 	std::unordered_map<std::type_index, std::shared_ptr<Component>> components;
 };
