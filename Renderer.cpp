@@ -42,7 +42,7 @@ namespace Renderer
 		renderWindow->display();
 	}
 
-	sf::Vector2u GetBounds()
+	sf::Vector2u GetWindowBounds()
 	{
 		return renderWindow->getSize();
 	}

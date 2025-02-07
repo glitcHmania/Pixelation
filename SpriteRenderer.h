@@ -9,7 +9,6 @@ public:
 	void Destruct() override;
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	void SetTexture(std::unique_ptr<sf::Texture> tx);
-	void SetTexture(std::unique_ptr<sf::Texture> tx, sf::IntRect rect);
 	sf::Texture& GetTexture()
 	{
 		return *texture;
