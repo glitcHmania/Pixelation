@@ -4,7 +4,7 @@ namespace fs = std::filesystem;
 
 namespace AssetLoader
 {
-	namespace 
+	namespace
 	{
 		std::vector<std::filesystem::path> assetPaths;
 		std::filesystem::path GetFilePath(std::string fileName)
@@ -23,18 +23,19 @@ namespace AssetLoader
 	void ChangePath(std::string dir)
 	{
 		assetPaths.clear();
-		for (const auto& entry : fs::directory_iterator(dir))
+		for (const auto& entry : fs::recursive_directory_iterator(dir))
 		{
-			if (!entry.path().extension().empty())
+			if (entry.is_regular_file() && !entry.path().extension().empty())
 			{
 				assetPaths.push_back(entry.path());
 			}
 		}
 	}
+
 	void AssetLoader::FillTextureFromImage(std::string imageName, sf::Texture& texture)
 	{
 		std::filesystem::path path = GetFilePath(imageName);
-		
+
 		if (path.empty())
 		{
 			throw("Couldn't locate the image.");

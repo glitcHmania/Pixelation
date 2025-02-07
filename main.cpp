@@ -4,10 +4,6 @@
 #include "ObjectManager.h"
 #include "FpsCounter.h"
 
-
-#define Destroy(obj) ObjectManager::Destroy(obj)
-typedef std::shared_ptr<GameObject> PGameObject;
-
 int main()
 {
     try 
@@ -18,7 +14,7 @@ int main()
 
         for (int i = 0; i < 10; i++)
         {
-            PGameObject obj = ObjectManager::Instantiate<GameObject>();
+            auto obj = ObjectManager::Instantiate<GameObject>();
             auto transform = obj->GetComponent<Transform>();
             transform->Scale({1.0f,1.0f});
             transform->SetLocalPosition(300.0f * i, 300.0f * i);

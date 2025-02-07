@@ -9,7 +9,7 @@
 #include "UID.h"
 
 
-class GameObject: public Object
+class GameObject : public Object
 {
 public:
 	GameObject() = delete;
@@ -19,6 +19,10 @@ public:
 	//virtual void Update() = 0;
 	virtual void Start() {};
 	virtual void Update() {};
+	bool IsDestroyed() { return isDestroyed; }
+	void Destroy() { isDestroyed = true; }
+	void SetTag(const std::string& tag) { this->tag = tag; }
+	const std::string& GetTag() { return tag; }
 
 	template <typename T>
 	std::shared_ptr<T> GetComponent()
@@ -40,7 +44,7 @@ public:
 		pComponent->owner = this;
 		pComponent->transform = GetComponent<Transform>().get();
 		components[std::type_index(typeid(T))] = pComponent;
-		pComponent->Configure();	
+		pComponent->Configure();
 
 		return pComponent;
 	}
@@ -66,9 +70,11 @@ public:
 	void DebugComponents();
 #endif
 
-protected:
+public:
 	Transform* transform = nullptr;
 
 private:
 	std::unordered_map<std::type_index, std::shared_ptr<Component>> components;
+	bool isDestroyed = false;
+	std::string tag;
 };

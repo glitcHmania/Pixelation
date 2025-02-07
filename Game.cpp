@@ -5,7 +5,7 @@ Game::Game(const sf::Vector2<unsigned int>& resolution, const std::string& windo
 	eventHnd(sf::Event())
 {
 	Renderer::Configure(sf::VideoMode(resolution.x, resolution.y), windowName);
-	Renderer::GetWindow().setFramerateLimit(150);
+	Renderer::GetWindow().setFramerateLimit(165);
 }
 
 void Game::HandleEvents()
@@ -14,11 +14,9 @@ void Game::HandleEvents()
 	{
 		if (eventHnd.type == sf::Event::Closed)
 		{
-			Renderer::GetWindow().close();
-			Renderer::Clear();
-			ObjectManager::DestroyAll();
+			Stop();
 		}
-		if (eventHnd.type == sf::Event::Resized) 
+		if (eventHnd.type == sf::Event::Resized)
 		{
 			Renderer::ResizeWindow();
 		}
@@ -36,5 +34,13 @@ void Game::Loop()
 		//Updates
 		Renderer::Update();
 		ObjectManager::Update();
+		ObjectManager::ProcessDestroyed();
 	}
+}
+
+void Game::Stop()
+{
+	Renderer::GetWindow().close();
+	Renderer::Clear();
+	ObjectManager::DestroyAll();
 }
