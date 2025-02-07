@@ -137,7 +137,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="AssetLoader.cpp" />
     <ClCompile Include="FpsCounter.cpp" />
@@ -155,7 +154,6 @@
     <ClCompile Include="Game.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentIncluder.h" />

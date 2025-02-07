@@ -9,7 +9,7 @@
 #include "UID.h"
 
 
-class GameObject: public Object
+class GameObject : public Object
 {
 public:
 	GameObject() = delete;
@@ -44,7 +44,7 @@ public:
 		pComponent->owner = this;
 		pComponent->transform = GetComponent<Transform>().get();
 		components[std::type_index(typeid(T))] = pComponent;
-		pComponent->Configure();	
+		pComponent->Configure();
 
 		return pComponent;
 	}
