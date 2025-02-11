@@ -22,6 +22,7 @@ namespace Renderer
 	void SetMainCamera(const Camera& camera);
 	void ResizeWindow();
 	void Update();
+	sf::Vector2u GetWindowBounds();
 
 	sf::RenderWindow& GetWindow();
 };

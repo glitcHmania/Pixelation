@@ -42,6 +42,11 @@ namespace Renderer
 		renderWindow->display();
 	}
 
+	sf::Vector2u GetWindowBounds()
+	{
+		return renderWindow->getSize();
+	}
+
 	void Renderer::ResizeWindow()
 	{
 		if (mainCamera)

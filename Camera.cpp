@@ -44,7 +44,7 @@ void Camera::ResizeWindow()
 	sf::Vector2 pos = transform->GetLocalPosition();
 	sf::Vector2 scale = transform->GetLocalScale();
 
-	view = sf::View(sf::FloatRect(pos.x, pos.y, size.x * scale.x, size.y * scale.y ));
+	view = sf::View(sf::FloatRect(pos.x, pos.y, size.x * scale.x, size.y * scale.y));
 	renderWindow->setView(view);
 }
 
