@@ -152,6 +152,8 @@
     <ClCompile Include="UICamera.cpp" />
     <ClCompile Include="UID.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="UIObject.cpp" />
+    <ClCompile Include="UIObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -170,6 +172,9 @@
     <ClInclude Include="UICamera.h" />
     <ClInclude Include="UID.h" />
     <ClInclude Include="Game.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "UIObject.h"
 #include "AssetLoader.h"
 #include "ComponentIncluder.h"
 #include "ObjectManager.h"
@@ -24,7 +25,10 @@ int main()
             sr->SetTexture(AssetLoader::GetTexture("chest.png"));
         }
 
-        auto o = ObjectManager::Instantiate<FpsCounter>();
+
+        //o objesi UIObject'i denemek için kullanýldý burada
+        auto o = ObjectManager::Instantiate<UIObject>();
+        o->Configure(Transform(sf::Vector2f(0.0f,0.0f), 0.0f, sf::Vector2f(1.0f, 1.0f)),"Sprite");
 
         //Destroy(o);
 
