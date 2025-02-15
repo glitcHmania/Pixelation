@@ -22,23 +22,30 @@ void UIObject::Configure(Transform objectConfig, std::string rendererType) {
 void UIObject::Start()
 {
     if (auto render = std::get_if<std::shared_ptr<SpriteRenderer>>(&renderer)) {
-        SpriteRenderer* rendererPointer = render->get();
-        rendererPointer->MakeUI();
-        rendererPointer->SetTexture(AssetLoader::GetTexture("chest.png"));
+        SpriteRendererPointer = render->get();
+        SpriteRendererPointer->MakeUI();
+        SpriteRendererPointer->SetTexture(AssetLoader::GetTexture("chest.png"));
+        isSprite = true;
     }
 
     else if (auto render = std::get_if<std::shared_ptr<TextRenderer>>(&renderer)) {
-        TextRenderer* rendererPointer = render->get();
-        rendererPointer->MakeUI();
-        rendererPointer->SetFont(AssetLoader::GetFont("roboto.ttf"));
-        rendererPointer->SetSize(fontSize);
-        (*rendererPointer)("INIT");
-
+        TextRendererPointer = render->get();
+        TextRendererPointer->MakeUI();
+        TextRendererPointer->SetFont(AssetLoader::GetFont("roboto.ttf"));
+        TextRendererPointer->SetSize(fontSize);
+        (*TextRendererPointer)("INIT");
+        isSprite = false;
     }
 }
 
 void UIObject::Update()
 {
+    if (isSprite) {
+        //
+    }
+    else {
+        (*TextRendererPointer)("" + std::to_string((int)Time::FPS()));
+    }
     //(*renderer)("" + std::to_string((int)Time::FPS()));
 }
 

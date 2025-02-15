@@ -28,7 +28,7 @@ int main()
 
         //o objesi UIObject'i denemek için kullanýldý burada
         auto o = ObjectManager::Instantiate<UIObject>();
-        o->Configure(Transform(sf::Vector2f(0.0f,0.0f), 0.0f, sf::Vector2f(1.0f, 1.0f)),"Sprite");
+        o->Configure(Transform(sf::Vector2f(0.0f,0.0f), 0.0f, sf::Vector2f(1.0f, 1.0f)),"Text");
 
         //Destroy(o);
 

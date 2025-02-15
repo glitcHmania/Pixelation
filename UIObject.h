@@ -18,9 +18,11 @@ private:
 	sf::Color color = sf::Color::White;
 	unsigned int fontSize = 24u;
 
+	SpriteRenderer* SpriteRendererPointer;
+	TextRenderer* TextRendererPointer;
+	bool isSprite;
 	//koþula göre renderer tipi deðiþeceðini için std::variant kullandýk
 	std::variant<std::shared_ptr<SpriteRenderer>, std::shared_ptr<TextRenderer>> renderer;
-
 
 	
 };
