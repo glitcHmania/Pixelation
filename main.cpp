@@ -3,6 +3,7 @@
 #include "ComponentIncluder.h"
 #include "ObjectManager.h"
 #include "FpsCounter.h"
+#include "FiniteMap.h"
 
 int main()
 {
@@ -25,8 +26,9 @@ int main()
         }
 
         auto o = ObjectManager::Instantiate<FpsCounter>();
-
-        //Destroy(o);
+    
+		//Fast and secure container to hold GameObjects better than unordered_map
+		FiniteMap<std::shared_ptr<GameObject>> map(10);
 
         game.Loop();
         return 0;
