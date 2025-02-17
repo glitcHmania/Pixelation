@@ -13,7 +13,9 @@ int main()
         Renderer::CreateCamera();
         AssetLoader::ChangePath("Assets/");
 
-        for (int i = 0; i < 10; i++)
+        auto o = ObjectManager::Instantiate<FpsCounter>();
+
+        for (int i = 0; i < 100; i++)
         {
             auto obj = ObjectManager::Instantiate<GameObject>();
             auto transform = obj->GetComponent<Transform>();
@@ -23,12 +25,10 @@ int main()
         
             auto sr = obj->AddComponent<SpriteRenderer>();
             sr->SetTexture(AssetLoader::GetTexture("chest.png"));
+            //ObjectManager::Destroy(obj);
         }
-
-        auto o = ObjectManager::Instantiate<FpsCounter>();
-    
-		//Fast and secure container to hold GameObjects better than unordered_map
-		FiniteMap<std::shared_ptr<GameObject>> map(10);
+		
+		//ObjectManager::Destroy(o);
 
         game.Loop();
         return 0;

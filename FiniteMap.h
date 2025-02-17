@@ -17,16 +17,29 @@ public:
 			freeIndices.push(i);
 		}
 	}
+	FiniteMap() = default;
+	void ResetToSize(int _size) 
+	{
+		size = _size;
+		Clear();
+	}
 	//If you want to ADD or DELETE, you must use the Add and Delete functions
 	T& operator [](int index)
 	{
 #ifndef DEBUG
 		if (arr[index] == nullptr)
 		{
-			throw("Trying to access a null pointer");
+			throw("Trying to access an empty index");
 		}
 #endif
 		return arr[index];
+	}
+	int AddSmart(T value)
+	{
+		int t = freeIndices.front();
+		arr[t] = value;
+		freeIndices.pop();
+		return t;
 	}
 	int Add(T& value)
 	{
@@ -63,8 +76,15 @@ public:
 		arr.reset();
 		arr = std::make_unique<T[]>(size);
 	}
+	//Make Null checks here
+	bool isNull(int index) 
+	{
+		return (arr[index] == nullptr);
+	}
+
 private:
 	std::unique_ptr<T[]> arr = nullptr;
-	std::queue<int> freeIndices;
+	std::queue<int_fast16_t> freeIndices;
+public:
 	int size;
 };
