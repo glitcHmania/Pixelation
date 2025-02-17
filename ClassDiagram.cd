@@ -29,7 +29,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Component" Collapsed="true">
-    <Position X="10.25" Y="1.75" Width="1.5" />
+    <Position X="10" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAIAAAAAAAAgAAAAABAgAAAAAAEEAAAAABAAAAAAAA=</HashCode>
       <FileName>Component.h</FileName>
@@ -51,6 +51,14 @@
   </Class>
   <Class Name="Transform" Collapsed="true">
     <Position X="12.5" Y="3.25" Width="1.5" />
+    <InheritanceLine Type="Component" FixedFromPoint="true">
+      <Path>
+        <Point X="10.75" Y="2.441" />
+        <Point X="10.75" Y="2.875" />
+        <Point X="13.25" Y="2.875" />
+        <Point X="13.25" Y="3.25" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>EAAAAAAAEABggAAAAQKAKCQCMQAAQAAABAAEAgAggAA=</HashCode>
       <FileName>Transform.h</FileName>
@@ -75,6 +83,13 @@
     <TypeIdentifier>
       <HashCode>CIAAAAAAAACAgAAEAIAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>UICamera.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UIObject" Collapsed="true">
+    <Position X="15" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQgAAAgACAAAAAiAABAAAAABAAAAACAAAAAAAAAgAA=</HashCode>
+      <FileName>UIObject.h</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
