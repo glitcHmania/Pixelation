@@ -37,9 +37,9 @@ void TextRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(*text, *state);
 }
 
-void TextRenderer::SetFont(std::unique_ptr<sf::Font> _font)
+void TextRenderer::SetFont(std::shared_ptr<sf::Font> _font)
 {
-	font = std::move(_font);
+	font = _font;
 	text->setFont(*font);
 }
 

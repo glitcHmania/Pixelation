@@ -31,9 +31,9 @@ void SpriteRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) con
 	target.draw(vertices, *state);
 }
 
-void SpriteRenderer::SetTexture(std::unique_ptr<sf::Texture> tx)
+void SpriteRenderer::SetTexture(std::shared_ptr<sf::Texture> tx)
 {
-	texture = std::move(tx);
+	texture = tx;
 	state->texture = texture.get();
 
 	sf::Vector2u dim = texture->getSize();

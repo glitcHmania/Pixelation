@@ -8,7 +8,7 @@ public:
 	void Configure() override;
 	void Destruct() override;
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-	void SetTexture(std::unique_ptr<sf::Texture> tx);
+	void SetTexture(std::shared_ptr<sf::Texture> tx);
 	sf::Texture& GetTexture()
 	{
 		return *texture;

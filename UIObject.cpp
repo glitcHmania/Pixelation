@@ -8,10 +8,12 @@ UIObject::UIObject(std::string UID)
 void UIObject::Configure(Transform objectConfig, std::string rendererType) {
 
     if (rendererType == "Sprite") {
-        renderer = AddComponent<SpriteRenderer>();
+        SpriteRendererPointer = AddComponent<SpriteRenderer>();
+        isSprite = true;
     }
     else if(rendererType == "Text") {
-        renderer = AddComponent<TextRenderer>();
+        TextRendererPointer = AddComponent<TextRenderer>();
+        isSprite = false;
     }
 
     transform->SetLocalPosition(objectConfig.GetLocalPosition());
@@ -21,20 +23,17 @@ void UIObject::Configure(Transform objectConfig, std::string rendererType) {
 
 void UIObject::Start()
 {
-    if (auto render = std::get_if<std::shared_ptr<SpriteRenderer>>(&renderer)) {
-        SpriteRendererPointer = render->get();
+    if (isSprite) {
         SpriteRendererPointer->MakeUI();
         SpriteRendererPointer->SetTexture(AssetLoader::GetTexture("chest.png"));
-        isSprite = true;
     }
 
-    else if (auto render = std::get_if<std::shared_ptr<TextRenderer>>(&renderer)) {
-        TextRendererPointer = render->get();
+    //For now we only deal with text-sprite renderers, that's why we didn't change this else-if to else.
+    else if (!isSprite) {
         TextRendererPointer->MakeUI();
         TextRendererPointer->SetFont(AssetLoader::GetFont("roboto.ttf"));
         TextRendererPointer->SetSize(fontSize);
         (*TextRendererPointer)("INIT");
-        isSprite = false;
     }
 }
 
