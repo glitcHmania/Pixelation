@@ -1,8 +1,10 @@
 #include "Game.h"
+#include "UIObject.h"
 #include "AssetLoader.h"
 #include "ComponentIncluder.h"
 #include "ObjectManager.h"
 #include "FpsCounter.h"
+#include "FiniteMap.h"
 
 int main()
 {
@@ -10,9 +12,10 @@ int main()
     {
         Game game({ 800u,600u });
         Renderer::CreateCamera();
-        AssetLoader::ChangePath("Assets/");
+        AssetLoader::LoadFromDir("Assets/");
 
-        for (int i = 0; i < 10; i++)
+        
+        for (int i = 0; i < 10000; i++)
         {
             auto obj = ObjectManager::Instantiate<GameObject>();
             auto transform = obj->GetComponent<Transform>();
@@ -21,10 +24,17 @@ int main()
             transform->Rotate(0.0f);
         
             auto sr = obj->AddComponent<SpriteRenderer>();
-            sr->SetTexture(AssetLoader::GetTexture("chest.png"));
-        }
 
+            sr->SetTexture(AssetLoader::GetTexture("chest.png"));
+            //ObjectManager::Destroy(obj);
+        }
+		
+		//ObjectManager::Destroy(o);
+
+
+        //o objesi UIObject'i denemek i�in kullan�ld� burada
         auto o = ObjectManager::Instantiate<FpsCounter>();
+        //o->Configure(Transform(sf::Vector2f(0.0f,0.0f), 0.0f, sf::Vector2f(1.0f, 1.0f)),"Text");
 
         //Destroy(o);
 

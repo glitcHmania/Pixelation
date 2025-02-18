@@ -1,6 +1,5 @@
 #pragma once
-#include <vector>
-#include <memory>
+#include "FiniteMap.h"
 #include "GameObject.h"
 #include "UID.h"
 
@@ -8,7 +7,7 @@
 namespace ObjectManager
 {
 	//DO NOT USE THIS DIRECTLY
-	inline std::unordered_map<std::string, std::shared_ptr<GameObject>> objects;
+	inline FiniteMap<std::shared_ptr<GameObject>> objects(10000);
 
 	template <typename T>
 	std::shared_ptr<T> Instantiate()
@@ -16,72 +15,88 @@ namespace ObjectManager
 		static_assert(std::is_base_of<GameObject, T>::value, "Tried to push a Non-GameObject inherited class");
 		std::string id = UID::CreateUniqueID();
 		std::shared_ptr<T> ref = std::make_shared<T>(id);
-		objects[id] = ref;
+		ref->order = objects.AddSmart(ref);
 		return ref;
 	}
 
 	inline void Destroy(std::shared_ptr<GameObject> object)
 	{
-		std::string id = object->GetUID();
-		objects[id]->Destroy();
+		if (!objects.isNull(object->order))
+		{
+			int id = object->order;
+			objects[id]->Destroy();
+		}
 	}
 
-	inline void Destroy(std::string id)
+	inline void Destroy(int id)
 	{
-		objects[id]->Destroy();
+		if (!objects.isNull(id))
+		{
+			objects[id]->Destroy();
+		}
 	}
 
 	inline void DestroyAll()
 	{
-		for (int i = 0; i < objects.size(); i++)
+		for (int i = 0; i < objects.size; i++)
 		{
-			Destroy(objects.begin()->second);
+			if (!objects.isNull(i))
+			{
+				auto x = objects[i];
+				Destroy(x);
+			}
 		}
-		objects.clear();
+		objects.Clear();
 	}
 
 	inline void ProcessDestroyed()
 	{
-		for (auto it = objects.begin(); it != objects.end();)
+		for (int i =0; i < objects.size; i++)
 		{
-			if (it->second->IsDestroyed())
+			if (!objects.isNull(i))
 			{
-				it->second->RemoveAllComponents();
-				it = objects.erase(it);
-			}
-			else
-			{
-				++it;
+				if (objects[i]->IsDestroyed())
+				{
+					auto x = objects[i];
+					x->RemoveAllComponents();
+					objects.DeleteSmart(i);
+				}
 			}
 		}
 	}
 
-	inline std::vector<GameObject*> FindObjectsWithTag(const std::string& tag)
-	{
-		std::vector<GameObject*> foundObjects;
-		for (const auto& object : objects)
-		{
-			if (object.second->GetTag() == tag)
-			{
-				foundObjects.push_back(object.second.get());
-			}
-		}
-		return foundObjects;
-	}
+	//inline std::vector<GameObject*> FindObjectsWithTag(const std::string& tag)
+	//{
+	//	std::vector<GameObject*> foundObjects;
+	//	for (const auto& object : objects)
+	//	{
+	//		if (object.second->GetTag() == tag)
+	//		{
+	//			foundObjects.push_back(object.second.get());
+	//		}
+	//	}
+	//	return foundObjects;
+	//}
 
 	inline void Update()
 	{
-		for (const auto& object : objects)
+		for (int i = 0; i < objects.size; i++)
 		{
-			object.second->Update();
+			if (!objects.isNull(i))
+			{
+				objects[i]->Update();
+			}
 		}
 	}
 
 	inline void Start()
 	{
-		for (const auto& object : objects)
+		for (int i = 0; i < objects.size; i++)
 		{
-			object.second->Start();
+			if (!objects.isNull(i))
+			{
+				objects[i]->Start();
+			}
 		}
 	}
 };

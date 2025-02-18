@@ -1,6 +1,6 @@
 #pragma once
-#include <unordered_map>
 #include <memory>
+#include <unordered_map>
 #include <typeindex>
 #include <iostream>
 #include "Renderer.h"
@@ -45,7 +45,6 @@ public:
 		pComponent->transform = GetComponent<Transform>().get();
 		components[std::type_index(typeid(T))] = pComponent;
 		pComponent->Configure();
-
 		return pComponent;
 	}
 
@@ -72,7 +71,8 @@ public:
 
 public:
 	Transform* transform = nullptr;
-
+	//NEVER change this after initialization
+	int order;
 private:
 	std::unordered_map<std::type_index, std::shared_ptr<Component>> components;
 	bool isDestroyed = false;
