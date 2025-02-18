@@ -4,6 +4,7 @@
 #include "ComponentIncluder.h"
 #include "ObjectManager.h"
 #include "FpsCounter.h"
+#include "FiniteMap.h"
 
 int main()
 {
@@ -25,10 +26,13 @@ int main()
             auto sr = obj->AddComponent<SpriteRenderer>();
 
             sr->SetTexture(AssetLoader::GetTexture("chest.png"));
+            //ObjectManager::Destroy(obj);
         }
+		
+		//ObjectManager::Destroy(o);
 
 
-        //o objesi UIObject'i denemek için kullanýldý burada
+        //o objesi UIObject'i denemek iï¿½in kullanï¿½ldï¿½ burada
         auto o = ObjectManager::Instantiate<FpsCounter>();
         //o->Configure(Transform(sf::Vector2f(0.0f,0.0f), 0.0f, sf::Vector2f(1.0f, 1.0f)),"Text");
 
