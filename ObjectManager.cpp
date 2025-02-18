@@ -7,20 +7,12 @@ ObjectManager::ObjectManager(int size)
 
 void ObjectManager::Destroy(std::shared_ptr<GameObject> object)
 {
-	if (!objects.isNull(object->order))
+	int i = object->order;
+	if (!objects.isNull(i))
 	{
-		int id = object->order;
-		objects[id]->Destroy();
+		objects[i]->RemoveAllComponents();
+		objects.DeleteSmart(objects[i]->order);
 	}
-}
-
-void ObjectManager::Destroy(int id)
-{
-	if (!objects.isNull(id))
-	{
-		objects[id]->Destroy();
-	}
-	
 }
 
 void ObjectManager::DestroyAll()
@@ -29,26 +21,33 @@ void ObjectManager::DestroyAll()
 	{
 		if (!objects.isNull(i))
 		{
-			auto x = objects[i];
-			Destroy(x);
+			objects[i]->RemoveAllComponents();
+			objects.DeleteSmart(objects[i]->order);
 		}
 	}
 	objects.Clear();
 }
 
-void ObjectManager::ProcessDestroyed()
+void ObjectManager::LateDestroy(std::shared_ptr<GameObject> object)
 {
-	for (int i = 0; i < objects.size; i++)
+	if (!objects.isNull(object->order))
 	{
-		if (!objects.isNull(i))
+		int id = object->order;
+		objects[id]->Destroy();
+		destroyQueue.push_back(objects[id]);
+	}
+}
+
+void ObjectManager::ProcessLateDestroyed()
+{
+	if (!destroyQueue.empty())
+	{
+		for (auto& des : destroyQueue)
 		{
-			if (objects[i]->IsDestroyed())
-			{
-				auto x = objects[i];
-				x->RemoveAllComponents();
-				objects.DeleteSmart(i);
-			}
+			des->RemoveAllComponents();
+			objects.DeleteSmart(des->order);
 		}
+		destroyQueue.clear();
 	}
 }
 

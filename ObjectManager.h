@@ -21,12 +21,13 @@ public:
 	}
 
 	void Destroy(std::shared_ptr<GameObject> object);
-	void Destroy(int id);
 	void DestroyAll();
-	void ProcessDestroyed();
+	void LateDestroy(std::shared_ptr<GameObject> object);
+	void ProcessLateDestroyed();
 
 	void Update();
 	void Start();
 private:
 	FiniteMap<std::shared_ptr<GameObject>> objects;
+	std::vector<std::shared_ptr<GameObject>> destroyQueue;
 };
