@@ -9,7 +9,7 @@ public:
 	void Destruct() override;
 	void operator()(std::string _text);
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-	void SetFont(std::unique_ptr<sf::Font> _font);
+	void SetFont(std::shared_ptr<sf::Font> _font);
 	void SetSize(unsigned int _size);
 	sf::Text& GetText()
 	{
@@ -22,5 +22,5 @@ public:
 private:
 	std::unique_ptr<sf::Text> text;
 	std::unique_ptr<sf::RenderStates> state;
-	std::unique_ptr<sf::Font> font;
+	std::shared_ptr<sf::Font> font;
 };

@@ -152,11 +152,14 @@
     <ClCompile Include="UICamera.cpp" />
     <ClCompile Include="UID.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="UIObject.cpp" />
+    <ClCompile Include="UIObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentIncluder.h" />
+    <ClInclude Include="FiniteMap.h" />
     <ClInclude Include="FpsCounter.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Renderer.h" />
@@ -170,6 +173,9 @@
     <ClInclude Include="UICamera.h" />
     <ClInclude Include="UID.h" />
     <ClInclude Include="Game.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

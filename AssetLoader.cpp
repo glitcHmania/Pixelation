@@ -1,84 +1,90 @@
 #include "AssetLoader.h"
-
 namespace fs = std::filesystem;
 
 namespace AssetLoader
 {
 	namespace
 	{
-		std::vector<std::filesystem::path> assetPaths;
-		std::filesystem::path GetFilePath(std::string fileName)
+		std::unordered_map<std::string ,std::shared_ptr<sf::Texture>> texturesMap;
+		std::unordered_map<std::string, std::shared_ptr<sf::Font>> fontsMap;
+		enum extensionType {
+			SPRITE,
+			FONT,
+			INVALID
+		};
+
+		int determineExtension(std::string extension) {
+			if (extension == ".png" || extension == ".jpg" || extension == ".bmp" || extension == ".webp" || extension == ".jpeg")
+				return extensionType::SPRITE;
+
+			else if (extension == ".ttf")
+				return extensionType::FONT;
+
+			std::cout << "File extension " << extension << " is not supported.";
+			throw("File extension isn't supported.");
+			return extensionType::INVALID;
+				
+
+		}
+		void LoadFontFromDir(std::filesystem::path fontPath) {
+			std::shared_ptr<sf::Font> tempFont = std::make_unique<sf::Font>();
+			tempFont->loadFromFile(fontPath.string());
+			fontsMap[fontPath.filename().string()] = tempFont;
+		}
+
+		void LoadSpriteFromDir(std::filesystem::path spritePath)
 		{
-			for (fs::path& path : assetPaths)
-			{
-				if (path.filename() == fileName)
+			std::shared_ptr<sf::Texture> tempTexture = std::make_unique<sf::Texture>();
+			tempTexture->loadFromFile(spritePath.string());
+			texturesMap[spritePath.filename().string()] = tempTexture;
+
+		}
+		
+	}
+
+	void AssetLoader::LoadFromDir(std::string dir) {
+		for (const auto& entry : fs::recursive_directory_iterator(dir)) {
+
+			if (entry.is_regular_file()) {
+
+				switch (determineExtension(entry.path().extension().string()))
 				{
-					return path;
+					case extensionType::FONT:
+						LoadFontFromDir(entry.path());
+						break;
+
+					case extensionType::SPRITE:
+						LoadSpriteFromDir(entry.path());
+						break;
+
+					default:
+						break;
 				}
 			}
-			return "";
 		}
 	}
 
-	void ChangePath(std::string dir)
+	
+
+	std::shared_ptr<sf::Texture> GetTexture(std::string imageName)
 	{
-		assetPaths.clear();
-		for (const auto& entry : fs::recursive_directory_iterator(dir))
-		{
-			if (entry.is_regular_file() && !entry.path().extension().empty())
-			{
-				assetPaths.push_back(entry.path());
-			}
+		if (texturesMap.find(imageName) == texturesMap.end()) {
+			throw("Image name not found.");
+		}
+		else {
+			return texturesMap[imageName];
 		}
 	}
 
-	void AssetLoader::FillTextureFromImage(std::string imageName, sf::Texture& texture)
+	std::shared_ptr<sf::Font> GetFont(std::string fontName)
 	{
-		std::filesystem::path path = GetFilePath(imageName);
 
-		if (path.empty())
-		{
-			throw("Couldn't locate the image.");
+		if (fontsMap.find(fontName) == fontsMap.end()) {
+			throw("Image name not found.");
 		}
-		if (!texture.loadFromFile(path.string()))
-		{
-			throw("File is corrupted or can't be loaded");
+		else {
+			return fontsMap[fontName];
 		}
-	}
-	std::unique_ptr<sf::Texture> GetTexture(std::string imageName)
-	{
-		std::unique_ptr<sf::Texture> _texture;
-		std::filesystem::path path = GetFilePath(imageName);
-		_texture = std::make_unique<sf::Texture>();
-
-		if (path.empty())
-		{
-			throw("Couldn't locate the image.");
-		}
-		if (!_texture->loadFromFile(path.string()))
-		{
-			throw("File is corrupted or can't be loaded");
-		}
-
-		return std::move(_texture);
-	}
-
-	std::unique_ptr<sf::Font> GetFont(std::string fontName)
-	{
-		std::unique_ptr<sf::Font> font;
-		std::filesystem::path path = GetFilePath(fontName);
-		font = std::make_unique<sf::Font>();
-
-		if (path.empty())
-		{
-			throw("Couldn't locate the image.");
-		}
-		if (!font->loadFromFile(path.string()))
-		{
-			throw("File is corrupted or can't be loaded");
-		}
-
-		return std::move(font);
 	}
 
 }
