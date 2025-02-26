@@ -9,22 +9,13 @@ namespace ObjectManager
 	//DO NOT USE THIS DIRECTLY
 	inline FiniteMap<std::shared_ptr<GameObject>> objects(10000);
 
-	template <typename T>
-	std::shared_ptr<T> Instantiate()
-	{
-		static_assert(std::is_base_of<GameObject, T>::value, "Tried to push a Non-GameObject inherited class");
-		std::string id = UID::CreateUniqueID();
-		std::shared_ptr<T> ref = std::make_shared<T>(id);
-		ref->order = objects.AddSmart(ref);
-		return ref;
-	}
 
 	inline void Destroy(std::shared_ptr<GameObject> object)
 	{
 		if (!objects.isNull(object->order))
 		{
-			int id = object->order;
-			objects[id]->Destroy();
+			object->RemoveAllComponents();
+			objects.DeleteSmart(object->order);
 		}
 	}
 
@@ -32,9 +23,25 @@ namespace ObjectManager
 	{
 		if (!objects.isNull(id))
 		{
-			objects[id]->Destroy();
+			objects[id]->RemoveAllComponents();
+			objects.DeleteSmart(id);
+			std::cout << "\nYARRAK" << std::endl;
 		}
 	}
+
+	template <typename T>
+	std::shared_ptr<T> Instantiate()
+	{
+		static_assert(std::is_base_of<GameObject, T>::value, "Tried to push a Non-GameObject inherited class");
+		std::string id = UID::CreateUniqueID();
+		std::shared_ptr<T> ref = std::make_shared<T>(id);
+		ref->order = objects.AddSmart(ref);
+		//EventDispatcher::GetInstance().Subscribe<DestroyEvent>([ref](const DestroyEvent& event) { ref->Destroy() });
+		EventDispatcher::GetInstance().Subscribe<DestroyEvent>([] (const DestroyEvent& evnt) { Destroy(evnt.id); });
+		return ref;
+	}
+
+
 
 	inline void DestroyAll()
 	{
@@ -49,21 +56,21 @@ namespace ObjectManager
 		objects.Clear();
 	}
 
-	inline void ProcessDestroyed()
-	{
-		for (int i =0; i < objects.size; i++)
-		{
-			if (!objects.isNull(i))
-			{
-				if (objects[i]->IsDestroyed())
-				{
-					auto x = objects[i];
-					x->RemoveAllComponents();
-					objects.DeleteSmart(i);
-				}
-			}
-		}
-	}
+	//inline void ProcessDestroyed()
+	//{
+	//	for (int i =0; i < objects.size; i++)
+	//	{
+	//		if (!objects.isNull(i))
+	//		{
+	//			if (objects[i]->IsDestroyed())
+	//			{
+	//				auto x = objects[i];
+	//				x->RemoveAllComponents();
+	//				objects.DeleteSmart(i);
+	//			}
+	//		}
+	//	}
+	//}
 
 	//inline std::vector<GameObject*> FindObjectsWithTag(const std::string& tag)
 	//{

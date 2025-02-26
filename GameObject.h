@@ -7,6 +7,8 @@
 #include "Transform.h"
 #include "Object.h"
 #include "UID.h"
+#include "EventDispatcher.h"
+#include "Events.h"
 
 
 class GameObject : public Object
@@ -19,8 +21,7 @@ public:
 	//virtual void Update() = 0;
 	virtual void Start() {};
 	virtual void Update() {};
-	bool IsDestroyed() { return isDestroyed; }
-	void Destroy() { isDestroyed = true; }
+	void Destroy();
 	void SetTag(const std::string& tag) { this->tag = tag; }
 	const std::string& GetTag() { return tag; }
 
@@ -75,6 +76,5 @@ public:
 	int order;
 private:
 	std::unordered_map<std::type_index, std::shared_ptr<Component>> components;
-	bool isDestroyed = false;
 	std::string tag;
 };

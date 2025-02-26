@@ -6,9 +6,10 @@ Game::Game(const sf::Vector2<unsigned int>& resolution, const std::string& windo
 {
 	Renderer::Configure(sf::VideoMode(resolution.x, resolution.y), windowName);
 	Renderer::GetWindow().setFramerateLimit(165);
+	EventDispatcher::GetInstance();
 }
 
-void Game::HandleEvents()
+void Game::HandleSFMLEvents()
 {
 	while (Renderer::GetWindow().pollEvent(eventHnd))
 	{
@@ -20,6 +21,10 @@ void Game::HandleEvents()
 		{
 			Renderer::ResizeWindow();
 		}
+		if( eventHnd.type == sf::Event::KeyPressed)
+		{
+			ObjectManager::Destroy(5);
+		}
 	}
 }
 
@@ -28,13 +33,14 @@ void Game::Loop()
 	ObjectManager::Start();
 	while (Renderer::GetWindow().isOpen())
 	{
-		HandleEvents();
+		HandleSFMLEvents();
 		Time::CalculateDeltaTime();
 
 		//Updates
 		Renderer::Update();
 		ObjectManager::Update();
-		ObjectManager::ProcessDestroyed();
+		EventDispatcher::GetInstance().ProcessQueuedEvents();
+		//ObjectManager::ProcessDestroyed();
 	}
 }
 

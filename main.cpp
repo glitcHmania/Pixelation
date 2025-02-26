@@ -5,6 +5,7 @@
 #include "ObjectManager.h"
 #include "FpsCounter.h"
 #include "FiniteMap.h"
+#include "TestGameObject.h"
 
 int main()
 {
@@ -14,8 +15,9 @@ int main()
         Renderer::CreateCamera();
         AssetLoader::LoadFromDir("Assets/");
 
-        
-        for (int i = 0; i < 10000; i++)
+        auto ob  = ObjectManager::Instantiate<TestGameObject>();
+
+        for (int i = 0; i < 100; i++)
         {
             auto obj = ObjectManager::Instantiate<GameObject>();
             auto transform = obj->GetComponent<Transform>();
