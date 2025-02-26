@@ -4,30 +4,11 @@
 #include "UID.h"
 
 
-namespace ObjectManager
+class ObjectManager
 {
-	//DO NOT USE THIS DIRECTLY
-	inline FiniteMap<std::shared_ptr<GameObject>> objects(10000);
+public:
 
-
-	inline void Destroy(std::shared_ptr<GameObject> object)
-	{
-		if (!objects.isNull(object->order))
-		{
-			object->RemoveAllComponents();
-			objects.DeleteSmart(object->order);
-		}
-	}
-
-	inline void Destroy(int id)
-	{
-		if (!objects.isNull(id))
-		{
-			objects[id]->RemoveAllComponents();
-			objects.DeleteSmart(id);
-			std::cout << "\nYARRAK" << std::endl;
-		}
-	}
+	ObjectManager(int size);
 
 	template <typename T>
 	std::shared_ptr<T> Instantiate()
@@ -36,74 +17,17 @@ namespace ObjectManager
 		std::string id = UID::CreateUniqueID();
 		std::shared_ptr<T> ref = std::make_shared<T>(id);
 		ref->order = objects.AddSmart(ref);
-		//EventDispatcher::GetInstance().Subscribe<DestroyEvent>([ref](const DestroyEvent& event) { ref->Destroy() });
-		EventDispatcher::GetInstance().Subscribe<DestroyEvent>([] (const DestroyEvent& evnt) { Destroy(evnt.id); });
 		return ref;
 	}
 
+	void Destroy(std::shared_ptr<GameObject> object);
+	void DestroyAll();
+	void LateDestroy(std::shared_ptr<GameObject> object);
+	void ProcessLateDestroyed();
 
-
-	inline void DestroyAll()
-	{
-		for (int i = 0; i < objects.size; i++)
-		{
-			if (!objects.isNull(i))
-			{
-				auto x = objects[i];
-				Destroy(x);
-			}
-		}
-		objects.Clear();
-	}
-
-	//inline void ProcessDestroyed()
-	//{
-	//	for (int i =0; i < objects.size; i++)
-	//	{
-	//		if (!objects.isNull(i))
-	//		{
-	//			if (objects[i]->IsDestroyed())
-	//			{
-	//				auto x = objects[i];
-	//				x->RemoveAllComponents();
-	//				objects.DeleteSmart(i);
-	//			}
-	//		}
-	//	}
-	//}
-
-	//inline std::vector<GameObject*> FindObjectsWithTag(const std::string& tag)
-	//{
-	//	std::vector<GameObject*> foundObjects;
-	//	for (const auto& object : objects)
-	//	{
-	//		if (object.second->GetTag() == tag)
-	//		{
-	//			foundObjects.push_back(object.second.get());
-	//		}
-	//	}
-	//	return foundObjects;
-	//}
-
-	inline void Update()
-	{
-		for (int i = 0; i < objects.size; i++)
-		{
-			if (!objects.isNull(i))
-			{
-				objects[i]->Update();
-			}
-		}
-	}
-
-	inline void Start()
-	{
-		for (int i = 0; i < objects.size; i++)
-		{
-			if (!objects.isNull(i))
-			{
-				objects[i]->Start();
-			}
-		}
-	}
+	void Update();
+	void Start();
+private:
+	FiniteMap<std::shared_ptr<GameObject>> objects;
+	std::vector<std::shared_ptr<GameObject>> destroyQueue;
 };
