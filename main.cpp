@@ -16,13 +16,13 @@ int main()
         AssetLoader::LoadFromDir("Assets/");
         {
 
-            auto ob = game.objectManager.Instantiate<TestGameObject>();
-            ob->Destroy();
+            auto ob = ObjectManager::GetInstance().Instantiate<TestGameObject>();
+            //ob->Destroy();
         }
 
         for (int i = 0; i < 100; i++)
         {
-            auto obj = game.objectManager.Instantiate<GameObject>();
+            auto obj = ObjectManager::GetInstance().Instantiate<GameObject>();
             auto transform = obj->GetComponent<Transform>();
             transform->Scale({1.0f,1.0f});
             transform->SetLocalPosition(300.0f * i, 300.0f * i);
@@ -33,7 +33,7 @@ int main()
             sr->SetTexture(AssetLoader::GetTexture("chest.png"));
         }
         //clear event dispatcher listeners
-        auto o = game.objectManager.Instantiate<FpsCounter>();
+        auto o = ObjectManager::GetInstance().Instantiate<FpsCounter>();
 
         game.Loop();
         return 0;

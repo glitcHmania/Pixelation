@@ -15,17 +15,17 @@ public:
 
 	void Start() override
 	{
-		std::cout << "TestGameObject Start" << std::endl; 
-		EventDispatcher::GetInstance().Subscribe<TestEvent>([this](const TestEvent& event) { this->PrintDicks(event); });
+		std::cout << "TestGameObject Start" << std::endl;
+		EventDispatcher::GetInstance().RegisterToEvent<TestEvent>(this, &TestGameObject::PrintDicks);
 	}
 
 	void Update() override
 	{
 	}
 
-	void PrintDicks(const TestEvent& tesetevent )
+	void PrintDicks(const TestEvent& tesetevent)
 	{
-		std::cout << tesetevent.message << dicks  << " inches" << std::endl;
+		std::cout << tesetevent.message << dicks << " inches" << std::endl;
 		dicks++;
 	}
 };

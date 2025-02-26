@@ -19,6 +19,4 @@ public:
 
 private:
 	sf::Event eventHnd;
-public:
-	ObjectManager objectManager;
 };

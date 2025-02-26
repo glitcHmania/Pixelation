@@ -3,8 +3,7 @@
 
 Game::Game(const sf::Vector2<unsigned int>& resolution, const std::string& windowName)
 	:
-	eventHnd(sf::Event()),
-	objectManager(10001)
+	eventHnd(sf::Event())
 {
 	Renderer::Configure(sf::VideoMode(resolution.x, resolution.y), windowName);
 	Renderer::GetWindow().setFramerateLimit(165);
@@ -28,7 +27,7 @@ void Game::HandleSFMLEvents()
 
 void Game::Loop()
 {
-	objectManager.Start();
+	ObjectManager::GetInstance().Start();
 	while (Renderer::GetWindow().isOpen())
 	{
 		HandleSFMLEvents();
@@ -36,10 +35,9 @@ void Game::Loop()
 
 		//Updates
 		Renderer::Update();
-		objectManager.Update();
+		ObjectManager::GetInstance().Update();
 		//objectManager.ProcessLateDestroyed();
 		EventDispatcher::GetInstance().ProcessQueuedEvents();
-		EventDispatcher::GetInstance().HandleSFML();
 	}
 }
 
@@ -47,5 +45,5 @@ void Game::Stop()
 {
 	Renderer::GetWindow().close();
 	Renderer::Clear();
-	objectManager.DestroyAll();
+	ObjectManager::GetInstance().DestroyAll();
 }
