@@ -21,7 +21,6 @@ public:
 
 	void Update() override
 	{
-		//EventDispatcher::GetInstance().DispatchImmediate<TestEvent>(TestEvent{ "Hello from TestGameObject" });
 	}
 
 	void PrintDicks(const TestEvent& tesetevent )

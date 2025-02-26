@@ -2,7 +2,7 @@
 #include "FiniteMap.h"
 #include "GameObject.h"
 #include "UID.h"
-
+#include "EventDispatcher.h"
 
 class ObjectManager
 {
@@ -17,13 +17,13 @@ public:
 		std::string id = UID::CreateUniqueID();
 		std::shared_ptr<T> ref = std::make_shared<T>(id);
 		ref->order = objects.AddSmart(ref);
+		EventDispatcher::GetInstance().Subscribe<DestroyEvent>([this](const DestroyEvent& event){this->Destroy(event.id);});
 		return ref;
 	}
 
 	void Destroy(std::shared_ptr<GameObject> object);
+	void Destroy(int id);
 	void DestroyAll();
-	void LateDestroy(std::shared_ptr<GameObject> object);
-	void ProcessLateDestroyed();
 
 	void Update();
 	void Start();

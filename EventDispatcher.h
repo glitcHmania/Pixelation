@@ -6,10 +6,11 @@
 #include <typeindex>
 #include <any>
 #include <SFML/Graphics.hpp>
+#include "Events.h"
 
 class EventDispatcher
 {
-private:
+public:
     std::unordered_map<std::type_index, std::vector<std::function<void(const std::any&)>>> listeners;
     std::queue<std::pair<std::type_index, std::any>> eventQueue;
 
@@ -83,21 +84,7 @@ public:
     }
 
     // SFML Event Handling
-    void HandleSFML(const sf::Event& sfEvent)
+    void HandleSFML()
     {
-        DispatchImmediate(sfEvent);
-
-        switch (sfEvent.type)
-        {
-        case sf::Event::Closed:
-            //DispatchImmediate(WindowCloseEvent{});
-            break;
-        case sf::Event::KeyPressed:
-            //DispatchImmediate(KeyPressedEvent{ sfEvent.key.code });
-            break;
-        case sf::Event::MouseButtonPressed:
-            //DispatchQueued(MouseClickEvent{ sfEvent.mouseButton.x, sfEvent.mouseButton.y, sfEvent.mouseButton.button });
-            break;
-        }
     }
 };

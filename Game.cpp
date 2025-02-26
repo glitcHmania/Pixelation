@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "EventDispatcher.h"
 
 Game::Game(const sf::Vector2<unsigned int>& resolution, const std::string& windowName)
 	:
@@ -22,10 +23,6 @@ void Game::HandleSFMLEvents()
 		{
 			Renderer::ResizeWindow();
 		}
-		if( eventHnd.type == sf::Event::KeyPressed)
-		{
-			ObjectManager::Destroy(5);
-		}
 	}
 }
 
@@ -40,7 +37,9 @@ void Game::Loop()
 		//Updates
 		Renderer::Update();
 		objectManager.Update();
-		objectManager.ProcessLateDestroyed();
+		//objectManager.ProcessLateDestroyed();
+		EventDispatcher::GetInstance().ProcessQueuedEvents();
+		EventDispatcher::GetInstance().HandleSFML();
 	}
 }
 
