@@ -8,10 +8,9 @@
 #include "Object.h"
 #include "UID.h"
 #include "EventDispatcher.h"
-#include "Events.h"
 
 
-class GameObject : public Object
+class GameObject : public Object, public std::enable_shared_from_this<GameObject>
 {
 public:
 	GameObject() = delete;
@@ -62,6 +61,12 @@ public:
 	}
 
 	void RemoveAllComponents();
+
+	template<typename EventType, typename T>
+	void Subscribe(void (T::* method)(const EventType&)) {
+		static_assert(std::is_base_of<GameObject, T>::value, "T must be derived from GameObject");
+		EventDispatcher::GetInstance().Subscribe<EventType>(std::static_pointer_cast<T>(shared_from_this()), method);
+	}
 
 	const std::string& GetUID() { return id; }
 

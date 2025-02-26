@@ -15,8 +15,8 @@ public:
 
 	void Start() override
 	{
-		std::cout << "TestGameObject Start" << std::endl; 
-		EventDispatcher::GetInstance().Subscribe<TestEvent>([this](const TestEvent& event) { this->PrintDicks(event); });
+		std::cout << "TestGameObject Start" << std::endl;
+		Subscribe<TestEvent, TestGameObject>(&TestGameObject::PrintDicks);
 	}
 
 	void Update() override

@@ -17,7 +17,7 @@ public:
 		std::string id = UID::CreateUniqueID();
 		std::shared_ptr<T> ref = std::make_shared<T>(id);
 		ref->order = objects.AddSmart(ref);
-		EventDispatcher::GetInstance().Subscribe<DestroyEvent>([this](const DestroyEvent& event){this->Destroy(event.id);});
+		EventDispatcher::GetInstance().Register<DestroyEvent>([this](const DestroyEvent& event){this->Destroy(event.id);});
 		return ref;
 	}
 

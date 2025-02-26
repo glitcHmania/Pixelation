@@ -27,15 +27,27 @@ public:
     EventDispatcher(const EventDispatcher&) = delete;
     void operator=(const EventDispatcher&) = delete;
 
-    // Subscribe any function to an event
-    template<typename EventType>
-    void Subscribe(std::function<void(const EventType&)> callback)
-    {
+    template<typename EventType, typename T>
+    void Subscribe(std::shared_ptr<T> instance, void (T::* method)(const EventType&)) {
+        static_assert(std::is_base_of<GameObject, T>::value, "T must be derived from GameObject");
+
         std::type_index typeIndex(typeid(EventType));
 
-        auto wrapperFunction = [callback](const std::any& event)
-            {
-                callback(std::any_cast<const EventType&>(event));
+        auto wrapperFunction = [weakInstance = std::weak_ptr<T>(instance), method](const std::any& event) {
+            if (auto sharedInstance = weakInstance.lock()) {  // Ensure object is still alive
+                (sharedInstance.get()->*method)(std::any_cast<const EventType&>(event));
+            }
+            };
+
+        listeners[typeIndex].push_back(wrapperFunction);
+    }
+
+    template<typename EventType>
+    void Register(std::function<void(const EventType&)> callback) {
+        std::type_index typeIndex(typeid(EventType));
+
+        auto wrapperFunction = [callback](const std::any& event) {
+            callback(std::any_cast<const EventType&>(event));
             };
 
         listeners[typeIndex].push_back(wrapperFunction);
