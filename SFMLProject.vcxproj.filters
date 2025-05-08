@@ -98,6 +98,12 @@
     <ClCompile Include="TestGameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -158,6 +164,9 @@
       <Filter>Header Files\EventSystem</Filter>
     </ClInclude>
     <ClInclude Include="TestGameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
