@@ -6,6 +6,11 @@ GameObject::GameObject(std::string UID)
 	id = UID;
 }
 
+void GameObject::Destroy()
+{
+	EventDispatcher::GetInstance().DispatchQueued<DestroyEvent>(DestroyEvent{order});
+}
+
 void GameObject::RemoveAllComponents()
 {
 	for (auto& component : components)

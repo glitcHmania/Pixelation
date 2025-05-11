@@ -1,4 +1,7 @@
 #include "Camera.h"
+#include "EventDispatcher.h"
+#include "Events.h"
+#include "ObjectManager.h"
 
 Camera::Camera()
 	:
@@ -72,6 +75,8 @@ void Camera::Move(float deltaTime)
 	{
 		transform->Translate({ +moveSpeed * deltaTime,0.0f });
 		view.move({ +moveSpeed * deltaTime,0.0f });
+		EventDispatcher::GetInstance().DispatchImmediate<TestEvent>( TestEvent{ "my dick is "} );
+		//EventDispatcher::GetInstance().DispatchQueued<TestEvent>(TestEvent{ "my dick is " });
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{

@@ -1,15 +1,16 @@
 #include "Game.h"
+#include "EventDispatcher.h"
 
 Game::Game(const sf::Vector2<unsigned int>& resolution, const std::string& windowName)
 	:
-	eventHnd(sf::Event()),
-	objectManager(10001)
+	eventHnd(sf::Event())
 {
 	Renderer::Configure(sf::VideoMode(resolution.x, resolution.y), windowName);
 	Renderer::GetWindow().setFramerateLimit(165);
+	EventDispatcher::GetInstance();
 }
 
-void Game::HandleEvents()
+void Game::HandleSFMLEvents()
 {
 	while (Renderer::GetWindow().pollEvent(eventHnd))
 	{
@@ -26,16 +27,17 @@ void Game::HandleEvents()
 
 void Game::Loop()
 {
-	objectManager.Start();
+	ObjectManager::GetInstance().Start();
 	while (Renderer::GetWindow().isOpen())
 	{
-		HandleEvents();
+		HandleSFMLEvents();
 		Time::CalculateDeltaTime();
 
 		//Updates
 		Renderer::Update();
-		objectManager.Update();
-		objectManager.ProcessLateDestroyed();
+		ObjectManager::GetInstance().Update();
+		//objectManager.ProcessLateDestroyed();
+		EventDispatcher::GetInstance().ProcessQueuedEvents();
 	}
 }
 
@@ -43,5 +45,5 @@ void Game::Stop()
 {
 	Renderer::GetWindow().close();
 	Renderer::Clear();
-	objectManager.DestroyAll();
+	ObjectManager::GetInstance().DestroyAll();
 }
