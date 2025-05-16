@@ -37,7 +37,7 @@ public:
     void Start();
 
 private:
-    ObjectManager(int size = 1000); // Default size, can be changed if needed
+    ObjectManager(int size = 100000); // Default size, can be changed if needed
 
     FiniteMap<std::shared_ptr<GameObject>> objects;
     std::vector<std::shared_ptr<GameObject>> destroyQueue;

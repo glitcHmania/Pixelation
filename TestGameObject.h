@@ -7,7 +7,7 @@ class TestGameObject : public GameObject
 {
 public:
 
-	int dicks = 0;
+	int times = 0;
 
 	TestGameObject(const std::string& id) : GameObject(id) // Pass ID to GameObject
 	{
@@ -16,17 +16,17 @@ public:
 	void Start() override
 	{
 		std::cout << "TestGameObject Start" << std::endl;
-		EventDispatcher::GetInstance().RegisterToEvent<TestEvent>(this, &TestGameObject::PrintDicks);
+		EventDispatcher::GetInstance().RegisterToEvent<TestEvent>(this, &TestGameObject::PrintTest);
 	}
 
 	void Update() override
 	{
 	}
 
-	void PrintDicks(const TestEvent& tesetevent)
+	void PrintTest(const TestEvent& tesetevent)
 	{
-		std::cout << tesetevent.message << dicks << " inches" << std::endl;
-		dicks++;
+		std::cout << tesetevent.message << times << " times" << std::endl;
+		times++;
 	}
 };
 

@@ -20,7 +20,7 @@ int main()
             //ob->Destroy();
         }
 
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 1000; i++)
         {
             auto obj = ObjectManager::GetInstance().Instantiate<GameObject>();
             auto transform = obj->GetComponent<Transform>();
