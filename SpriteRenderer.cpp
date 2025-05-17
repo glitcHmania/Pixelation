@@ -41,10 +41,12 @@ void SpriteRenderer::SetTexture(std::shared_ptr<sf::Texture> tx)
 	float halfWidth = dim.x * 0.5f;
 	float halfHeight = dim.y * 0.5f;
 
-	vertices[0].position = sf::Vector2f(-halfWidth, -halfHeight);
-	vertices[1].position = sf::Vector2f(halfWidth, -halfHeight);
-	vertices[2].position = sf::Vector2f(halfWidth, halfHeight);
-	vertices[3].position = sf::Vector2f(-halfWidth, halfHeight);
+	vertices[0].position = sf::Vector2f(-0.5f, -0.5f);
+	vertices[1].position = sf::Vector2f(0.5f, -0.5f);
+	vertices[2].position = sf::Vector2f(0.5f, 0.5f);
+	vertices[3].position = sf::Vector2f(-0.5f, 0.5f);
+
+	transform->SetLocalScale(sf::Vector2f(halfWidth, halfHeight));
 
 	vertices[0].texCoords = sf::Vector2f(0.0f, 0.0f);
 	vertices[1].texCoords = sf::Vector2f((float)dim.x, 0.0f);

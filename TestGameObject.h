@@ -17,6 +17,7 @@ public:
 	{
 		std::cout << "TestGameObject Start" << std::endl;
 		EventDispatcher::GetInstance().RegisterToEvent<TestEvent>(this, &TestGameObject::PrintTest);
+		EventDispatcher::GetInstance().DispatchImmediate<TestEvent>(TestEvent{ "my dick is " });
 	}
 
 	void Update() override

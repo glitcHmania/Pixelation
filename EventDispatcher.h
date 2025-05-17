@@ -68,6 +68,10 @@ public:
                 listeners.erase(it);
             }
         }
+        else 
+        {
+			throw std::runtime_error("event not found");
+        }
     }
 
     void UnregisterFromAllEvents(GameObject* obj)

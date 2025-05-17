@@ -11,19 +11,38 @@ namespace Geometry
         virtual void Place(sf::Vector2f position) = 0;
         virtual bool Contains(const sf::Vector2f point) const = 0;
     };
-    class Rect : public Shape
+    class StaticRect : public Shape
     {
     public:
-        Rect(sf::Vector2f position, sf::Vector2f size);
+        StaticRect(sf::Vector2f position, sf::Vector2f size);
         void Place(sf::Vector2f position) override;
 
         // Check if this rectangle intersects with another
-        bool Intersects(const Rect& other) const;
+        bool Intersects(const StaticRect& other) const;
 
         //Check if a point is inside the rectangle
         bool Contains(const sf::Vector2f point) const override;
 
         sf::Vector2f topLeft, bottomRight;
+    };
+
+    class DynamicRect : public Shape
+    {
+    public:
+		DynamicRect() = default;
+        DynamicRect(sf::Vector2f _center, float _halfExt[2], sf::Vector2f _axes[2]);
+        void Update(float _halfExt[2], sf::Vector2f _center,sf::Vector2f axes[2]);
+        void Place(sf::Vector2f position) override;
+
+        // Check if this rectangle intersects with another
+        bool Intersects(const DynamicRect& other) const;
+
+        //Check if a point is inside the rectangle
+        bool Contains(const sf::Vector2f point) const override;
+
+        sf::Vector2f localAxis[2];
+        float halfExt[2];
+        sf::Vector2f center;
     };
 
     class Sphere : public Shape 

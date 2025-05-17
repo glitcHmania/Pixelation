@@ -3,20 +3,20 @@
 
 namespace Geometry 
 {
-	Rect::Rect(sf::Vector2f position, sf::Vector2f size)
+	StaticRect::StaticRect(sf::Vector2f position, sf::Vector2f size)
 	{
 		topLeft = sf::Vector2f(position.x - size.x / 2, position.y + size.y / 2);
 		bottomRight = sf::Vector2f(position.x + size.x / 2, position.y - size.y / 2);
 	}
 
-	void Rect::Place(sf::Vector2f position)
+	void StaticRect::Place(sf::Vector2f position)
 	{
 		sf::Vector2f translate = (position - topLeft);
 		topLeft = topLeft + translate;
 		bottomRight = bottomRight + translate;
 	}
 
-	bool Rect::Intersects(const Rect& other) const
+	bool StaticRect::Intersects(const StaticRect& other) const
 	{
 		return (other.topLeft.x < bottomRight.x &&
 			other.bottomRight.x > topLeft.x &&
@@ -24,7 +24,7 @@ namespace Geometry
 			other.bottomRight.y < topLeft.y);
 	}
 
-	bool Rect::Contains(sf::Vector2f point) const
+	bool StaticRect::Contains(sf::Vector2f point) const
 	{
 		return(point.x >= topLeft.x &&
 			point.x <= bottomRight.x &&
@@ -178,6 +178,87 @@ namespace Geometry
 		c2 = p2 + d2 * t;
 		sf::Vector2f temp = c1 - c2;
 		return temp.x * temp.x + temp.y * temp.y;
+	}
+
+	DynamicRect::DynamicRect(sf::Vector2f _center, float _halfExt[2], sf::Vector2f _axes[2])
+		:
+		center(_center)
+	{
+		halfExt[0] = _halfExt[0];
+		halfExt[1] = _halfExt[1];
+		localAxis[0] = _axes[0];
+		localAxis[1] = _axes[1];
+	}
+
+	void DynamicRect::Update(float _halfExt[2], sf::Vector2f _center, sf::Vector2f axes[2])
+	{
+		halfExt[0] = _halfExt[0];
+		halfExt[1] = _halfExt[1];
+		center = _center;
+		localAxis[0] = axes[0];
+		localAxis[1] = axes[1];
+	}
+
+	void DynamicRect::Place(sf::Vector2f position)
+	{
+		center = position;
+	}
+
+	bool DynamicRect::Intersects(const DynamicRect& other) const
+	{
+		float ra, rb;
+		float R[2][2], absR[2][2];
+
+		// Compute rotation matrix expressing b in a’s coordinate frame
+		for (int i = 0; i < 2; i++)
+		{
+			for (int j = 0; j < 2; j++)
+			{
+				R[i][j] = localAxis[i].x * other.localAxis[j].x + localAxis[i].y * other.localAxis[j].y;
+			}
+		}
+
+		sf::Vector2f temp = other.center - center;
+		// Compute translation vector t
+		float t[2] = { temp.x, temp.y };
+
+		// Bring translation into a’s coordinate frame
+		t[0] = (localAxis[0].x * temp.x + localAxis[0].y * temp.y);
+		t[1] = (localAxis[1].x * temp.x + localAxis[1].y * temp.y);
+
+		// Compute common subexpressions.
+		for (int i = 0; i < 2; i++)
+			for (int j = 0; j < 2; j++)
+				absR[i][j] = std::abs(R[i][j]);
+
+		// Test axes L = A0, L = A1
+		for (int i = 0; i < 2; i++)
+		{
+			ra = halfExt[i];
+			rb = other.halfExt[0] * absR[i][0] + other.halfExt[1] * absR[i][1];
+			if (std::abs(t[i]) > ra + rb) return 0;
+		}
+
+		// Test axes L = B0, L = B1
+		for (int i = 0; i < 2; i++)
+		{
+			ra = halfExt[0] * absR[0][i] + halfExt[1] * absR[1][i];
+			rb = other.halfExt[i];
+			if (std::abs(t[0] * R[0][i] + t[1] * R[1][i]) > ra + rb) return 0;
+		}
+
+		return 1;
+	}
+
+	bool DynamicRect::Contains(const sf::Vector2f point) const
+	{
+		sf::Vector2f t = point - center;
+		t = sf::Vector2f((localAxis[0].x * t.x + localAxis[0].y * t.y), (localAxis[1].x * t.x + localAxis[1].y * t.y));
+		if (t.x > halfExt[0])
+			return 0;
+		if (t.y > halfExt[1])
+			return 0;
+		return 1;
 	}
 
 }

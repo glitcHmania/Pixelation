@@ -1,13 +1,15 @@
 #include "Transform.h"
 #include <cmath>
 
-#define DEG_TO_RAD (3.14159 / 180.0f) // Convert degrees to radians
+#define DEG_TO_RAD (3.14159f / 180.0f) // Convert degrees to radians
 
 void Transform::Scale(sf::Vector2f scaleFactor)
 {
     scale.x *= scaleFactor.x;
     scale.y *= scaleFactor.y;
     matrixDirty = true;
+    axes[0] = { 1,0 };
+    axes[1] = { 0,1 };
 }
 
 void Transform::Rotate(float degrees)
@@ -67,29 +69,21 @@ sf::Vector2f Transform::GetLocalScale() const
     return { scale.x, scale.y };
 }
 
-sf::Vector2f Transform::GetRightVector() const
-{
-    float rad = rotation * DEG_TO_RAD;
-    return sf::Vector2f(std::cos(rad), std::sin(rad));
-}
-
-sf::Vector2f Transform::GetUpVector() const
-{
-    float rad = rotation * DEG_TO_RAD;
-    return sf::Vector2f(-std::sin(rad), std::cos(rad));
-}
-
 void Transform::Compose()
 {
     float rad = rotation * DEG_TO_RAD;
 
-    matrix[0] = std::cos(rad) * scale.x;
-    matrix[1] = -std::sin(rad) * scale.y;
+    float sin = std::sin(rad), cos = std::cos(rad);
+    axes[0] = { cos,-sin };
+    axes[1] = { sin, cos };
+
+    matrix[0] = cos * scale.x;
+    matrix[1] = -sin * scale.y;
     matrix[2] = position.x;
 
-    matrix[3] = std::sin(rad) * scale.x;
-    matrix[4] = std::cos(rad) * scale.y;
-    matrix[5] = position.y;
+    matrix[3] = sin * scale.x;
+    matrix[4] = cos * scale.y;
+    matrix[5] = -position.y;
 
     matrix[6] = 0.0f;
     matrix[7] = 0.0f;
@@ -104,6 +98,11 @@ float* Transform::GetMatrix()
         matrixDirty = false;
     }
     return matrix;
+}
+
+sf::Vector2f Transform::GetLocalAxis(int index) const
+{
+    return axes[index]; 
 }
 
 sf::Transform Transform::GetSF()

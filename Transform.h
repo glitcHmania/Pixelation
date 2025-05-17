@@ -36,17 +36,15 @@ public:
 	void SetLocalScale(sf::Vector2f scl);
 
 	sf::Vector2f GetLocalPosition() const;
-	std::pair<float, float> GetLocalPositionPair() const;
+	//std::pair<float, float> GetLocalPositionPair() const;
 
 	float GetLocalRotation() const;
 
 	sf::Vector2f GetLocalScale() const;
-	std::pair<float, float> GetLocalScalePair() const;
-
-	sf::Vector2f GetRightVector() const;
-	sf::Vector2f GetUpVector() const;
+	//std::pair<float, float> GetLocalScalePair() const;
 
 	float* GetMatrix();
+	sf::Vector2f GetLocalAxis(int index) const;
 	sf::Transform GetSF();
 
 private:
@@ -55,9 +53,11 @@ private:
 private:
 	sf::Vector2f position;
 	sf::Vector2f scale;
+
 	float rotation;
 	float matrix[9] = {0};
 	bool matrixDirty = false;
+	sf::Vector2f axes[2];
 
 	//std::unique_ptr<TransformComponent> parent = nullptr;
 	//std::vector<std::unique_ptr<TransformComponent>> children;
