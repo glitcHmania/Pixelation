@@ -95,9 +95,6 @@
     <ClCompile Include="UIObject.cpp">
       <Filter>Source Files\Game Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestGameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ObjectManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -165,9 +162,6 @@
     </ClInclude>
     <ClInclude Include="Events.h">
       <Filter>Header Files\EventSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="TestGameObject.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Geometry.h">
       <Filter>Header Files</Filter>

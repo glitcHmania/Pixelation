@@ -11,6 +11,7 @@ namespace Geometry
         virtual void Place(sf::Vector2f position) = 0;
         virtual bool Contains(const sf::Vector2f point) const = 0;
     };
+
     class StaticRect : public Shape
     {
     public:

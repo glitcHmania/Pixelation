@@ -149,7 +149,6 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="TestGameObject.cpp" />
     <ClCompile Include="TextRenderer.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Transform.cpp" />
@@ -174,7 +173,6 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="SpriteRenderer.h" />
-    <ClInclude Include="TestGameObject.h" />
     <ClInclude Include="TextRenderer.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Transform.h" />

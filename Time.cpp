@@ -6,7 +6,7 @@ namespace Time
 	{
 		float deltaTime = 0.0f;
 		auto last = std::chrono::steady_clock::now();
-		float average[64] = { 0.0f }; int i = 0;
+		float average[180] = { 0.0f }; int i = 0;
 	}
 
 	void Time::CalculateDeltaTime()
@@ -16,7 +16,7 @@ namespace Time
 		const std::chrono::duration<float> t = last - old;
 		deltaTime = t.count();
 		average[i] = (1.0f / deltaTime);
-		i = (i + 1) % 64;
+		i = (i + 1) % 180;
 	}
 	const float GetDeltatime()
 	{
@@ -29,10 +29,10 @@ namespace Time
 	float FPS()
 	{
 		float sum = 0.0f;
-		for (int x = 0; x < 64; x++)
+		for (int x = 0; x < 180; x++)
 		{
 			sum += average[x];
 		}
-		return sum / 64.0f;
+		return sum / 180.0f;
 	}
 }

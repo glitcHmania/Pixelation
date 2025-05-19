@@ -48,6 +48,17 @@ void TextRenderer::SetSize(unsigned int _size)
 	text->setCharacterSize(_size);
 }
 
+void TextRenderer::SetFillColor(sf::Color color)
+{
+	text->setFillColor(color);
+}
+
+void TextRenderer::SetBorderColor(sf::Color color)
+{
+	text->setOutlineColor(color);
+	text->setOutlineThickness(1);
+}
+
 void TextRenderer::MakeUI()
 {
 	isUI = true;

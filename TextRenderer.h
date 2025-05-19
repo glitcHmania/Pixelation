@@ -11,6 +11,8 @@ public:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	void SetFont(std::shared_ptr<sf::Font> _font);
 	void SetSize(unsigned int _size);
+	void SetFillColor(sf::Color color);
+	void SetBorderColor(sf::Color color);
 	sf::Text& GetText()
 	{
 		return *text;
