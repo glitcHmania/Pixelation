@@ -9,7 +9,7 @@
 #include "UID.h"
 #include "EventDispatcher.h"
 #include "Events.h"
-
+#include "Component.h"
 
 class GameObject : public Object
 {
@@ -17,10 +17,8 @@ public:
 	GameObject() = delete;
 	GameObject(std::string UID);
 
-	//virtual void Start() = 0;
-	//virtual void Update() = 0;
 	virtual void Start() {};
-	virtual void Update() {};
+	virtual void Update();  // now calls components + OnUpdate
 	void Destroy();
 	void SetTag(const std::string& tag) { this->tag = tag; }
 	const std::string& GetTag() { return tag; }
@@ -37,10 +35,21 @@ public:
 	}
 
 	template <typename T>
+	std::shared_ptr<T> GetComponentByBase()
+	{
+		for (auto& [type, component] : components)
+		{
+			std::shared_ptr<T> casted = std::dynamic_pointer_cast<T>(component);
+			if (casted) return casted;
+		}
+		return nullptr;
+	}
+
+
+	template <typename T>
 	std::shared_ptr<T> AddComponent()
 	{
-		std::shared_ptr<T> pComponent;
-		pComponent = std::make_shared<T>();
+		std::shared_ptr<T> pComponent = std::make_shared<T>();
 		pComponent->SetID(UID::CreateLongUniqueID());
 		pComponent->owner = this;
 		pComponent->transform = GetComponent<Transform>().get();
@@ -55,8 +64,8 @@ public:
 		auto it = components.find(typeid(T));
 		if (it != components.end())
 		{
-			it->second.reset();
 			it->second->Destruct();
+			it->second.reset();
 			components.erase(it);
 		}
 	}
@@ -65,15 +74,17 @@ public:
 
 	const std::string& GetUID() { return id; }
 
-	//DEBUG FUNCTIONS
 #ifdef _DEBUG
 	void DebugComponents();
 #endif
 
 public:
 	Transform* transform = nullptr;
-	//NEVER change this after initialization
 	int order;
+
+protected:
+	virtual void OnUpdate() {}  // override this in subclasses
+
 private:
 	std::unordered_map<std::type_index, std::shared_ptr<Component>> components;
 	std::string tag;

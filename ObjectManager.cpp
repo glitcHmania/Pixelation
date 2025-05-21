@@ -14,6 +14,14 @@ ObjectManager::ObjectManager(int size)
     objects.ResetToSize(size);
 }
 
+std::shared_ptr<GameObject> ObjectManager::Get(int index)
+{
+    if (index < 0 || index >= objects.size || objects.isNull(index))
+        return nullptr;
+
+    return objects[index];
+}
+
 void ObjectManager::Destroy(std::shared_ptr<GameObject> object)
 {
     Destroy(object->order);

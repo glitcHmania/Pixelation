@@ -3,3 +3,5 @@
 #include "SpriteRenderer.h"
 #include "Transform.h"
 #include "TextRenderer.h"
+#include "Rigidbody.h"
+#include "BoxCollider.h"

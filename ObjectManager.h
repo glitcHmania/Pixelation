@@ -27,7 +27,13 @@ public:
         return ref;
     }
 
+    int GetObjectCount() const
+    {
+        return objects.size;
+    }
 
+
+    std::shared_ptr<GameObject> Get(int index);
     void Destroy(std::shared_ptr<GameObject> object);
     void Destroy(int id);
     void DestroyByEvent(const DestroyEvent& event);

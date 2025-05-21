@@ -6,18 +6,26 @@ GameObject::GameObject(std::string UID)
 	id = UID;
 }
 
+void GameObject::Update()
+{
+	for (auto& [_, component] : components)
+	{
+		component->Update(Time::GetDeltatime());
+	}
+	OnUpdate();
+}
+
 void GameObject::Destroy()
 {
-	EventDispatcher::GetInstance().DispatchQueued<DestroyEvent>(DestroyEvent{order});
+	EventDispatcher::GetInstance().DispatchQueued<DestroyEvent>(DestroyEvent{ order });
 }
 
 void GameObject::RemoveAllComponents()
 {
 	for (auto& component : components)
 	{
-		auto it = component.second;
-		it->Destruct();
-		it.reset();
+		component.second->Destruct();
+		component.second.reset();
 	}
 	components.clear();
 }
