@@ -8,8 +8,6 @@ void Transform::Scale(sf::Vector2f scaleFactor)
     scale.x *= scaleFactor.x;
     scale.y *= scaleFactor.y;
     matrixDirty = true;
-    axes[0] = { 1,0 };
-    axes[1] = { 0,1 };
 }
 
 void Transform::Rotate(float degrees)

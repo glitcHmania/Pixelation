@@ -15,6 +15,8 @@ public:
 		position = sf::Vector2f(0.0f, 0.0f);
 		rotation = 0;
 		scale = sf::Vector2f(1.0f, 1.0f);
+		axes[0] = { 1,0 };
+		axes[1] = { 0,1 };
 	};
 
 	Transform(sf::Vector2f _position, float _rotation, sf::Vector2f _scale)
@@ -23,6 +25,8 @@ public:
 		rotation(_rotation),
 		scale(_scale)
 	{
+		axes[0] = { 1,0 };
+		axes[1] = { 0,1 };
 	}
 
 	void Scale(sf::Vector2f scaleFactor);

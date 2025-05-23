@@ -1,8 +1,15 @@
 #pragma once
 #include <SFML/System/Vector2.hpp>
+#include <vector>
+#include <algorithm>
 
 namespace Geometry
 {
+    inline float Cross(const sf::Vector2f& a, const sf::Vector2f& b) 
+    {
+        return a.x * b.y - a.y * b.x;
+    }
+
     class Shape 
     {
     public:
@@ -79,4 +86,37 @@ namespace Geometry
         float radius;
     };
 
+	class Triangle : public Shape
+    {
+    public:
+        Triangle(sf::Vector2f _points[3]);
+
+        void Place(sf::Vector2f position) override;
+        bool Contains(const sf::Vector2f point) const override;
+    public:
+        sf::Vector2f points[3];
+    };
+    
+    class Ray
+    {
+    public:
+        struct hitInfo
+        {
+            hitInfo(bool _isHit ,sf::Vector2f _hitPoint)
+                :
+                isHit(_isHit),
+                hitPoint(_hitPoint)
+            {
+            };
+            bool isHit;
+            sf::Vector2f hitPoint;
+        };
+    public:
+        Ray(sf::Vector2f start, sf::Vector2f direction, float length = 10000.0f);
+        Ray(sf::Vector2f start, sf::Vector2f end);
+    
+        hitInfo Intersects(Triangle& other);
+    
+        sf::Vector2f start, end;
+    };
 };

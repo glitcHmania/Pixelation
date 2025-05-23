@@ -261,4 +261,71 @@ namespace Geometry
 		return 1;
 	}
 
+	Triangle::Triangle(sf::Vector2f _points[3])
+	{
+		for (int i = 0; i <3; i++)
+			points[i] = _points[i];
+	}
+	void Triangle::Place(sf::Vector2f position)
+	{
+		sf::Vector2f difference = position - points[0];
+		for (int i = 0; i < 3; i++)
+		{
+			points[i] = difference + points[i];
+		}
+	}
+	bool Triangle::Contains(const sf::Vector2f point) const
+	{
+		float alpha = 0.0f, beta = 0.0f, theta = 0.0f;
+		float denom = Cross(points[1] - points[0], points[2] - points[0]);
+		if (denom != 0)
+		{
+			alpha = Cross(point - points[0], points[2] - points[0]) / denom;
+			beta = Cross(points[1] - points[0], point - points[0]) / denom;
+			theta = 1 - alpha - beta;
+
+			if (alpha < 0.0f || alpha > 1.0f)
+				return false;
+			if (beta < 0.0f || beta > 1.0f)
+				return false;
+			if (theta < 0.0f || theta > 1.0f)
+				return false;
+
+			return true;
+		}
+		return false;
+	}
+	Ray::Ray(sf::Vector2f _start, sf::Vector2f direction, float length = 10000.0f)
+		:
+		start(start)
+	{
+		end = _start + (direction * length);
+	}
+	Ray::Ray(sf::Vector2f _start, sf::Vector2f _end)
+		:
+		start(_start),
+		end(_end)
+	{
+	}
+	Ray::hitInfo Ray::Intersects(Triangle& other)
+	{
+		float x, alpha;
+		for (int i = 0; i < 3; i++)
+		{
+			sf::Vector2f difference = other.points[(i + 1) % 3] - other.points[i];
+			float denom = Cross(end - start, difference);
+			if (denom != 0)
+			{
+				x = Cross(other.points[i] - start, difference) / denom;
+				alpha = Cross(end - start, other.points[i] - start) / denom;
+				if (x > 1.0f || x < 0.0f)
+					continue;
+				else if (alpha > 1.0f || alpha < 0.0f)
+					continue;
+				else
+					return hitInfo(true, sf::Vector2f((start + x * (end - start))));
+			}
+			return hitInfo(false, sf::Vector2f(0.0f, 0.0f));
+		}
+	}
 }
