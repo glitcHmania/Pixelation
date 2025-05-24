@@ -21,6 +21,12 @@ struct TestEvent : public EventBase
 
 struct CollisionEvent : public EventBase
 {
-	CollisionEvent(Geometry::DynamicRect& _collider) : collider(_collider){}
-	Geometry::DynamicRect collider;
+	CollisionEvent(GameObject* a, GameObject* b, bool trigger)
+		: colliderA(a), colliderB(b), isTrigger(trigger) {
+	}
+
+	GameObject* colliderA;
+	GameObject* colliderB;
+	bool isTrigger;
 };
+

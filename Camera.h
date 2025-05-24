@@ -9,6 +9,7 @@ public:
 	Camera();
 	Camera(sf::RenderWindow& _renderWindow);
 	Camera(sf::RenderWindow& _renderWindow, std::shared_ptr<Transform> _transform);
+	Camera(sf::RenderWindow& _renderWindow, Transform _transform);
 	void SetRenderWindow(sf::RenderWindow& renderWin);
 
 	void Update(float deltaTime);
@@ -17,6 +18,7 @@ public:
 private:
 	void Move(float deltaTime);
 	void Scale(float deltaTime);
+	void Rotate();
 
 public:
 	operator bool() const

@@ -92,7 +92,7 @@ namespace Renderer
 
 	void Renderer::CreateCamera()
 	{
-		cameras.emplace_back(*renderWindow);
+		cameras.emplace_back(*renderWindow,Transform(sf::Vector2f(400.0f,200.0f),0,sf::Vector2f(0.15f,0.15f)));
 		if (!mainCamera)
 		{
 			mainCamera = cameras.back();

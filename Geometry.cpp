@@ -204,12 +204,13 @@ namespace Geometry
 		center = position;
 	}
 
-	bool DynamicRect::Intersects(const DynamicRect& other) const
+	HitInfo DynamicRect::Intersects(const DynamicRect& other) const
 	{
 		float ra, rb;
 		float R[2][2], absR[2][2];
+		float distances[4];
 
-		// Compute rotation matrix expressing b in a’s coordinate frame
+		// Compute rotation matrix expressing b in aï¿½s coordinate frame
 		for (int i = 0; i < 2; i++)
 		{
 			for (int j = 0; j < 2; j++)
@@ -222,7 +223,7 @@ namespace Geometry
 		// Compute translation vector t
 		float t[2] = { temp.x, temp.y };
 
-		// Bring translation into a’s coordinate frame
+		// Bring translation into aï¿½s coordinate frame
 		t[0] = (localAxis[0].x * temp.x + localAxis[0].y * temp.y);
 		t[1] = (localAxis[1].x * temp.x + localAxis[1].y * temp.y);
 
@@ -236,7 +237,8 @@ namespace Geometry
 		{
 			ra = halfExt[i];
 			rb = other.halfExt[0] * absR[i][0] + other.halfExt[1] * absR[i][1];
-			if (std::abs(t[i]) > ra + rb) return 0;
+			distances[i] = +ra +rb -std::abs(t[i]) ;
+			if (distances[i] <= 0) return HitInfo(false, {0,0});
 		}
 
 		// Test axes L = B0, L = B1
@@ -244,10 +246,34 @@ namespace Geometry
 		{
 			ra = halfExt[0] * absR[0][i] + halfExt[1] * absR[1][i];
 			rb = other.halfExt[i];
-			if (std::abs(t[0] * R[0][i] + t[1] * R[1][i]) > ra + rb) return 0;
+			distances[2 + i] = +ra + rb -std::abs(t[0] * R[0][i] + t[1] * R[1][i]) ;
+			if (distances[2 + i]<=0) return HitInfo(false, { 0,0 });
 		}
 
-		return 1;
+		float minValue = (float) INT_MAX;
+		int inx = 0;
+		sf::Vector2f resolution = { 0.0f, 0.0f };
+
+		for (int i = 0; i < 4; ++i)
+		{
+			float a = distances[i] * distances[i];
+			if (a < minValue)
+			{
+				minValue = a;
+				inx = i;
+			}
+		}
+		
+		if (inx < 2)
+		{
+			resolution = distances[inx] * localAxis[inx] ;
+			return HitInfo(true, resolution, localAxis[inx]);
+		}
+		else
+		{
+			resolution = distances[inx] * other.localAxis[inx - 2];
+			return HitInfo(true, resolution, other.localAxis[inx - 2]);
+		}
 	}
 
 	bool DynamicRect::Contains(const sf::Vector2f point) const
@@ -306,26 +332,5 @@ namespace Geometry
 		start(_start),
 		end(_end)
 	{
-	}
-	Ray::hitInfo Ray::Intersects(Triangle& other)
-	{
-		float x, alpha;
-		for (int i = 0; i < 3; i++)
-		{
-			sf::Vector2f difference = other.points[(i + 1) % 3] - other.points[i];
-			float denom = Cross(end - start, difference);
-			if (denom != 0)
-			{
-				x = Cross(other.points[i] - start, difference) / denom;
-				alpha = Cross(end - start, other.points[i] - start) / denom;
-				if (x > 1.0f || x < 0.0f)
-					continue;
-				else if (alpha > 1.0f || alpha < 0.0f)
-					continue;
-				else
-					return hitInfo(true, sf::Vector2f((start + x * (end - start))));
-			}
-			return hitInfo(false, sf::Vector2f(0.0f, 0.0f));
-		}
 	}
 }
