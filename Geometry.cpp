@@ -204,10 +204,11 @@ namespace Geometry
 		center = position;
 	}
 
-	bool DynamicRect::Intersects(const DynamicRect& other) const
+	HitInfo DynamicRect::Intersects(const DynamicRect& other) const
 	{
 		float ra, rb;
 		float R[2][2], absR[2][2];
+		float distances[4];
 
 		// Compute rotation matrix expressing b in a’s coordinate frame
 		for (int i = 0; i < 2; i++)
@@ -236,7 +237,8 @@ namespace Geometry
 		{
 			ra = halfExt[i];
 			rb = other.halfExt[0] * absR[i][0] + other.halfExt[1] * absR[i][1];
-			if (std::abs(t[i]) > ra + rb) return 0;
+			distances[i] = +ra +rb -std::abs(t[i]) ;
+			if (distances[i] <= 0) return HitInfo(false, {0,0});
 		}
 
 		// Test axes L = B0, L = B1
@@ -244,10 +246,34 @@ namespace Geometry
 		{
 			ra = halfExt[0] * absR[0][i] + halfExt[1] * absR[1][i];
 			rb = other.halfExt[i];
-			if (std::abs(t[0] * R[0][i] + t[1] * R[1][i]) > ra + rb) return 0;
+			distances[2 + i] = +ra + rb -std::abs(t[0] * R[0][i] + t[1] * R[1][i]) ;
+			if (distances[2 + i]<=0) return HitInfo(false, { 0,0 });
 		}
 
-		return 1;
+		float minValue = (float) INT_MAX;
+		int inx = 0;
+		sf::Vector2f resolution = { 0.0f, 0.0f };
+
+		for (int i = 0; i < 4; ++i)
+		{
+			float a = distances[i] * distances[i];
+			if (a < minValue)
+			{
+				minValue = a;
+				inx = i;
+			}
+		}
+		
+		if (inx < 2)
+		{
+			resolution = distances[inx] * localAxis[inx] ;
+			return HitInfo(true, resolution, localAxis[inx]);
+		}
+		else
+		{
+			resolution = distances[inx] * other.localAxis[inx - 2];
+			return HitInfo(true, resolution, other.localAxis[inx - 2]);
+		}
 	}
 
 	bool DynamicRect::Contains(const sf::Vector2f point) const
@@ -260,5 +286,4 @@ namespace Geometry
 			return 0;
 		return 1;
 	}
-
 }

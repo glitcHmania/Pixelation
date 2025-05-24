@@ -1,7 +1,11 @@
 #pragma once
 #include "Component.h"
 #include <SFML/System/Vector2.hpp>
-#include "Collider.h"
+#include "Transform.h"
+#include "Time.h"
+#include "Gameobject.h"
+#include "ObjectManager.h"
+#include "BoxCollider.h"
 
 class Rigidbody : public Component
 {
@@ -20,12 +24,12 @@ public:
 
     bool isKinematic = false;
     bool useGravity = true;
-    float drag = 0.1f;
+    float drag = 0.0f;
 
 private:
     sf::Vector2f velocity;
     sf::Vector2f accumulatedForces;
     float mass = 1.0f;
     const sf::Vector2f gravity = { 0.0f, -9.81f }; 
-    Collider* collider = nullptr;
+    BoxCollider* collider;
 };

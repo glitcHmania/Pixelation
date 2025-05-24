@@ -3,6 +3,31 @@
 
 namespace Geometry
 {
+    struct HitInfo
+    {
+        HitInfo(bool _isHit)
+            :
+            isHit(_isHit)
+        {
+        };
+        HitInfo(bool _isHit, sf::Vector2f penet)
+            :
+            isHit(_isHit),
+            penetration(penet)
+        {
+        };
+        HitInfo(bool _isHit, sf::Vector2f penet, sf::Vector2f _axis)
+            :
+            isHit(_isHit),
+            penetration(penet),
+			axis(_axis)
+        {
+        };
+        bool isHit;
+        sf::Vector2f penetration = {0,0};
+        sf::Vector2f axis = {0,0};
+    };
+
     class Shape 
     {
     public:
@@ -36,7 +61,7 @@ namespace Geometry
         void Place(sf::Vector2f position) override;
 
         // Check if this rectangle intersects with another
-        bool Intersects(const DynamicRect& other) const;
+        HitInfo Intersects(const DynamicRect& other) const;
 
         //Check if a point is inside the rectangle
         bool Contains(const sf::Vector2f point) const override;

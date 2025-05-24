@@ -1,8 +1,4 @@
 #include "Rigidbody.h"
-#include "Transform.h"
-#include "Time.h"
-#include "Gameobject.h"
-#include "ObjectManager.h"
 
 Rigidbody::Rigidbody()
 {
@@ -12,24 +8,29 @@ Rigidbody::Rigidbody()
 
 void Rigidbody::Configure()
 {
-    collider = owner->GetComponentByBase<Collider>().get();
+    collider = owner->GetComponent<BoxCollider>().get();
 }
-
 
 void Rigidbody::Update(float deltaTime)
 {
+    deltaTime = 0.01f;
     if (isKinematic || mass <= 0.0f || !transform)
         return;
 
+	//sf::Vector2f normVel = velocity.normalize();
+
+    sf::Vector2f normVel = -velocity.normalize();
+    
+    accumulatedForces = accumulatedForces + (normVel * mass * drag);
+ 
     if (useGravity)
-        ApplyForce(gravity * mass);
+        accumulatedForces = accumulatedForces  + (gravity   + (normVel * drag) ) * mass;
 
     sf::Vector2f acceleration = accumulatedForces / mass;
-    velocity += acceleration * deltaTime;
-
-    velocity -= velocity * drag * deltaTime;
-
-    transform->Translate(velocity * deltaTime);
+    sf::Vector2f dV = acceleration * deltaTime;
+    sf::Vector2f distance = ((velocity + dV * 2.0f) / 2.0f) * deltaTime;
+    transform->Translate(distance);
+    velocity = velocity + dV;
 
     accumulatedForces = { 0.0f, 0.0f };
 
@@ -38,37 +39,35 @@ void Rigidbody::Update(float deltaTime)
 
     // Collision detection with all other objects
     ObjectManager& objMgr = ObjectManager::GetInstance();
-
+    
     int count = ObjectManager::GetInstance().GetObjectCount();
     for (int i = 0; i < count; ++i)
     {
         auto other = objMgr.Get(i);
         if (!other || other.get() == owner)
             continue;
-
-        auto otherCollider = other->GetComponentByBase<Collider>();
+    
+        auto otherCollider = other->GetComponent<BoxCollider>();
         if (!otherCollider)
             continue;
-
-        bool intersecting = collider->Intersects(otherCollider.get());
-
-        if (intersecting)
+    
+        auto intersecting = collider->Intersects(*otherCollider);
+    
+        if (intersecting.isHit)
         {
-            std::cout << "Collision detected between " << owner->GetUID()
-                << " and " << other->GetUID() << "\n";
-
             bool trigger = collider->isTrigger || otherCollider->isTrigger;
-
-            // Dispatch collision event immediately
-            EventDispatcher::GetInstance().DispatchImmediate(
-                CollisionEvent(owner, other.get(), trigger)
-            );
-
+    
             if (!trigger)
             {
-                // Simple collision resolution: reverse velocity and move back
-                velocity = -velocity;
-                transform->Translate(velocity * deltaTime);
+				sf::Vector2f dist = other->transform->GetLocalPosition() - transform->GetLocalPosition();
+                float neg = std::signbit(dist.x * intersecting.axis.x + dist.y * intersecting.axis.y) == true ? -1.0f : 1.0f;
+                float amount = intersecting.axis.x * velocity.x + intersecting.axis.y * velocity.y;
+                if ((amount) * neg > 0)
+                {
+                    transform->Translate(intersecting.penetration);
+                    sf::Vector2f force = -((mass * intersecting.axis* amount * (2.0f-drag)) / deltaTime);
+                    accumulatedForces += force;
+                }   
             }
         }
     }
