@@ -16,7 +16,7 @@ void Rigidbody::Configure()
 
 void Rigidbody::Update(float deltaTime)
 {
-    while (tracker->Oscilate())
+    while (tracker->Check())
     {
         //TimeStep
         deltaTime = 0.07f;
