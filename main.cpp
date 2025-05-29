@@ -5,7 +5,6 @@
 #include "ObjectManager.h"
 #include "FpsCounter.h"
 #include "FiniteMap.h"
-#include "Player.h"
 
 class TestCollisionListener
 {

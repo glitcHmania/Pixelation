@@ -11,7 +11,7 @@ void Rigidbody::Configure()
 {
     collider = owner->GetComponent<BoxCollider>().get();
 	// Initialize the tracker with a minimum period of maximum deltaTime or selected value
-    tracker = Time::RequestTracker(std::max(1.0f/60.0f, 0.016f)).get();
+    tracker = Time::RequestTracker(std::max(1.0f/120.0f, 0.0115f)).get();
 }
 
 void Rigidbody::Update(float deltaTime)
@@ -19,7 +19,7 @@ void Rigidbody::Update(float deltaTime)
     while (tracker->Check())
     {
         //TimeStep
-        deltaTime = 0.07f;
+        deltaTime = 0.03f;
         if (isKinematic || mass <= 0.0f || !transform)
             return;
 
