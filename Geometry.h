@@ -125,23 +125,11 @@ namespace Geometry
     class Ray
     {
     public:
-        struct hitInfo
-        {
-            hitInfo(bool _isHit ,sf::Vector2f _hitPoint)
-                :
-                isHit(_isHit),
-                hitPoint(_hitPoint)
-            {
-            };
-            bool isHit;
-            sf::Vector2f hitPoint;
-        };
-    public:
         Ray(sf::Vector2f start, sf::Vector2f direction, float length = 10000.0f);
         Ray(sf::Vector2f start, sf::Vector2f end);
     
-        hitInfo Intersects(Triangle& other);
-    
+        HitInfo Intersects(Triangle& other);
+    private:
         sf::Vector2f start, end;
     };
 };

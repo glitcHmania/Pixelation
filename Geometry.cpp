@@ -321,9 +321,9 @@ namespace Geometry
 		}
 		return false;
 	}
-	Ray::Ray(sf::Vector2f _start, sf::Vector2f direction, float length = 10000.0f)
+	Ray::Ray(sf::Vector2f _start, sf::Vector2f direction, float length)
 		:
-		start(start)
+		start(_start)
 	{
 		end = _start + (direction * length);
 	}
@@ -332,5 +332,35 @@ namespace Geometry
 		start(_start),
 		end(_end)
 	{
+	}
+	HitInfo Ray::Intersects(Triangle& other)
+	{
+		sf::Vector2f D = end - start;
+		sf::Vector2f E1 = other.points[1] - other.points[0];
+		sf::Vector2f E2 = other.points[2] - other.points[0];
+		sf::Vector2f Q = start - other.points[0];
+
+		float det = E1.x * E2.y - E1.y * E2.x;
+		if (std::abs(det) < 1e-6f)
+			return HitInfo(false); // Degenerate triangle
+
+		float invDet = 1.0f / det;
+
+		float u = (Q.x * E2.y - Q.y * E2.x) * invDet;
+		float v = (E1.x * Q.y - E1.y * Q.x) * invDet;
+
+		if (u < 0 || v < 0 || (u + v) > 1)
+			return HitInfo(false);
+
+		float tDet = (E1.x * D.y - E1.y * D.x);
+		if (std::abs(tDet) < 1e-6f)
+			return HitInfo(false); // Ray parallel
+
+		float t = (Q.x * D.y - Q.y * D.x) / tDet;
+		if (t < 0)
+			return HitInfo(false);
+
+		//Axis is NOT normalized
+		return HitInfo(true , start + D*t , D);
 	}
 }
