@@ -24,12 +24,14 @@ public:
 
     bool isKinematic = false;
     bool useGravity = true;
-    float drag = 0.0f;
+    float drag = 0.15f;
 
 private:
     sf::Vector2f velocity;
     sf::Vector2f accumulatedForces;
     float mass = 1.0f;
     const sf::Vector2f gravity = { 0.0f, -9.81f }; 
-    BoxCollider* collider;
+    BoxCollider* collider = nullptr;
+
+	Time::TimeTracker* tracker = nullptr;
 };

@@ -2,6 +2,7 @@
 
 Rigidbody::Rigidbody()
 {
+    
     velocity = { 0.0f, 0.0f };
     accumulatedForces = { 0.0f, 0.0f };
 }
@@ -9,65 +10,70 @@ Rigidbody::Rigidbody()
 void Rigidbody::Configure()
 {
     collider = owner->GetComponent<BoxCollider>().get();
+	// Initialize the tracker with a minimum period of maximum deltaTime or selected value
+    tracker = Time::RequestTracker(std::max(1.0f/60.0f, 0.016f)).get();
 }
 
 void Rigidbody::Update(float deltaTime)
 {
-    deltaTime = 0.01f;
-    if (isKinematic || mass <= 0.0f || !transform)
-        return;
-
-	//sf::Vector2f normVel = velocity.normalize();
-
-    sf::Vector2f normVel = -velocity.normalize();
-    
-    accumulatedForces = accumulatedForces + (normVel * mass * drag);
- 
-    if (useGravity)
-        accumulatedForces = accumulatedForces  + (gravity   + (normVel * drag) ) * mass;
-
-    sf::Vector2f acceleration = accumulatedForces / mass;
-    sf::Vector2f dV = acceleration * deltaTime;
-    sf::Vector2f distance = ((velocity + dV * 2.0f) / 2.0f) * deltaTime;
-    transform->Translate(distance);
-    velocity = velocity + dV;
-
-    accumulatedForces = { 0.0f, 0.0f };
-
-    if (!collider)
-        return;
-
-    // Collision detection with all other objects
-    ObjectManager& objMgr = ObjectManager::GetInstance();
-    
-    int count = ObjectManager::GetInstance().GetObjectCount();
-    for (int i = 0; i < count; ++i)
+    while (tracker->Oscilate())
     {
-        auto other = objMgr.Get(i);
-        if (!other || other.get() == owner)
-            continue;
-    
-        auto otherCollider = other->GetComponent<BoxCollider>();
-        if (!otherCollider)
-            continue;
-    
-        auto intersecting = collider->Intersects(*otherCollider);
-    
-        if (intersecting.isHit)
+        //TimeStep
+        deltaTime = 0.07f;
+        if (isKinematic || mass <= 0.0f || !transform)
+            return;
+
+        sf::Vector2f normVel = -velocity.normalize();
+
+        accumulatedForces = accumulatedForces + (normVel * mass * drag);
+
+        if (useGravity)
+            accumulatedForces = accumulatedForces + (gravity + (normVel * drag)) * mass;
+
+        sf::Vector2f acceleration = accumulatedForces / mass;
+        sf::Vector2f dV = acceleration * deltaTime;
+        sf::Vector2f distance = ((velocity + dV * 2.0f) / 2.0f) * deltaTime;
+        transform->Translate(distance);
+        velocity = velocity + dV;
+
+        accumulatedForces = { 0.0f, 0.0f };
+
+        if (!collider)
+            return;
+
+        // Collision detection with all other objects
+        ObjectManager& objMgr = ObjectManager::GetInstance();
+
+        int count = ObjectManager::GetInstance().GetObjectCount();
+        for (int i = 0; i < count; ++i)
         {
-            bool trigger = collider->isTrigger || otherCollider->isTrigger;
-    
-            if (!trigger)
+            auto other = objMgr.Get(i);
+            if (!other || other.get() == owner)
+                continue;
+
+            auto otherCollider = other->GetComponent<BoxCollider>();
+            if (!otherCollider)
+                continue;
+
+            auto intersecting = collider->Intersects(*otherCollider);
+
+            if (intersecting.isHit)
             {
-				sf::Vector2f dist = other->transform->GetLocalPosition() - transform->GetLocalPosition();
-                float neg = std::signbit(dist.x * intersecting.axis.x + dist.y * intersecting.axis.y) == true ? -1.0f : 1.0f;
-                float amount = intersecting.axis.x * velocity.x + intersecting.axis.y * velocity.y;
-                if ((amount) * neg > 0)
+                bool trigger = collider->isTrigger || otherCollider->isTrigger;
+
+                if (!trigger)
                 {
-                    transform->Translate(intersecting.penetration);
-                    sf::Vector2f force = -((mass * intersecting.axis* amount * (2.0f-drag)) / deltaTime);
-                    accumulatedForces += force;
-                }   
+                    sf::Vector2f dist = other->transform->GetLocalPosition() - transform->GetLocalPosition();
+                    float neg = std::signbit(dist.x * intersecting.axis.x + dist.y * intersecting.axis.y) == true ? -1.0f : 1.0f;
+                    float amount = intersecting.axis.x * velocity.x + intersecting.axis.y * velocity.y;
+					float velsq = (velocity.x * velocity.x + velocity.y * velocity.y);
+                    if ((amount)*neg > 0)
+                    {
+                        transform->Translate(intersecting.penetration);
+                        sf::Vector2f force = -((mass * intersecting.axis * amount * (2.0f - drag)) / deltaTime);
+                        accumulatedForces += force;
+                    }
+                }
             }
         }
     }
