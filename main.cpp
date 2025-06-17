@@ -23,4 +23,6 @@ int Setup()
     //x->ApplyForce(sf::Vector2f(10000.0f, 0.0f));
     falling->transform->SetLocalPosition(400.0f, -0.0f);
     falling->transform->SetLocalScale({ 1.0f, 2.0f });
+
+    return 0;
 }
