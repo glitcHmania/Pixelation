@@ -11,7 +11,7 @@ void Rigidbody::Configure()
 {
     collider = owner->GetComponent<BoxCollider>().get();
 	// Initialize the tracker with a minimum period of maximum deltaTime or selected value
-    tracker = Time::RequestTracker(std::max(1.0f/120.0f, 0.0115f)).get();
+    tracker = Time::RequestTracker(std::max(1.0f/120.0f, 0.012f)).get();
 }
 
 void Rigidbody::Update(float deltaTime)
@@ -19,7 +19,7 @@ void Rigidbody::Update(float deltaTime)
     while (tracker->Check())
     {
         //TimeStep
-        deltaTime = 0.03f;
+        deltaTime = 0.024f;
         if (isKinematic || mass <= 0.0f || !transform)
             return;
 
@@ -66,8 +66,8 @@ void Rigidbody::Update(float deltaTime)
                     sf::Vector2f dist = other->transform->GetLocalPosition() - transform->GetLocalPosition();
                     float neg = std::signbit(dist.x * intersecting.axis.x + dist.y * intersecting.axis.y) == true ? -1.0f : 1.0f;
                     float amount = intersecting.axis.x * velocity.x + intersecting.axis.y * velocity.y;
-					float velsq = (velocity.x * velocity.x + velocity.y * velocity.y);
-                    if ((amount)*neg > 0)
+					//float velsq = (velocity.x * velocity.x + velocity.y * velocity.y);
+                    if ((amount)*neg > 0.0f)
                     {
                         transform->Translate(intersecting.penetration);
                         sf::Vector2f force = -((mass * intersecting.axis * amount * (2.0f - drag)) / deltaTime);

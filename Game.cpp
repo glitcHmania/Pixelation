@@ -6,7 +6,7 @@ Game::Game(const sf::Vector2<unsigned int>& resolution, const std::string& windo
 	eventHnd(sf::Event())
 {
 	Renderer::Configure(sf::VideoMode(resolution.x, resolution.y), windowName);
-	Renderer::GetWindow().setFramerateLimit(45);
+	Renderer::GetWindow().setFramerateLimit(300);
 	EventDispatcher::GetInstance();
 }
 
