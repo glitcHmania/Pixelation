@@ -24,7 +24,7 @@ public:
 
     bool isKinematic = false;
     bool useGravity = true;
-    float drag = 0.15f;
+    float drag = 0.4f;
 
 private:
     sf::Vector2f velocity;
